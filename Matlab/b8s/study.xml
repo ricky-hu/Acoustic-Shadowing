@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<study>
+	<time day="28" hour="18" minute="53" month="11" second="23" year="2017"/>
+	<ID>11-28-2017-Generic</ID>
+	<Model>SONIX</Model>
+	<SWVersion>6.1.1</SWVersion>
+	<manufacturer>Ultrasonix Medical Corp.</manufacturer>
+	<exam_type>Generic</exam_type>
+	<selected_application>Generic</selected_application>
+	<ExportPrecision>2</ExportPrecision>
+	<measurements/>
+	<mmts activeApp="Generic">
+	</mmts>
+</study>
