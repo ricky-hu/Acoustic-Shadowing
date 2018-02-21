@@ -54,7 +54,7 @@ end
        
 % computing fft
 
-spectral = fft2(im);
+% spectral = fft2(im);
 
 
 % displaying Stats
@@ -103,7 +103,7 @@ xlabel('Lateral Element');
 ylabel('Axial Element');
 
 figure(6)
-imagesc(patchStats(:,:,4));
+imagesc(patchStats(:,:,5));
 colormap(gca,'hot');
 hcb = colorbar;
 title(hcb,'Kurtosis of Patch');
@@ -111,11 +111,11 @@ title('Kurtosis Heatmap');
 xlabel('Lateral Element');
 ylabel('Axial Element');
 
-figure(7)
-imagesc(patchStats(:,:,4));
-colormap(gca,'hot');
-hcb = colorbar;
-title(hcb,'FFT of image');
-title('Kurtosis Heatmap');
-xlabel('Lateral Element');
-ylabel('Axial Element');
+% figure(7)
+% imagesc(patchStats(:,:,4));
+% colormap(gca,'hot');
+% hcb = colorbar;
+% title(hcb,'FFT of image');
+% title('Kurtosis Heatmap');
+% xlabel('Lateral Element');
+% ylabel('Axial Element');
