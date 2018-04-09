@@ -14,8 +14,23 @@ function boxWhiskerStats(image)
 clf;
 image = 'cropped_jpgs/armc.jpg';
 
+
 manualShdwMatrix = outlineShadow(image);
+
 im = imread(image);
+
+% Applying high pass filter to get rid of noise
+thresh = 50;
+[imRows, imCols] = size(im);
+
+for col = 1:imCols
+    for row = 1:imRows
+        if (im(row,col) < thresh)
+            im(row,col) = 0;
+        end
+    end
+end
+
 
 [rows,cols] = size(manualShdwMatrix(:,:,1));
 
@@ -73,3 +88,6 @@ boxplot([nonShdwStats(5,:)' allShdwStats(5,:)' boundaryShdwStats(5,:)' deepShdwS
     'Labels', {'Non-shadow regions', 'Shadow regions', 'Shadow boundary', 'Deep shadow regions'});
 title('Kurtosis of different regions');
 set(gcf,'color','white');
+
+figure(6);
+imshow(im);
