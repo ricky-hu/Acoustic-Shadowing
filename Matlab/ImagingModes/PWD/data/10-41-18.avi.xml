@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<object xmlns="">
+
+  <ID>10-41-18.avi</ID>
+
+  <application>L9-4/38-GEN-General</application>
+
+  <time day="17" hour="10" minute="41" month="5" second="34" year="2010"/>
+
+  <examtype>Generic</examtype>
+
+  <noclipping>0</noclipping>
+
+  <fullscreen>0</fullscreen>
+
+  <imagecount>2</imagecount>
+
+  <displays>
+    <display name="B">
+      <type>0</type>
+      <xpos>232</xpos>
+      <ypos>60</ypos>
+      <width>224</width>
+      <height>240</height>
+      <MicronsPerPixelX>173</MicronsPerPixelX>
+      <MicronsPerPixelY>173</MicronsPerPixelY>
+    </display>
+    <display name="Spectrum">
+      <type>3</type>
+      <xpos>40</xpos>
+      <ypos>386</ypos>
+      <width>808</width>
+      <height>292</height>
+    </display>
+  </displays>
+
+  <probe>
+    <name>L9-4/38</name>
+    <type>2</type>
+    <elements>128</elements>
+    <pitch>300</pitch>
+    <curve>0</curve>
+    <fcentre>6500000</fcentre>
+    <bandwidth>5000000</bandwidth>
+  </probe>
+
+  <probe/>
+
+  <zones>
+    <zone>
+      <xpos>68</xpos>
+      <ypos>25</ypos>
+      <width>298</width>
+      <height>25</height>
+    </zone>
+    <zone>
+      <xpos>68</xpos>
+      <ypos>0</ypos>
+      <width>298</width>
+      <height>25</height>
+    </zone>
+  </zones>
+
+</object>

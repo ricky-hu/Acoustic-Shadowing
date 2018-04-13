@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<study>
+	<time day="8" month="5" year="2014" hour="14" minute="49" second="14"/>
+	<ID>05-08-2014-Generic</ID>
+	<Model>SONIX DevBuild</Model>
+	<SWVersion>Thu-02:48PM-SVN:????-REZA-PC</SWVersion>
+	<manufacturer>Ultrasonix Medical Corp.</manufacturer>
+	<selected_application>Cardiac</selected_application>
+</study>

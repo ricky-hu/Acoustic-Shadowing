@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<study>
+	<exam_type>Generic</exam_type>
+	<selected_application>Generic</selected_application>
+	<Age_Days>0</Age_Days>
+	<Description>Generic</Description>
+	<status>Unreviewed</status>
+	<time day="18" hour="10" minute="8" month="5" second="59" year="2010"/>
+	<ID>05-18-2010-Generic</ID>
+	<Model>SONIX DevBuild</Model>
+	<SWVersion>Mon-07:07PM-SVN:11356-SXMDP1108080030</SWVersion>
+	<manufacturer>Ultrasonix Medical Corp.</manufacturer>
+	<studycount>86</studycount>
+	<imagecount>2</imagecount>
+	<measurements/>
+	<mmts activeApp="Generic">
+	</mmts>
+</study>

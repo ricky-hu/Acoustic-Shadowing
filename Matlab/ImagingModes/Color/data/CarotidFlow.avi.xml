@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<object xmlns="">
+
+  <ID>CarotidFlow.avi</ID>
+
+  <application>L9-4/38-VASC-V Access</application>
+
+  <time day="7" hour="10" minute="49" month="9" second="18" year="2010"/>
+
+  <examtype>Vascular Access</examtype>
+
+  <noclipping>0</noclipping>
+
+  <fullscreen>0</fullscreen>
+
+  <imagecount>2</imagecount>
+
+  <regions>
+    <region flag="0" mode="2" name="B">
+      <type>0</type>
+      <xpos>40</xpos>
+      <ypos>65</ypos>
+      <width>820</width>
+      <height>616</height>
+      <DeltaPerPixelX unit="µm">95.000000</DeltaPerPixelX>
+      <DeltaPerPixelY unit="µm">95.000000</DeltaPerPixelY>
+    </region>
+  </regions>
+
+  <probe>
+    <name>L9-4/38</name>
+    <type>2</type>
+    <elements>128</elements>
+    <pitch>300</pitch>
+    <curve>0</curve>
+    <fcentre>6500000</fcentre>
+    <bandwidth>5000000</bandwidth>
+  </probe>
+
+  <zones>
+    <zone>
+      <xpos>68</xpos>
+      <ypos>25</ypos>
+      <width>298</width>
+      <height>25</height>
+    </zone>
+    <zone>
+      <xpos>68</xpos>
+      <ypos>0</ypos>
+      <width>298</width>
+      <height>25</height>
+    </zone>
+  </zones>
+
+</object>

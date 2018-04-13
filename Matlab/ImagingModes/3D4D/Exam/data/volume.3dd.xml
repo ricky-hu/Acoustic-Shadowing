@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Params xmlns="">
+
+  <FourD class="_3dParams" datafile="volume.3dd.xml">
+    <img_dims cx="512" cy="377"/>
+    <microns_pp cx="264" cy="264"/>
+    <roi bottom="394" left="0" right="124" top="62"/>
+    <axis_offset_mm>53.360000</axis_offset_mm>
+    <volume_angle>67.317073</volume_angle>
+    <nimages_per_volume>47</nimages_per_volume>
+    <sampleDistance_mm>102.255997</sampleDistance_mm>
+    <sampleNum>396</sampleNum>
+    <roiSampleNum>332</roiSampleNum>
+    <lineNum>96</lineNum>
+    <frame_angle>77.702003</frame_angle>
+    <frame_offset_mm>39.799999</frame_offset_mm>
+    <roiSampleLOffset>80</roiSampleLOffset>
+    <roiSampleROffset>79</roiSampleROffset>
+    <lineDensity>96</lineDensity>
+  </FourD>
+
+</Params>

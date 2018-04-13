@@ -1,0 +1,44 @@
+% rfScratch.m
+% scratchpad to view RF files
+
+function rfScratch(fileName, numFrames)
+
+% not sure why but the headers for the .rf files don't match Sonix's lookup
+% table, had to do it manually
+
+% also for some reason the frame is listed as 0 in the rf file header? manually
+% reading the rf files myself now
+
+fid= fopen(filename, 'r');
+
+if( fid == -1)
+    error('Cannot open file');
+end
+
+% read the header info
+hinfo = fread(fid, 19, 'int32');
+header.filetype = hinfo(1);
+header.nframes = hinfo(2);
+header.w = hinfo(3);
+header.h = hinfo(4);
+header.ss = hinfo(5);
+header.ul = [hinfo(6), hinfo(7)];
+header.ur = [hinfo(8), hinfo(9)];
+header.br = [hinfo(10), hinfo(11)];
+header.bl = [hinfo(12), hinfo(13)];
+header.probe = hinfo(14);
+header.txf = hinfo(15);
+header.sf = hinfo(16);
+header.dr = hinfo(17);
+header.ld = hinfo(18);
+header.extra = hinfo(19);
+
+rf 
+
+% comparin to BMode image
+bmode = cropBModeL(fileName(1:end-3) + '_1.png')
+subplot(1,2,1);
+imagesc(RFframe);
+colormap(gca,'jet');
+hcb = colorbar;
+

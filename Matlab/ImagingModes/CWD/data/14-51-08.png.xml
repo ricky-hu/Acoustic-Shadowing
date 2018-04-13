@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<object xmlns="">
+
+  <ID>14-51-08.png</ID>
+
+  <application>SA4-2/24-CAR-General</application>
+
+  <time day="8" hour="14" minute="51" month="5" second="8" year="2014"/>
+
+  <examtype>Cardiac</examtype>
+
+  <noclipping>0</noclipping>
+
+  <imagecount>1</imagecount>
+
+  <regions offset="0">
+    <region flag="0" mode="11" name="B">
+      <type>0</type>
+      <xpos>240</xpos>
+      <ypos>60</ypos>
+      <width>232</width>
+      <height>308</height>
+      <DeltaPerPixelX unit="µm">519.000000</DeltaPerPixelX>
+      <DeltaPerPixelY unit="µm">519.000000</DeltaPerPixelY>
+    </region>
+    <region flag="0" mode="11" name="Spectrum">
+      <type>3</type>
+      <xpos>40</xpos>
+      <ypos>386</ypos>
+      <width>652</width>
+      <height>292</height>
+      <DeltaPerPixelX unit="s">0.006000</DeltaPerPixelX>
+      <DeltaPerPixelY unit="cm/s">-0.988870259</DeltaPerPixelY>
+      <DopplerCorrectionAngle>0</DopplerCorrectionAngle>
+    </region>
+  </regions>
+
+  <probe>
+    <name>SA4-2/24</name>
+    <type>2</type>
+    <elements>64</elements>
+    <pitch>254</pitch>
+    <curve>0</curve>
+    <fcentre>3000000</fcentre>
+    <bandwidth>2000000</bandwidth>
+  </probe>
+
+  <zones offset="0">
+    <zone>
+      <xpos>78</xpos>
+      <ypos>25</ypos>
+      <width>248</width>
+      <height>25</height>
+    </zone>
+    <zone>
+      <xpos>78</xpos>
+      <ypos>0</ypos>
+      <width>248</width>
+      <height>25</height>
+    </zone>
+  </zones>
+
+</object>

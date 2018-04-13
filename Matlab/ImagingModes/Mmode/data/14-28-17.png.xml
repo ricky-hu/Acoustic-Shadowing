@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<object xmlns="">
+
+  <ID>14-28-17.png</ID>
+
+  <application>L14-5/38-GEN-General</application>
+
+  <time day="25" hour="14" minute="28" month="11" second="17" year="2014"/>
+
+  <examtype>Generic</examtype>
+
+  <noclipping>0</noclipping>
+
+  <imagecount>2</imagecount>
+
+  <regions offset="0">
+    <region flag="0" mode="1" name="B">
+      <type>0</type>
+      <xpos>228</xpos>
+      <ypos>73</ypos>
+      <width>264</width>
+      <height>292</height>
+      <DeltaPerPixelX unit="µm">147.000000</DeltaPerPixelX>
+      <DeltaPerPixelY unit="µm">147.000000</DeltaPerPixelY>
+    </region>
+    <region flag="0" mode="1" name="M">
+      <type>1</type>
+      <xpos>40</xpos>
+      <ypos>386</ypos>
+      <width>660</width>
+      <height>292</height>
+      <DeltaPerPixelX unit="s">0.007977</DeltaPerPixelX>
+      <DeltaPerPixelY unit="µm">97.000000</DeltaPerPixelY>
+    </region>
+  </regions>
+
+  <probe>
+    <name>L14-5/38</name>
+    <type>2</type>
+    <elements>128</elements>
+    <pitch>305</pitch>
+    <curve>0</curve>
+    <fcentre>9500000</fcentre>
+    <bandwidth>9000000</bandwidth>
+  </probe>
+
+  <zones offset="0">
+    <zone>
+      <xpos>78</xpos>
+      <ypos>25</ypos>
+      <width>248</width>
+      <height>25</height>
+    </zone>
+    <zone>
+      <xpos>78</xpos>
+      <ypos>0</ypos>
+      <width>248</width>
+      <height>25</height>
+    </zone>
+  </zones>
+
+</object>
