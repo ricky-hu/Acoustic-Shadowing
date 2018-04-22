@@ -1,22 +1,22 @@
 % outlineShadow.m
 % author:   Ricky Hu
-% input:    image: an nxn matrix corresponding to an image
-%           fileName: base filename with no extension to save the manual outlined shadow
-%           boundaryThickness: thickness of the shadow boundary
-
-% output:   3 matrices:
-%           manualShadowMatrix: a matrix of 1 (no shadow) or 0 (shadow)
-%           boundaryMatrix: a matrix of 1 (not a shadow boundary) or 0 (within some)
+% input:    an nxn matrix corresponding to an image and the base filename
+%           with no extension to save the manual outlined shadow
+% output:   an nxnx3 matrix consisting of the following submatrices:
+%           nxnx1: a matrix of 1 (no shadow) or 0 (shadow)
+%           nxnx2: a matrix of 1 (not a shadow boundary) or 0 (within some)
 %           pixels of a shadow boundary highlighted by user)
-%           deepShadowMatrix: a matrix of 1 (not deep inside a shadow region) or 0
+%           nxnx3: a matrix of 1 (not deep inside a shadow region) or 0
 %           (deep within a shadow region)
 
-function [manualShadowMatrix, boundaryMatrix, deepShadowMatrix] = outlineShadow(image, fileName, boundaryThicknessInitial)
+function manualShdwMatrix = outlineShadow(image, fileName)
 
 % Parameter defining the thickness of the boundary, which will be used
 % later on to compute some local statistics on the boundary area
 
-boundaryThickness = boundaryThicknessInitial;
+boundaryThickness = 10;
+
+
 
 % This step prompts the user to highlight the region of interest if there
 % isn't also a highlighted image
@@ -41,7 +41,7 @@ manualShdw = ~manualShdw;
 % Constructing the matrix representing the manual shadow regions and the
 % shadow boundary and deep shadowing regions
 
-manualShadowMatrix = manualShdw;
+manualShdwMatrix(:,:,1) = manualShdw;
 
 boundaryMatrix = manualShdw;
 deepShadowMatrix = manualShdw;
@@ -54,7 +54,7 @@ deepShadowMatrix = manualShdw;
 % black)
 for colIdx = 1:cols
     for rowIdx = 1:rows
-        if boundaryMatrix(rowIdx, colIdx) == 0
+        if manualShdw(rowIdx, colIdx) == 0
             
             % Handling cases where the boundary thickness may exceed the
             % boundaries of the image
@@ -67,12 +67,14 @@ for colIdx = 1:cols
             boundaryMatrix(:,colIdx) = 1;
             boundaryMatrix((rowIdx - boundaryThickness):(rowIdx + boundaryThickness), colIdx) = 0;
             deepShadowMatrix(:,colIdx) = 1;
-            deepShadowMatrix((rowIdx + boundaryThickness + 1):end,colIdx) = 0;   
-            boundaryThickness = boundaryThicknessInitial;
+            deepShadowMatrix((rowIdx + boundaryThickness + 1):end,colIdx) = 0;            
             break;
         end
     end
 end
+
+manualShdwMatrix(:,:,2) = boundaryMatrix;
+manualShdwMatrix(:,:,3) = deepShadowMatrix;
 
 % optional - showing figures corresponding to subsections
 % figure()
