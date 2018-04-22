@@ -1,6 +1,7 @@
 % outlineShadow.m
 % author:   Ricky Hu
-% input:    an nxn matrix corresponding to an image
+% input:    an nxn matrix corresponding to an image and the base filename
+%           with no extension to save the manual outlined shadow
 % output:   an nxnx3 matrix consisting of the following submatrices:
 %           nxnx1: a matrix of 1 (no shadow) or 0 (shadow)
 %           nxnx2: a matrix of 1 (not a shadow boundary) or 0 (within some)
@@ -8,7 +9,7 @@
 %           nxnx3: a matrix of 1 (not deep inside a shadow region) or 0
 %           (deep within a shadow region)
 
-function manualShdwMatrix = outlineShadow(image)
+function manualShdwMatrix = outlineShadow(image, fileName)
 
 % Parameter defining the thickness of the boundary, which will be used
 % later on to compute some local statistics on the boundary area

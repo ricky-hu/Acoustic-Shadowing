@@ -1,9 +1,6 @@
-function patchStats = computePatchStats(image)
+function patchStats = computePatchStats(im)
 
-% loading the image
 
-im = imread(image);
-im = double(im);
 [imRows, imCols] = size(im);
 
 % defining the size of the patch, e.g. patchSpanX = 1 and patchSpan Y = 3
