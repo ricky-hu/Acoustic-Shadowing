@@ -54,8 +54,8 @@ hcb = colorbar;
 title('RF - Hilbert Transform')
 
 f(3) = subplot(1,4,3);
-bmode = log(bmode);
-imagesc(bmode);
+logbmode = log(bmode);
+imagesc(logbmode);
 colormap(gca,'gray');
 hcb = colorbar;
 title('RF - Hilbert Transform (log scale)');
@@ -69,8 +69,42 @@ title('B-Mode');
 linkaxes(f, 'xy');
 set(gcf,'color','white');
 
-% investigating the log(hilbert(rf)) figure as it provides clear indication
-% of shadow regions
+% plotting a single scanline, chose column 156 as it has different regions
+% easily visible
+colToPlot = 10;
+
+figure()
+set(gcf,'color','white');
+d(1) = subplot(2,2,1);
+plot(rf(:,colToPlot));
+xlabel('Row')
+ylabel('RF value');
+title('Raw RF of scanline');
+
+d(2) = subplot(2,2,2);
+plot(abs(hilbert(rf(:,colToPlot))));
+xlabel('Row')
+ylabel('Absolute Value of Hilbert Transform');
+title('Absolute Value of Hilbert Transform of Scanline');
+
+d(3) = subplot(2,2,3);
+imagesc(logbmode);
+colormap(gca,'gray');
+hold on;
+[r, c] = size(logbmode);
+% drawing red line to indicate scanline
+line([colToPlot, colToPlot], [1, r], 'Color', [1, 0, 0]);
+title('B-Mode');
+
+d(4) = subplot(2,2,4);
+imagesc(rot90(logbmode));
+% drawing red line to indicate scanline
+line([1, r], [colToPlot, colToPlot], 'Color', [1, 0, 0]);
+colormap(gca,'gray');
+title('B-Mode (Rotated)');
+
+%linking x axis of appropriate plots
+linkaxes([d(1), d(2), d(4)], 'x');
 
 boundaryThickness = 10;
 [manualShadowMatrix, boundaryShadowMatrix, deepShadowMatrix] = outlineShadow(bmode, fileName, boundaryThickness);
@@ -82,6 +116,7 @@ boundaryThickness = 10;
 shadowRFVals = zeros(1, (rows*cols));
 boundaryRFVals = zeros(1, (rows*cols));
 deepShadowRFVals = zeros(1, (rows*cols));
+noShadowRFVals = zeros(1, (rows*cols));
 
 % have to do some indexing to keep track since data is large so the arrays
 % for each regionar epreallocated to teh max possible size, otherwise the
@@ -90,6 +125,7 @@ deepShadowRFVals = zeros(1, (rows*cols));
 numShadowRFVals = 0;
 numBoundaryRFVals = 0;
 numDeepShadowRFVals = 0;
+numNoShadowRFVals = 0;
 
 % creating vectors for rf values for each region
 % this loop checks which region the current rf index matches and appends
@@ -99,7 +135,13 @@ for colIdx = 1:cols
         if manualShadowMatrix(rowIdx, colIdx) == 0
             shadowRFVals(1, numShadowRFVals + 1) = rf(rowIdx, colIdx);
             numShadowRFVals = numShadowRFVals + 1;
+        % building the matrix of RF values for non-shadows
+        else
+            noShadowRFVals(1, numNoShadowRFVals + 1) = rf(rowIdx, colIdx);
+            numNoShadowRFVals = numNoShadowRFVals + 1;
         end
+        % other regions don't have an else case, not considering the
+        % inverse regions of other regions for now
         if boundaryShadowMatrix(rowIdx, colIdx) == 0
             boundaryRFVals(1, numBoundaryRFVals + 1) = rf(rowIdx, colIdx);
             numBoundaryRFVals = numBoundaryRFVals + 1;
@@ -107,7 +149,11 @@ for colIdx = 1:cols
         if deepShadowMatrix(rowIdx, colIdx) == 0
             deepShadowRFVals(1, numDeepShadowRFVals + 1) = rf(rowIdx, colIdx);
             numDeepShadowRFVals = numDeepShadowRFVals + 1;
-        end                 
+        end          
+        if deepShadowMatrix(rowIdx, colIdx) == 0
+            deepShadowRFVals(1, numDeepShadowRFVals + 1) = rf(rowIdx, colIdx);
+            numDeepShadowRFVals = numDeepShadowRFVals + 1;
+        end           
     end
 end
 
@@ -115,28 +161,50 @@ end
 shadowRFVals = shadowRFVals(1,1:(numShadowRFVals));
 boundaryRFVals = boundaryRFVals(1,1:(numBoundaryRFVals));
 deepShadowRFVals = deepShadowRFVals(1,1:(numDeepShadowRFVals));
-
+noShadowRFVals = noShadowRFVals(1,1:(numNoShadowRFVals));
 % plotting histograms of rf values in each region
 % the minimum rf value is -32768 and the max is 32768
 
-figure(2)
+figure()
 
-subplot(1,3,1);
-histogram(shadowRFVals, 'BinWidth', 1);
+% manually setting axis limit for now to visualize distributions
+xint = [-2000, 2000];
+yint = [0, .015];
+
+set(gcf,'color','white');
+suptitle('RF distributions of different regions');
+
+subplot(1,4,1);
+h(1) = histogram(shadowRFVals, 'BinWidth', 1, 'Normalization', 'probability');
+xlim(xint);
+ylim(yint);
 xlabel('RF Value');
-ylabel('Number of elements');
+ylabel('Probability');
 title('RF Distribution of Shadow Regions');
 
-subplot(1,3,2);
-histogram(boundaryRFVals, 'BinWidth', 1);
+subplot(1,4,2);
+h(2) = histogram(boundaryRFVals, 'Normalization', 'probability', 'binWidth', 1);
+xlim(xint);
+ylim(yint);
 xlabel('RF Value');
-ylabel('Number of elements');
+ylabel('Probability');
 title('RF Distribution of Boundary Regions');
 
-subplot(1,3,3);
-histogram(deepShadowRFVals, 'BinWidth', 1);
+subplot(1,4,3);
+h(3) = histogram(deepShadowRFVals, 'BinWidth', 1, 'Normalization', 'probability');
+xlim(xint);
+ylim(yint);
 xlabel('RF Value');
-ylabel('Number of elements');
+ylabel('Probability');
 title('RF Distribution of Deep Shadow Regions');
+
+subplot(1,4,4);
+h(4) = histogram(noShadowRFVals, 'Normalization', 'probability', 'BinWidth', 1);
+xlim(xint);
+ylim(yint);
+xlabel('RF Value');
+ylabel('Probability');
+title('RF Distribution of Non-Shadow Regions');
+
 
 
