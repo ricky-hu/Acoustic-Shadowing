@@ -146,22 +146,68 @@ title('B-Mode (Rotated)');
 linkaxes([d(1), d(2), d(3), d(4), d(6)], 'x');
 
 
-% looking at characteristic window at row 400-420
-colToPlot = 156;
-rowToPlot = 2000;
-patchX = rowToPlot;
-patchY = colToPlot;
-% size of patch in the scanline direction, which is 3x the wavelength
-patchSizeY = 50;
+%----------------------------------------------------------------
+% looking at characteristic window at 4 regions: no shadow, shadow
+% boundary, shallow shadow, and deep shadow
+patchY = [400 1130 1376 2537]
+patchX = 156;
+% size of patch in the scanline direction, which is 3x the pulse length
+patchSizeY = 30;
 %size of patch in the x direction, which is totally heuristic for now
 patchSizeX = 5;
 
-% indices are really confusing here (patchX - floor(patchSizeY/2)) : (patchX + floor(patchSizeY/2))
-
-window = rf(: , (patchY - floor(patchSizeX/2)):(patchY + floor(patchSizeX/2)));
+% indices are really confusing here 
+absHil = abs(hilbert(rfAvg));
+[rows cols] = size(patchY)
+window = [];
+for i = 1:cols
+    window(:,:,i) = absHil((patchY(i) - floor(patchSizeY/2)) : (patchY(i) + floor(patchSizeY/2)) , (patchX - floor(patchSizeX/2)):(patchX + floor(patchSizeX/2)));
+end
 
 figure()
-w(1) = histogram(abs(window), 'Normalization', 'probability', 'binWidth', 1);
+
+w(1) = subplot(2,3,1);
+imagesc(logbmode);
+colormap(gca,'gray');
+title('B-Mode');
+
+%drawing bounding box highlighting patches
+for i = 1:cols
+    rectangle('Position', ...
+        [(patchX - floor(patchSizeX/2)), (patchY(i) - floor(patchSizeY/2)), patchSizeX, patchSizeY],  ...
+        'EdgeColor' , 'r', 'LineWidth', 1);
+    txtstr = [int2str(patchX) ', ' int2str(patchY(i))];
+    text((patchX - floor(patchSizeX/2)) + 20 , (patchY(i) - floor(patchSizeY/2)), txtstr);
+end
+
+w(2) = subplot(2,3,2);
+imagesc(rot90(logbmode));
+colormap(gca,'gray');
+title('B-Mode (Rotated)');
+
+% using MLE to fit rayleigh distributions to data
+
+
+
+for i=1:cols
+    w(i) = subplot(2,3,i+2);
+    maxVal = max(max(window(:,:,i)));
+    [tempRow tempCol] = size(window(:,:,i));
+    sizeWindow = tempRow*tempCol;
+    histogram(window(:,:,i), 'Normalization', 'probability', 'binWidth', maxVal/sizeWindow);
+    
+    % fitting rayleigh distribution to data
+    % note that data has to be reshaped because MLE function takes in a
+    % single dimension vector only
+    fitVals = linspace(0,maxVal,max(max(window(:,:,i))));
+    theta = mle(reshape(window(:,:,i),[],1),'distribution','rayl');
+    ralyWindow = (fitVals/(theta^2)).*exp(-(fitVals.^2) ./ (2*theta^2));
+    hold on;
+    plot(ralyWindow)
+    xlabel('Absolute value of Hilbert Transformed RF data');
+    ylabel('Probability');
+    title(['Patch at ' int2str(patchX) ', ' int2str(patchY(i))]);
+end
 
 % h(2) = histogram(boundaryRFVals, 'Normalization', 'probability', 'binWidth', 1);
 % xlim(xint);
