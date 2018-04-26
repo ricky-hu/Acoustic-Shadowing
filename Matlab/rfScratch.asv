@@ -149,7 +149,7 @@ linkaxes([d(1), d(2), d(3), d(4), d(6)], 'x');
 %----------------------------------------------------------------
 % looking at characteristic window at 4 regions: no shadow, shadow
 % boundary, shallow shadow, and deep shadow
-patchY = [400 1130 1376 2537]
+patchY = [400 1140 1376 2537]
 patchX = 156;
 % size of patch in the scanline direction, which is 3x the pulse length
 patchSizeY = 30;
@@ -158,6 +158,9 @@ patchSizeX = 5;
 
 % indices are really confusing here 
 absHil = abs(hilbert(rfAvg));
+absHilFil = wiener2(absHil, [patchSizeY patchSizeX]);
+logbmode = log(absHil);
+logbmodeFil = log(absHilFil);
 [rows cols] = size(patchY)
 window = [];
 for i = 1:cols
@@ -166,8 +169,11 @@ end
 
 figure()
 
+% plotting bmod and filtered bmode
 w(1) = subplot(2,3,1);
 imagesc(logbmode);
+[rowsRF colsRF] = size(logbmode);
+line([patchX, patchX], [1, rowsRF], 'Color', [1, 0, 0]);
 colormap(gca,'gray');
 title('B-Mode');
 
@@ -181,14 +187,12 @@ for i = 1:cols
 end
 
 w(2) = subplot(2,3,2);
-imagesc(rot90(logbmode));
+imagesc(logbmodeFil);
 colormap(gca,'gray');
-title('B-Mode (Rotated)');
+title('Bmode, Wiener Filtered')
+
 
 % using MLE to fit rayleigh distributions to data
-
-
-
 for i=1:cols
     w(i) = subplot(2,3,i+2);
     maxVal = max(max(window(:,:,i)));
@@ -199,15 +203,96 @@ for i=1:cols
     % fitting rayleigh distribution to data
     % note that data has to be reshaped because MLE function takes in a
     % single dimension vector only
-    fitVals = linspace(0,maxVal,max(max(window(:,:,i))));
-    theta = mle(reshape(window(:,:,i),[],1),'distribution','rayl');
-    ralyWindow = (fitVals/(theta^2)).*exp(-(fitVals.^2) ./ (2*theta^2));
-    hold on;
-    plot(ralyWindow)
+    fitVals = 0:maxVal/sizeWindow:maxVal;
+    raylFit = fitdist(reshape(window(:,:,i),[],1), 'Rayleigh');
+    nakaFit = fitdist(reshape(window(:,:,i),[],1), 'Nakagami');
+    riciFit = fitdist(reshape(window(:,:,i),[],1), 'Rician');
+    theta(i) = raylFit.B;
+    mu(i) = nakaFit.mu;
+    omega(i) = nakaFit.omega;
+    s(i) = riciFit.s;
+    sigma(i) = riciFit.sigma;
+    hold on
+    raylPlot = pdf(raylFit, fitVals);
+    nakaPlot = pdf(nakaFit, fitVals);
+    riciPlot = pdf(riciFit, fitVals);
+    
+    plot(fitVals, raylPlot, '-r');
+    plot(fitVals, nakaPlot, '-b');
+    plot(fitVals, riciPlot, '-g');
+
     xlabel('Absolute value of Hilbert Transformed RF data');
     ylabel('Probability');
+    legend('Histogram of Data', ['Rayleigh fit, \theta = ' num2str(theta(i))], ...
+        ['Nakagami fit, \mu = ' num2str(mu(i)) ' \omega = ' num2str(omega(i))], ...
+        ['Rician fit, s = ' num2str(s(i)) ' \sigma = ' num2str(sigma(i))]);
     title(['Patch at ' int2str(patchX) ', ' int2str(patchY(i))]);
+    hold off
 end
+
+% looking at parameters down entire scanline
+theta = [];
+mu = [];
+omega = [];
+for m = 1:rowsRF
+    patchStartY = m - floor(patchSizeY/2);
+    patchEndY = m + floor(patchSizeY/2);
+    
+
+    % handling boundaries
+    if (m < floor(patchSizeY/2) + 1)
+        patchStartY = 1;
+    elseif (m > (rowsRF - ceil(patchSizeY/2)) - 1)
+        patchEndY = rowsRF;
+    end
+    % patchX fixed as column 156 for now
+    patch = absHil(patchStartY:patchEndY, (patchX - floor(patchSizeX/2): patchX + floor(patchSizeX/2)));
+    raylFitRow = fitdist(reshape(patch,[],1), 'Rayleigh');
+    nakaFitRow = fitdist(reshape(patch,[],1), 'Nakagami');
+    theta(m) = raylFitRow.B;
+    mu(m) = nakaFitRow.mu;
+    omega(m) = nakaFitRow.omega;
+
+end
+
+figure()
+p(1) = subplot(2,3,1);
+imagesc(logbmode);
+[rowsRF colsRF] = size(logbmode);
+line([patchX, patchX], [1, rowsRF], 'Color', [1, 0, 0]);
+colormap(gca,'gray');
+title('B-Mode');
+
+% plotting parameters down scanline
+
+p(2) = subplot(2,3,2);
+imagesc(rot90(logbmode));
+% drawing red line to indicate scanline
+line([1, rowsRF], [patchX, patchX], 'Color', [1, 0, 0]);
+colormap(gca,'gray');
+title('B-Mode (Rotated)');
+
+p(3) = subplot(2,3,3);
+plot(theta);
+xlabel('Axial Element');
+ylabel('\theta');
+title('Rayleigh - \theta');
+
+p(4) = subplot(2,3,4);
+plot(theta);
+xlabel('Axial Element');
+ylabel('\mu');
+title('Nakagami - \mu');
+
+p(5) = subplot(2,3,3);
+plot(theta);
+xlabel('Axial Element');
+ylabel('\omega');
+title('Nakagami - \omega');
+
+linkaxes([p(2), p(3), p(4), p(5), 'x
+%     
+
 
 % h(2) = histogram(boundaryRFVals, 'Normalization', 'probability', 'binWidth', 1);
 % xlim(xint);
