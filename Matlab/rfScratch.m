@@ -273,35 +273,111 @@ colormap(gca,'gray');
 title('B-Mode (Rotated)');
 
 p(3) = subplot(2,3,3);
+plot(abs(hilbert(rfAvg(:,patchX))));
+xlabel('Row')
+ylabel('Absolute Value of Averaged Hilbert Transform');
+title('Absolute Value of Averaged Hilbert Transform of Scanline');
+
+p(4) = subplot(2,3,4);
 plot(theta);
 xlabel('Axial Element');
 ylabel('\theta');
 title('Rayleigh - \theta');
 
-p(4) = subplot(2,3,4);
-plot(theta);
+p(5) = subplot(2,3,5);
+plot(mu);
 xlabel('Axial Element');
 ylabel('\mu');
 title('Nakagami - \mu');
 
-p(5) = subplot(2,3,5);
-plot(theta);
+p(6) = subplot(2,3,6);
+plot(omega);
 xlabel('Axial Element');
 ylabel('\omega');
 title('Nakagami - \omega');
 
-linkaxes([p(2), p(3), p(4), p(5), 'x']);
-%     
+linkaxes([p(2) p(3) p(4) p(5) p(6)], 'x');
 
+%------------------------------------------
+% nakagami parameters look the most promising, plotting for entire set of
+% rf data:
+mu = [];
+omega = [];
+[rows cols] = size(absHil);
+patchSizeY = 30;
+patchSizeX = 5;
+% holy smokes the follow loop takes 30 minutes, need to optimize
+tic
+for i = 1:rows
+    for j = 1:cols
+        patchStartX = j - floor(patchSizeX/2);
+        patchEndX = j + floor(patchSizeX/2);
+        patchStartY = i - floor(patchSizeY/2);
+        patchEndY = i + floor(patchSizeY/2);
 
-% h(2) = histogram(boundaryRFVals, 'Normalization', 'probability', 'binWidth', 1);
-% xlim(xint);
-% ylim(yint);
-% xlabel('RF Value');
-% ylabel('Probability');
-% title('RF Distribution of Boundary Regions');
-% 
+        % handling boundaries
+        if (i < floor(patchSizeY/2) + 1)
+            patchStartY = 1;
+        elseif (i > (rows - ceil(patchSizeY/2)) - 1)
+            patchEndY = rows;
+        end
+        
+        if (j < floor(patchSizeX/2) + 1)
+            patchStartX = 1;
+        elseif(j > (cols - ceil(patchSizeX/2) -1))
+            patchEndX = cols;
+        end
+        
+        % patchX fixed as column 156 for now
+        patch = absHil(patchStartY:patchEndY, patchStartX:patchEndX);
+        nakaFitRow = fitdist(reshape(patch,[],1), 'Nakagami');
+        mu(i,j) = nakaFitRow.mu;
+        omega(i,j) = nakaFitRow.omega;
+    end
+end
+toc
 
+figure()
+
+n(1) = subplot(2,3,1);
+imagesc(absHil);
+colormap(gca,'gray');
+title('Absolute Hilbert Transform of RF');
+hcb = colorbar;
+
+n(4) = subplot(2,3,4);
+imagesc(logbmode);
+colormap(gca,'gray');
+title('Log Scale of Absolute Hilbert Transform');
+hcb = colorbar;
+
+n(2) = subplot(2,3,2);
+imagesc(mu);
+colormap(gca,'jet');
+title('\mu map');
+hcb = colorbar;
+
+n(5) = subplot(2,3,5);
+imagesc(log(mu));
+colormap(gca,'jet');
+title('log(\mu) map');
+hcb = colorbar;
+
+n(3) = subplot(2,3,3);
+imagesc(omega);
+colormap(gca,'jet');
+title('\omega map');
+hcb = colorbar;
+
+n(6) = subplot(2,3,6);
+imagesc(log(omega));
+colormap(gca,'jet');
+title('log(\omega) map');
+hcb = colorbar;
+
+linkaxes(n, 'xy');
+
+%------------------------------------------------------------------
 
 boundaryThickness = 10;
 [manualShadowMatrix, boundaryShadowMatrix, deepShadowMatrix] = outlineShadow(bmode, fileName, boundaryThickness);
@@ -309,99 +385,137 @@ boundaryThickness = 10;
 % looking at the distributions of the rf data of each region (shadow, shadow boundary, and
 % deep shadow)
 
-% [rows, cols] = size(rf);
-% shadowRFVals = zeros(1, (rows*cols));
-% boundaryRFVals = zeros(1, (rows*cols));
-% deepShadowRFVals = zeros(1, (rows*cols));
-% noShadowRFVals = zeros(1, (rows*cols));
-% 
-% % have to do some indexing to keep track since data is large so the arrays
-% % for each regionar epreallocated to teh max possible size, otherwise the
-% % for loops take too long
-% 
-% numShadowRFVals = 0;
-% numBoundaryRFVals = 0;
-% numDeepShadowRFVals = 0;
-% numNoShadowRFVals = 0;
-% 
-% % creating vectors for rf values for each region
-% % this loop checks which region the current rf index matches and appends
-% % the rf data to a vector associated with that region
-% for colIdx = 1:cols
-%     for rowIdx = 1:rows
-%         if manualShadowMatrix(rowIdx, colIdx) == 0
-%             shadowRFVals(1, numShadowRFVals + 1) = rf(rowIdx, colIdx);
-%             numShadowRFVals = numShadowRFVals + 1;
-%         % building the matrix of RF values for non-shadows
-%         else
-%             noShadowRFVals(1, numNoShadowRFVals + 1) = rf(rowIdx, colIdx);
-%             numNoShadowRFVals = numNoShadowRFVals + 1;
-%         end
-%         % other regions don't have an else case, not considering the
-%         % inverse regions of other regions for now
-%         if boundaryShadowMatrix(rowIdx, colIdx) == 0
-%             boundaryRFVals(1, numBoundaryRFVals + 1) = rf(rowIdx, colIdx);
-%             numBoundaryRFVals = numBoundaryRFVals + 1;
-%         end
-%         if deepShadowMatrix(rowIdx, colIdx) == 0
-%             deepShadowRFVals(1, numDeepShadowRFVals + 1) = rf(rowIdx, colIdx);
-%             numDeepShadowRFVals = numDeepShadowRFVals + 1;
-%         end          
-%         if deepShadowMatrix(rowIdx, colIdx) == 0
-%             deepShadowRFVals(1, numDeepShadowRFVals + 1) = rf(rowIdx, colIdx);
-%             numDeepShadowRFVals = numDeepShadowRFVals + 1;
-%         end           
-%     end
-% end
-% 
-% % resizing arrays so the preallocated zeros are gone
-% shadowRFVals = shadowRFVals(1,1:(numShadowRFVals));
-% boundaryRFVals = boundaryRFVals(1,1:(numBoundaryRFVals));
-% deepShadowRFVals = deepShadowRFVals(1,1:(numDeepShadowRFVals));
-% noShadowRFVals = noShadowRFVals(1,1:(numNoShadowRFVals));
-% % plotting histograms of rf values in each region
-% % the minimum rf value is -32768 and the max is 32768
-% 
-% figure()
-% 
-% % manually setting axis limit for now to visualize distributions
-% xint = [-2000, 2000];
-% yint = [0, .015];
-% 
-% set(gcf,'color','white');
-% suptitle('RF distributions of different regions');
-% 
-% subplot(1,4,1);
-% h(1) = histogram(shadowRFVals, 'BinWidth', 1, 'Normalization', 'probability');
-% xlim(xint);
-% ylim(yint);
-% xlabel('RF Value');
-% ylabel('Probability');
-% title('RF Distribution of Shadow Regions');
-% 
-% subplot(1,4,2);
-% h(2) = histogram(boundaryRFVals, 'Normalization', 'probability', 'binWidth', 1);
-% xlim(xint);
-% ylim(yint);
-% xlabel('RF Value');
-% ylabel('Probability');
-% title('RF Distribution of Boundary Regions');
-% 
-% subplot(1,4,3);
-% h(3) = histogram(deepShadowRFVals, 'BinWidth', 1, 'Normalization', 'probability');
-% xlim(xint);
-% ylim(yint);
-% xlabel('RF Value');
-% ylabel('Probability');
-% title('RF Distribution of Deep Shadow Regions');
-% 
-% subplot(1,4,4);
-% h(4) = histogram(noShadowRFVals, 'Normalization', 'probability', 'BinWidth', 1);
-% xlim(xint);
-% ylim(yint);
-% xlabel('RF Value');
-% ylabel('Probability');
-% title('RF Distribution of Non-Shadow Regions');
+[rows, cols] = size(absHil);
+shadowRFVals = zeros(1, (rows*cols));
+boundaryRFVals = zeros(1, (rows*cols));
+deepShadowRFVals = zeros(1, (rows*cols));
+noShadowRFVals = zeros(1, (rows*cols));
+
+% have to do some indexing to keep track since data is large so the arrays
+% for each regionar epreallocated to teh max possible size, otherwise the
+% for loops take too long
+
+numShadowRFVals = 0;
+numBoundaryRFVals = 0;
+numDeepShadowRFVals = 0;
+numNoShadowRFVals = 0;
+
+% creating vectors for rf values for each region
+% this loop checks which region the current rf index matches and appends
+% the rf data to a vector associated with that region
+for colIdx = 1:cols
+    for rowIdx = 1:rows
+        if manualShadowMatrix(rowIdx, colIdx) == 0
+            shadowRFVals(1, numShadowRFVals + 1) = absHil(rowIdx, colIdx);
+            numShadowRFVals = numShadowRFVals + 1;
+        % building the matrix of RF values for non-shadows
+        else
+            noShadowRFVals(1, numNoShadowRFVals + 1) = absHil(rowIdx, colIdx);
+            numNoShadowRFVals = numNoShadowRFVals + 1;
+        end
+        % other regions don't have an else case, not considering the
+        % inverse regions of other regions for now
+        if boundaryShadowMatrix(rowIdx, colIdx) == 0
+            boundaryRFVals(1, numBoundaryRFVals + 1) = absHil(rowIdx, colIdx);
+            numBoundaryRFVals = numBoundaryRFVals + 1;
+        end
+        if deepShadowMatrix(rowIdx, colIdx) == 0
+            deepShadowRFVals(1, numDeepShadowRFVals + 1) = absHil(rowIdx, colIdx);
+            numDeepShadowRFVals = numDeepShadowRFVals + 1;
+        end          
+        if deepShadowMatrix(rowIdx, colIdx) == 0
+            deepShadowRFVals(1, numDeepShadowRFVals + 1) = absHil(rowIdx, colIdx);
+            numDeepShadowRFVals = numDeepShadowRFVals + 1;
+        end           
+    end
+end
+
+% resizing arrays so the preallocated zeros are gone
+shadowRFVals = shadowRFVals(1,1:(numShadowRFVals));
+boundaryRFVals = boundaryRFVals(1,1:(numBoundaryRFVals));
+deepShadowRFVals = deepShadowRFVals(1,1:(numDeepShadowRFVals));
+noShadowRFVals = noShadowRFVals(1,1:(numNoShadowRFVals));
+% plotting histograms of rf values in each region
+% the minimum rf value is -32768 and the max is 32768
+
+figure()
+
+set(gcf,'color','white');
+suptitle('Abs(Hilbert(RF)) distributions of different regions');
+
+% Fitting nakagami distribution
+nakaShadow = fitdist(shadowRFVals', 'Nakagami');
+muShadow = nakaShadow.mu;
+omegaShadow = nakaShadow.omega;
+shadowFitVals = 0:max(shadowRFVals)/numShadowRFVals:max(shadowRFVals);
+nakaShadowPlot = pdf(nakaShadow, shadowFitVals);
+
+% plotting histogram and nakagami fit
+subplot(1,4,1);
+h(1) = histogram(shadowRFVals, 'BinWidth', 1, 'Normalization', 'probability');
+hold on;
+plot(shadowFitVals, nakaShadowPlot, '-r', 'LineWidth', 2);
+xlim(xint);
+ylim(yint);
+xlabel('RF Value');
+ylabel('Probability');
+legend('Histogram of Abs(Hil(rf))', ['Nakagami Fit, \mu = ' num2str(muShadow) ', \omega = ' num2str(omegaShadow)]);
+title('RF Distribution of Shadow Regions');
+
+% Fitting nakagami distribution
+nakaBoundary = fitdist(shadowRFVals', 'Nakagami');
+muBoundary = nakaBoundary.mu;
+omegaBoundary = nakaBoundary.omega;
+boundaryFitVals = 0:max(boundaryRFVals)/numBoundaryRFVals:max(boundaryRFVals);
+nakaBoundaryPlot = pdf(nakaBoundary, boundaryFitVals);
+
+subplot(1,4,2);
+h(2) = histogram(boundaryRFVals, 'Normalization', 'probability', 'binWidth', 1);
+hold on;
+plot(boundaryFitVals, nakaBoundaryPlot, '-r', 'LineWidth', 2);
+xlim(xint);
+ylim(yint);
+xlabel('RF Value');
+ylabel('Probability');
+legend('Histogram of Abs(Hil(rf))', ['Nakagami Fit, \mu = ' num2str(muBoundary) ', \omega = ' num2str(omegaBoundary)]);
+title('RF Distribution of Boundary Regions');
+
+% Fitting nakagami distribution
+nakaDeep= fitdist(deepShadowRFVals', 'Nakagami');
+muDeep = nakaDeep.mu;
+omegaDeep = nakaDeep.omega;
+deepFitVals = 0:max(deepShadowRFVals)/numDeepShadowRFVals:max(deepShadowRFVals);
+nakaDeepPlot = pdf(nakaDeep, deepFitVals);
+
+subplot(1,4,3);
+h(3) = histogram(deepShadowRFVals, 'BinWidth', 1, 'Normalization', 'probability');
+hold on;
+plot(deepFitVals, nakaDeepPlot, '-r', 'LineWidth', 2);
+xlim(xint);
+ylim(yint);
+xlabel('RF Value');
+ylabel('Probability');
+legend('Histogram of Abs(Hil(rf))', ['Nakagami Fit, \mu = ' num2str(muDeep) ', \omega = ' num2str(omegaDeep)]);
+title('RF Distribution of Deep Shadow Regions');
+
+% Fitting nakagami distribution
+nakaNo= fitdist(deepShadowRFVals', 'Nakagami');
+muNo = nakaNo.mu;
+omegaNo = nakaNo.omega;
+noFitVals = 0:max(noShadowRFVals)/numNoShadowRFVals:max(noShadowRFVals);
+nakaNoPlot = pdf(nakaNo, noFitVals);
+
+nakaNoPlot = nakaDeepPlot;
+subplot(1,4,4);
+h(4) = histogram(noShadowRFVals, 'Normalization', 'probability', 'BinWidth', 1);
+hold on;
+plot(noFitVals, nakaNoPlot, '-r', 'LineWidth', 2);
+xlim(xint);
+ylim(yint);
+xlabel('RF Value');
+ylabel('Probability');
+legend('Histogram of Abs(Hil(rf))', ['Nakagami Fit, \mu = ' num2str(muNo) ', \omega = ' num2str(omegaNo)]);
+title('RF Distribution of Non-Shadow Regions');
 
 
 
