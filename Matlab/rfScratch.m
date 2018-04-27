@@ -581,4 +581,60 @@ ylabel('Probability');
 legend('Histogram of Abs(Hil(rf))', ['Nakagami Fit, \mu = ' num2str(muNo) ', \omega = ' num2str(omegaNo)]);
 title('RF Distribution of Non-Shadow Regions');
 
+% FINALLY THE SHADOW DETECTION
+% setting nakagami thresholds to detect shadows - unsure what best method
+% to use here, max along scanline? absolute max?
 
+[detRows detCols] = size(absHil);
+detectionMaxTrack = ones(detRows, detCols);
+detectionThresh = ones(detRows, detCols);
+thresh = 12;
+for colIdx = 1:detCols
+    
+    %going down the scanline, looking only at w
+    maxOmega = 0;
+    stdOmega = (std(log(omega(:,colIdx))));
+    for rowIdx = 1:detRows
+        if (log(omega(rowIdx, colIdx)) > maxOmega - stdOmega)
+            maxOmega = log(omega(rowIdx,colIdx));
+            maxRow = rowIdx;
+        end
+        detectionMaxTrack(maxRow:end,colIdx) = 0;
+        
+        if(log(omega(rowIdx, colIdx)) < thresh)
+            detectionThresh(rowIdx, colIdx) = 0;
+        end
+    end
+end
+
+detectionThresh(2840:end,:) = 0;
+
+% cleaning up detectionThresh to have directionality of shadowing
+for colIdx = 1:detCols
+    for rowIdx = 1:detRows
+        if detectionThresh(rowIdx, colIdx) == 0
+            if(ismember(1,detectionThresh(rowIdx:end,colIdx)))
+                detectionThresh(rowIdx, colIdx) = 1;
+            end
+        end
+    end
+end
+
+figure()
+de(1) = subplot(1,2,1)
+imagesc(log(absHil));
+title('log(abs(hilbert(rf))) (almost b-mode)');
+colormap(gca,'gray');
+hcb = colorbar;
+
+de(2) = subplot(1,3,2)
+imagesc(detectionMaxTrack);
+title('Detected shadows');  
+colormap(gca,'gray');
+hcb = colorbar;       
+
+de(3) = subplot(1,2,2)
+imagesc(detectionThresh);
+title('Detected shadows');  
+colormap(gca,'gray');
+hcb = colorbar;   

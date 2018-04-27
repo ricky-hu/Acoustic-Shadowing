@@ -484,20 +484,29 @@ nakNoShadowRFVals = nakNoShadowRFVals(:,1:(numNoShadowRFVals));
 figure()
 set(gcf, 'color', 'white');
 
-subplot(1,3,1)
-
 % matlab really dropped the ball here, for some reason boxplot only allows
 % vectors of equal length to be plotted with the same function call so we
 % are grouping together the vectors to override this
 rfBW = [shadowRFVals boundaryRFVals deepShadowRFVals noShadowRFVals];
+muBW = [nakShadowRFVals(1,:) nakBoundaryRFVals(1,:) nakDeepShadowRFVals(1,:) nakNoShadowRFVals(1,:)];
+omegaBW = [nakShadowRFVals(2,:) nakBoundaryRFVals(2,:) nakDeepShadowRFVals(2,:) nakNoShadowRFVals(2,:)];
 groupRF = [zeros(1,length(shadowRFVals')), ones(1,length(boundaryRFVals')), 2*ones(1,length(deepShadowRFVals')), 3*ones(1,length(noShadowRFVals'))];
+
+subplot(1,3,1)
 boxplot(rfBW, groupRF, ...
     'Labels', {'All shadow regions', 'Shadow boundary', 'Deep shadow regions', 'No shadow regions'});
 title('abs(hilbert(rf)) values of different regions)');
 
 subplot(1,3,2)
-muBW = [nakShadowRFVals(1,:) nakBoundaryRFVals(1,:) nakDeepShadowRFVals(1,:) nakNoShadowRFVals(1,:)];
-groupMu =
+boxplot(muBW, groupRF, ...
+    'Labels', {'All shadow regions', 'Shadow boundary', 'Deep shadow regions', 'No shadow regions'});
+title('\mu values of different regions)');
+
+subplot(1,3,3)
+boxplot(omegaBW, groupRF, ...
+    'Labels', {'All shadow regions', 'Shadow boundary', 'Deep shadow regions', 'No shadow regions'});
+title('\omega values of different regions)');
+
 
 
 % plotting histograms of rf values in each region
@@ -572,8 +581,33 @@ ylabel('Probability');
 legend('Histogram of Abs(Hil(rf))', ['Nakagami Fit, \mu = ' num2str(muNo) ', \omega = ' num2str(omegaNo)]);
 title('RF Distribution of Non-Shadow Regions');
 
+% FINALLY THE SHADOW DETECTION
+% setting nakagami thresholds to detect shadows - unsure what best method
+% to use here, max along scanline? absolute max?
 
-%mkaing box-whisker plots of the abs(hil(rf)) data and of the nakagami
-%parameters
+[detRows detCols] = size(absHil);
+detection = ones(detRows, detCols);
+for colIdx = 1:detCols
+    
+    %going down the scanline, looking only at w
+    maxOmega = 0;
+    stdOmega = std(omega(:,colIdx));
+    for rowIdx = 1:detRows
+        if (omega(rowIdx, colIdx) > maxOmega - stdOmega)
+            maxOmega = omega(rowIdx,colIdx);
+            maxRow = rowIdx;
+        end
+        detection(maxRow:end,colIdx) = 0;
+    end
+end
 
+figure()
+de(1) = subplot(1,2,1)
+imagesc(log(absHil));
+title('log(abs(hilbert(rf))) (almost b-mode)');
 
+de(2) = subplot(1,2,2)
+imagesc(detection);
+
+            
+        
