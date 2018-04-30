@@ -86,7 +86,7 @@ patchSizeY = ceil((rows/depth)*3*wavelength);
 %size of patch in the x direction, which is totally heuristic for now
 patchSizeX = 5;
 
-% averaging rf values for neighboring scanlines (number to acreage is
+% averaging rf values for neighboring scanlines (number to average is
 % patchSizeX
 
 for i = 1:cols
@@ -301,35 +301,48 @@ linkaxes([p(2) p(3) p(4) p(5) p(6)], 'x');
 %------------------------------------------
 % nakagami parameters look the most promising, plotting for entire set of
 % rf data:
-mu = [];
-omega = [];
+
 [rows cols] = size(absHil);
+
+patchStartX = zeros(rows, cols);
+patchEndX = zeros(rows, cols);
+patchStartY = zeros(rows,cols);
+patchEndY = zeros(rows,cols);
+
 patchSizeY = 30;
 patchSizeX = 5;
 % holy smokes the follow loop takes 30 minutes, need to optimize
-tic
+
+% creating patches first so this doesn't have to be repeated
 for i = 1:rows
     for j = 1:cols
-        patchStartX = j - floor(patchSizeX/2);
-        patchEndX = j + floor(patchSizeX/2);
-        patchStartY = i - floor(patchSizeY/2);
-        patchEndY = i + floor(patchSizeY/2);
-
-        % handling boundaries
+        patchStartX(i,j) = j - floor(patchSizeX/2);
+        patchEndX(i,j) = j + floor(patchSizeX/2);
+        patchStartY(i,j) = i - floor(patchSizeY/2);
+        patchEndY (i,j)= i + floor(patchSizeY/2);      
+        
         if (i < floor(patchSizeY/2) + 1)
-            patchStartY = 1;
+            patchStartY(i,j) = 1;
         elseif (i > (rows - ceil(patchSizeY/2)) - 1)
-            patchEndY = rows;
+            patchEndY(i,j) = rows;
         end
         
         if (j < floor(patchSizeX/2) + 1)
-            patchStartX = 1;
+            patchStartX(i,j) = 1;
         elseif(j > (cols - ceil(patchSizeX/2) -1))
-            patchEndX = cols;
+            patchEndX(i,j) = cols;
         end
-        
+    end
+end
+
+tic
+% computing Nakagami parameters for each patch
+mu = zeros(rows,cols);
+omega = zeros(rows,cols);
+for i = 1:rows
+    for j = 1:cols
         % patchX fixed as column 156 for now
-        patch = absHil(patchStartY:patchEndY, patchStartX:patchEndX);
+        patch = absHil(patchStartY(i,j):patchEndY(i,j), patchStartX(i,j):patchEndX(i,j));
         nakaFitRow = fitdist(reshape(patch,[],1), 'Nakagami');
         mu(i,j) = nakaFitRow.mu;
         omega(i,j) = nakaFitRow.omega;
