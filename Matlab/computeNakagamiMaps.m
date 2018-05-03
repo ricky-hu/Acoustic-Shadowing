@@ -16,17 +16,18 @@ for n = 1:numFiles
     
     if exist([name '_nakParams.mat'], 'file')
         %do nothing
-        break;
     else
         [rf, headerRF] = RPread(fileName, numFrames);
         [rows cols] = size(rf);
-
+        rfAvg = zeros(rows, cols);
+        
+        display(name);
         % averaging RF columns
         for i = 1:cols
             % handling cases where patch extends beyond boundaries
             if (i < floor(patchSizeX / 2) + 1 )
                 rfAvg(:,i) = mean(rf(:,(1:(i+floor(patchSizeX/2)))),2);
-            elseif (i > (cols - floor(patchSizeX / 2))) 
+            elseif (i > (cols - ceil(patchSizeX / 2))) 
                 rfAvg(:,i) = mean(rf(:,((i-floor(patchSizeX/2)):cols)),2);
             else
                 rfAvg(:,i) = mean(rf(:, (i-floor(patchSizeX/2)):(i+floor(patchSizeX/2))),2);

@@ -94,7 +94,7 @@ for i = 1:cols
     if (i < floor(patchSizeX / 2) + 1 )
         rfAvg(:,i) = mean(rf(:,(1:(i+floor(patchSizeX/2)))),2);
     elseif (i > (cols - floor(patchSizeX / 2))) 
-        rfAvg(:,i) = mean(rf(:,((i-floor(patchSizeX/2)):cols)),2);
+        rfAvg(:,i) = mean(rf(:,((i-ceil(patchSizeX/2)):cols)),2);
     else
         rfAvg(:,i) = mean(rf(:, (i-floor(patchSizeX/2)):(i+floor(patchSizeX/2))),2);
     end
@@ -601,7 +601,7 @@ title('RF Distribution of Non-Shadow Regions');
 [detRows detCols] = size(absHil);
 detectionMaxTrack = ones(detRows, detCols);
 detectionThresh = ones(detRows, detCols);
-thresh = 12;
+thresh = 12.4899;
 for colIdx = 1:detCols
     
     %going down the scanline, looking only at w
@@ -633,21 +633,67 @@ for colIdx = 1:detCols
     end
 end
 
+
+% using otsu's method to threhsold
+levelLog = multithresh(log(omega));
+levelMu = multithresh(log(mu));
+
+otsuDetLog = zeros(detRows, detCols);
+otsuDetLineU = zeros(detRows, detCols);
+otsuDetLineW = zeros(detRows, detCols);
+
+pad = 30;
+
+
+for colIdx = 1:detCols
+    levelLineW = multithresh(log(omega(:,colIdx)));
+    levelLineU = multithresh(log(mu(:,colIdx)));
+    
+    for rowIdx = 1:(detRows - pad)
+
+        if( log(omega(rowIdx, colIdx)) > levelLog)
+            otsuDetLog(1:rowIdx,colIdx) = 1;
+        end
+        if( log(mu(rowIdx,colIdx)) < levelLineU)
+            otsuDetLineU(1:rowIdx, colIdx) = 1;
+        end
+        if( log(omega(rowIdx, colIdx)) > levelLineW)
+            otsuDetLineW(1:rowIdx, colIdx) = 1;
+        end
+    end
+end
+
+% thresholding scanline by scanline
+
+ostuLine = zeros(detRows, detCols);
+% thresholding from otsu coefficients
 figure()
-de(1) = subplot(1,2,1)
+de(1) = subplot(2,3,1);
 imagesc(log(absHil));
 title('log(abs(hilbert(rf))) (almost b-mode)');
 colormap(gca,'gray');
 hcb = colorbar;
 
-de(2) = subplot(1,3,2)
-imagesc(detectionMaxTrack);
-title('Detected shadows');  
-colormap(gca,'gray');
-hcb = colorbar;       
-
-de(3) = subplot(1,2,2)
-imagesc(detectionThresh);
+de(3) = subplot(2,3,2);
+imagesc(otsuDetLineU);
 title('Detected shadows');  
 colormap(gca,'gray');
 hcb = colorbar;   
+
+de(3) = subplot(2,3,3);
+imagesc(otsuDetLineW);
+title('Detected shadows');  
+colormap(gca,'gray');
+hcb = colorbar;   
+
+de(3) = subplot(2,3,4);
+imagesc(otsuDetLineW & otsuDetLineU);
+title('Detected shadows');  
+colormap(gca,'gray');
+hcb = colorbar;   
+
+de(3) = subplot(2,3,5);
+imagesc(otsuDetLog);
+title('Detected shadows');  
+colormap(gca,'gray');
+hcb = colorbar;  
