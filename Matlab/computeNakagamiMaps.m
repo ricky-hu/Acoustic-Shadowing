@@ -19,6 +19,12 @@ for n = 1:numFiles
     else
         [rf, headerRF] = RPread(fileName, numFrames);
         [rows cols] = size(rf);
+
+        %Downsampling to 128 scanlines since sometimes the machines upsample
+        %This also saves computation time later on
+        rf = imresize(rf, [round(rows*128/cols) 128]);
+        [rows cols] = size(rf);
+        
         rfAvg = zeros(rows, cols);
         
         display(name);

@@ -10,7 +10,13 @@ patchSizeY = 30;
 
 % reading RF file
 numFrames = 1;
+rf = [];
 [rf, headerRF] = RPread([fileName '.rf'], numFrames);
+[rows cols] = size(rf);
+
+%Downsampling to 128 scanlines since sometimes the machines upsample
+%This also saves computation time later on
+rf = imresize(rf, [round(rows*128/cols) 128]);
 [rows cols] = size(rf);
 rfAvg = zeros(rows,cols);
 % averaging over scanlines
@@ -26,7 +32,7 @@ for i = 1:cols
 end
 
 % performing absolute value of hilbert transform to obtain wavepacket of RF
-absHil = abs(hilbert(rf));
+absHil = abs(hilbert(rfAvg));
 
 load([fileName '_nakParams.mat'])
 % assuming Nakagami maps have been computed to save time (can be changed later to call
