@@ -1,0 +1,121 @@
+% makeNiceFigures.m
+% script for me to make some nice figures
+% don't run this it only works for a specific directory, this is just a random
+% helper script
+
+function makeNiceFigures()
+
+
+
+
+% getting detected image
+autoNameC = 'uasd_3_c_r_1_auto.png';
+autoC = double(imread(autoNameC));
+[x y] = size(autoC);
+autoCScaled = imresize(autoC, [ceil(x*(128/y)) 128]);
+numRFsamples = 2864;
+RFSamplingRate = 18e6;
+ss =size(autoCScaled);
+depth = 1540*numRFsamples/RFSamplingRate/2;
+nBlocks = ss(1);
+nLines = ss(2);
+probeCrystalPitch = 0.47;
+probeRadius =0.061;
+probeWidth = probeCrystalPitch*ss(2)*1e-3;
+width = probeWidth;
+Rt = probeRadius;
+Rm = -1.0;
+% Rm = 1e-8;
+dR = depth / nBlocks;
+dT = width / nLines / Rt;
+%dT = width / nLines;
+dP = 0.0;
+dX = 0.5e-3;
+sc = ScanConversion(Rt, Rm, dR, dT, dP, nBlocks, nLines, 1, dX, dX, 1);
+ph_sc_a = sc.ScanConvert(autoCScaled);
+
+pngCName = 'uasd_3_c_r_1_1.png';
+imC = imread(pngCName);
+imCCropped = imC(80:538,:);
+[x y] = size(ph_sc_a);
+imCScaled = imresize(imCCropped, [x y]);
+
+%getting manual image
+
+manualNameC = 'uasd_3_c_r_1_manual.png';
+manualC = double(imread(manualNameC));
+[x y] = size(manualC);
+manualCScaled = imresize(manualC, [ceil(x*(128/y)) 128]);
+numRFsamples = 2864;
+RFSamplingRate = 18e6;
+ss =size(manualCScaled);
+depth = 1540*numRFsamples/RFSamplingRate/2;
+nBlocks = ss(1);
+nLines = ss(2);
+probeCrystalPitch = 0.47;
+probeRadius =0.061;
+probeWidth = probeCrystalPitch*ss(2)*1e-3;
+width = probeWidth;
+Rt = probeRadius;
+Rm = -1.0;
+% Rm = 1e-8;
+dR = depth / nBlocks;
+dT = width / nLines / Rt;
+%dT = width / nLines;
+dP = 0.0;
+dX = 0.5e-3;
+sc = ScanConversion(Rt, Rm, dR, dT, dP, nBlocks, nLines, 1, dX, dX, 1);
+ph_sc_m = sc.ScanConvert(manualCScaled);
+
+figure(1)
+imagesc(imCScaled);
+colormap(gca,'gray');
+green = cat(3, zeros(size(imCScaled)), ones(size(imCScaled)), zeros(size(imCScaled)));
+red = cat(3, ones(size(imCScaled)), zeros(size(imCScaled)), zeros(size(imCScaled)));
+hold on
+h = imagesc(green);
+hold off
+set(h, 'AlphaData', (ph_sc_m)/6);
+hold on
+r = imagesc(red);
+hold off
+set(r, 'AlphaData', (ph_sc_a)/6);
+
+
+% linear shadows 
+%cutting off blackfill, looks like it goes 150 pixels on left and right and
+%75 pixels from top to bottom
+%
+pngName = 'uasd_3_l_rjoint_1_1.png'
+im = imread(pngName);
+
+imCropped  = im(75:500, 190:480);
+colormap(gca,'gray');
+manualName = 'uasd_3_l_rjoint_1_manual.png'
+manual = imread(manualName);
+
+[rows cols] = size(imCropped);
+manualScaled = imresize(manual, [rows cols]);
+
+manualScaled = ~double(manualScaled);
+
+% gettin detected shadows
+[diceCoeff shadows] = detectShadows('uasd_3_l_rjoint_1');
+shadowsScaled = imresize(shadows, [rows cols]);
+
+figure(2)
+imagesc(imCropped);
+colormap(gca,'gray');
+green = cat(3, zeros(size(imCropped)), ones(size(imCropped)), zeros(size(imCropped)));
+red = cat(3, ones(size(imCropped)), zeros(size(imCropped)), zeros(size(imCropped)));
+hold on
+h = imagesc(green);
+hold off
+set(h, 'AlphaData', (~manualScaled)/6);
+hold on
+r = imagesc(red);
+hold off
+set(r, 'AlphaData', (shadowsScaled)/6);
+
+
+

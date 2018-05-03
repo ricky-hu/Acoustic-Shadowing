@@ -90,7 +90,6 @@ classdef ScanConversion < handle
             %   ScanConversion(Rt, Rm, dR, dTheta, dPhi, nR, nTheta, ...
             %           nPhi, nY, nX, nZ, pixelSizeY, pixelSizeX)
             
-            
             if nargin > 0
                 obj.Rt      = varargin{1};
                 obj.Rm      = varargin{2};
@@ -101,9 +100,8 @@ classdef ScanConversion < handle
                 obj.nTheta  = varargin{7};
                 obj.nPhi    = varargin{8};
                 
-                Rt_abs = abs(obj.Rt);
                 % CTCM
-                if ( (Rt_abs > 0.0) && (obj.Rm > 0.0) ) 
+                if ( (obj.Rt > 0.0) && (obj.Rm > 0.0) ) 
                     obj.probeType = 0;
 
                     D = abs( obj.Rt-obj.Rm );
@@ -117,7 +115,7 @@ classdef ScanConversion < handle
                     obj.minZ = -sin( obj.nPhi/2.0 * obj.dPhi ) * obj.maxY;
                     obj.maxZ =	sin( obj.nPhi/2.0 * obj.dPhi ) * obj.maxY;
                 % LTCM
-                elseif ( (Rt_abs <= 0.0) && (obj.Rm > 0.0) )
+                elseif ( (obj.Rt <= 0.0) && (obj.Rm > 0.0) )
                     obj.probeType = 1;
 
                     obj.minY = obj.Rm * cos( obj.nPhi/2.0 * obj.dPhi );
@@ -130,31 +128,20 @@ classdef ScanConversion < handle
                     obj.minZ = -sin( obj.nPhi/2.0 * obj.dPhi ) * obj.maxY;
                     obj.maxZ =  sin( obj.nPhi/2.0 * obj.dPhi ) * obj.maxY;
                 % CTLM
-                elseif ( (Rt_abs > 0.0) && (obj.Rm <= 0.0) )
+                elseif ( (obj.Rt > 0.0) && (obj.Rm <= 0.0) )
                     obj.probeType = 2;
-                    if obj.Rt > 0
-                        obj.minY = obj.Rt * cos( obj.nTheta/2.0 * obj.dTheta );
-                        obj.maxY = obj.Rt + obj.dR*obj.nR;
-                        obj.minR = obj.Rt;
-                        
-                        obj.minX = -sin( obj.nTheta/2.0 * obj.dTheta ) * obj.maxY;
-                        obj.maxX =  sin( obj.nTheta/2.0 * obj.dTheta ) * obj.maxY;
-                    else
-                        % ensure dTheta is positive
-                        obj.dTheta = abs(obj.dTheta);
-                        
-                        obj.minY = obj.Rt;
-                        obj.maxY = (obj.Rt + obj.dR*obj.nR)*cos( obj.nTheta/2.0 * obj.dTheta );
-                        obj.minR = obj.Rt;
-                        
-                        obj.minX = -sin( obj.nTheta/2.0 * obj.dTheta ) * Rt_abs;
-                        obj.maxX = sin( obj.nTheta/2.0 * obj.dTheta ) * Rt_abs;
-                    end
+
+                    obj.minY = obj.Rt * cos( obj.nTheta/2.0 * obj.dTheta );
+                    obj.maxY = obj.Rt + obj.dR*obj.nR;
+                    obj.minR = obj.Rt;
+
+                    obj.minX = -sin( obj.nTheta/2.0 * obj.dTheta ) * obj.maxY;
+                    obj.maxX =  sin( obj.nTheta/2.0 * obj.dTheta ) * obj.maxY;
 
                     obj.minZ = -obj.nPhi/2.0 * obj.dPhi;   
                     obj.maxZ =  obj.nPhi/2.0 * obj.dPhi;	
                 % LTLM
-                elseif ( (Rt_abs <= 0.0) && (obj.Rm <= 0.0) )
+                elseif ( (obj.Rt <= 0.0) && (obj.Rm <= 0.0) )
                     obj.probeType = 3;
 
                     obj.minY = 0.0;
@@ -264,11 +251,25 @@ classdef ScanConversion < handle
             obj.clampMode = val;
         end
         
-        function dataOutCentred = ScanConvert(obj,dataIn)
+        function dataOut = ScanConvert(obj,dataIn)
             % dataOut = ScanConvert(dataIn)
             % Input an array of pre scan data in transducer coordinates and
             % output an array of post scan converted data in cartesian
             % coordinates.
+            
+%             % center the output
+%             nX = obj.nX;
+%             nY = obj.nY;
+%             xOffset = 0;
+%             yOffset = 0;
+%             if obj.nX ~= obj.nXD
+%                 xOffset = obj.nX - obj.nXD;
+%                 nX = obj.nXD;
+%             end
+%             if obj.nY ~= obj.nYD
+%                 yOffset = obj.nY - obj.nYD;
+%                 nY = obj.nYD;
+%             end
 
             if( ~obj.preAllocatedSC )
                 obj.preAllocateSC();
@@ -291,20 +292,6 @@ classdef ScanConversion < handle
             end
             out(isnan(out)) = 0;
             dataOut = permute(out,[2 1 3]);
-            
-            % center the output
-            dataOutCentred = zeros(obj.nY,obj.nX,obj.nZ);
-            xOffset = 1;
-            yOffset = 1;
-            if obj.nX ~= obj.nXD
-                xOffset = ceil((obj.nX - obj.nXD)/2);
-            end
-            if obj.nY ~= obj.nYD
-                yOffset = ceil((obj.nY - obj.nYD)/2);
-            end
-           
-            dataOutCentred(yOffset:yOffset+obj.nYD-1,xOffset:xOffset+obj.nXD-1,:) = dataOut;
-            
         end
         
         function dataOut = ScanRevert(obj,dataIn)
@@ -527,11 +514,7 @@ classdef ScanConversion < handle
 %                 end
                 obj.ppSC = obj.zSC;
                 obj.ptSC = atan(obj.xSC./obj.ySC);
-                if obj.Rt < 0
-                    obj.prSC = abs(obj.Rt) - sqrt(obj.ySC.^2 + obj.xSC.^2);
-                else
-                    obj.prSC = sqrt(obj.ySC.^2 + obj.xSC.^2) - obj.Rt;
-                end
+                obj.prSC = sqrt(obj.ySC.^2 + obj.xSC.^2) - obj.Rt;
             elseif obj.probeType == 3 % LTLM
 %                 for a=1:obj.nX
 %                    for b=1:obj.nY
@@ -554,7 +537,7 @@ classdef ScanConversion < handle
             obj.ttSC = permute(obj.ttSC,P);
             obj.trSC = permute(obj.trSC,P);
             obj.tpSC = permute(obj.tpSC,P);
-            %figure; subplot(1,2,1); imagesc(obj.trSC,[-1 1]*100); subplot(1,2,2); imagesc(obj.prSC,[-1 1]*100);
+            
             % Set the preAllocated flag
             obj.preAllocatedSC = true;
         end

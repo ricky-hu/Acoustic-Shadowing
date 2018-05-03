@@ -194,7 +194,7 @@ title('Bmode, Wiener Filtered')
 
 % using MLE to fit rayleigh distributions to data
 for i=1:cols
-    w(i) = subplot(2,3,i+2);
+    w(i) = subplot(2,3,i+1);
     maxVal = max(max(window(:,:,i)));
     [tempRow tempCol] = size(window(:,:,i));
     sizeWindow = tempRow*tempCol;
@@ -601,7 +601,7 @@ title('RF Distribution of Non-Shadow Regions');
 [detRows detCols] = size(absHil);
 detectionMaxTrack = ones(detRows, detCols);
 detectionThresh = ones(detRows, detCols);
-thresh = 12.4899;
+thresh = 11;
 for colIdx = 1:detCols
     
     %going down the scanline, looking only at w
@@ -649,6 +649,7 @@ for colIdx = 1:detCols
     levelLineW = multithresh(log(omega(:,colIdx)));
     levelLineU = multithresh(log(mu(:,colIdx)));
     
+
     for rowIdx = 1:(detRows - pad)
 
         if( log(omega(rowIdx, colIdx)) > levelLog)

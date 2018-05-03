@@ -15,7 +15,7 @@ for n = 1:numFiles
     [filepath,name,ext] = fileparts(fileName);
     if exist([name '_nakParams.mat'], 'file')
         diceList{n,1} = name;
-        diceList{n,2} = detectShadows(name);
+        [diceList{n,2} shadows] = detectShadows(name);
     end
 end
     

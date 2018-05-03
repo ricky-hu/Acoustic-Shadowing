@@ -3,7 +3,7 @@
 % detection, and compute dice coefficients
 % input:    fileName string name of the file base name without extension
 
-function diceCoeff = detectShadows(fileName)
+function [diceCoeff, shadows] = detectShadows(fileName)
 
 patchSizeX = 5;
 patchSizeY = 30;
@@ -42,7 +42,7 @@ load([fileName '_nakParams.mat'])
 
 pad = 30;
 
-shadows = zeros(detRows, detCols);
+shadows = ones(detRows, detCols);
 
 for colIdx = 1:detCols
     
@@ -52,7 +52,7 @@ for colIdx = 1:detCols
     
     for rowIdx = pad:(detRows - pad)   
         if( log(omega(rowIdx, colIdx)) > levelLineW)
-            shadows(1:rowIdx, colIdx) = 1;
+            shadows(1:rowIdx, colIdx) = 0;
         end
     end
 end
@@ -60,7 +60,7 @@ end
 % visualizing
 figure()
 f(1) = subplot(1,3,1);
-imagesc(log(absHil));
+imagesc(log10(absHil));
 title('log(abs(hilbert(rf))) (almost b-mode)');
 colormap(gca,'gray');
 hcb = colorbar;
