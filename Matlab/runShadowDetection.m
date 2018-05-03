@@ -8,13 +8,15 @@ function diceList = runShadowDetection(dirName)
 
 files = dir(fullfile(dirName, '*.rf'));
 [numFiles dummy] = size(files);
-
+diceList = {};
 % running detectShadows on each rf file
 for n = 1:numFiles
     fileName = files(n).name;
     [filepath,name,ext] = fileparts(fileName);
-    diceList(n,1) = fileName;
-    diceList(n,2) = detectShadows(fileName);
+    if exist([name '_nakParams.mat'], 'file')
+        diceList{n,1} = name;
+        diceList{n,2} = detectShadows(name);
+    end
 end
     
     
