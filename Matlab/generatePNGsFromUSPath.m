@@ -1,7 +1,7 @@
 
 %In: path to a directory containing US files that are intended to be
 %enhanced and saved as PNGs
-function createJPGsFromUSPath(USFilesPath)    
+function createPNGsFromUSPath(USFilesPath)    
     if ~isdir(USFilesPath)
         errorMessage = sprintf('Error: The following folder does not exist:\n%s', USFilesPath);
     end
