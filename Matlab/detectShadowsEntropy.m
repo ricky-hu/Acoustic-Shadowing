@@ -79,7 +79,7 @@ elseif contains(imName, '_c_r_')
     % strategy is to capture the side "slopes" of the ringdo
     
     % looking for first image pixel
-    rowStart = 0;
+    slopeRowStart = 0;
     for row = 1:imRows
         % check if there are at least two nonzero elements (two corners)
         if (nnz(im(row,:)) > 1)
@@ -89,13 +89,13 @@ elseif contains(imName, '_c_r_')
             right(row) = find(im(row,:), 1, 'last');
             
             % keeping track of the row number where image begins
-            if (rowStart == 0)
-                rowStart = row;
+            if (slopeRowStart == 0)
+                slopeRowStart = row;
             end
         end
     end
     
-    colStart = left(1);
+    slopeColStart = left(1);
     % looking at the left slope, we traverse down the ringdown pixels and
     % extrapolate downwards to find the slope
     
@@ -103,20 +103,43 @@ elseif contains(imName, '_c_r_')
     % path
     minCol = imCols;
     for row = 1:imRows
-        if left(row) < minCol
-            minCol = left(row)
+        if left(row) <= minCol
+            minCol = left(row);
         else
             % we've reached the end of the ringdown region
-            rowEnd = row - 1;
-            colEnd = left(row - 1); 
+            slopeRowEnd = row - 1;
+            slopeColEnd = left(row - 1); 
+            break;
         end
     end
     
     % with the start/stop elements for the left edge, we can compute the
     % slope
     
-    dCol = colEnd - colStart;
-    dRow = rowEnd - rowStart;
+    dCol = slopeColEnd - slopeColStart;
+    dRow = slopeRowEnd - slopeRowStart;
+    
+    % now we can create a path for this slope
+    segmentRowEnd = 1;
+    segmentColEnd = 1;
+    for i = 1:imRows
+        if segmentRowEnd <= imRows && segmentRowEnd >= 1 && segmentColEnd <= imCols && segmentColEnd >= 1
+            segmentRowEnd = slopeRowStart + dRow*i;
+            segmentColEnd = slopeColStart + dCol*i;
+        else
+            segmentRowEnd = slopeRowStart + dRow*(i-2);
+            segmentColEnd = slopeColStart + dCol*(i-2);
+            break;
+        end
+    end
+    
+    % can create the line segment defining the scanline path
+    
+    scanlineY = [slopeRowStart segmentRowEnd];
+    scanlineX = [slopeColStart segmentColEnd];
+        
+    % need to expand this for other scanlines than the leftmost later
+    
     
     
 end
