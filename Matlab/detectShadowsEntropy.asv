@@ -112,13 +112,7 @@ elseif contains(imName, '_c_r_')
         end
     end
     
-    % with the start/stop elements for the left edge, we can compute the
-    % slope
-    
-    dCol = colEnd - colStart;
-    dRow = rowEnd - rowStart;
-    
-    
+    % with 
 end
 
 
