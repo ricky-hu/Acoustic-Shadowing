@@ -8,6 +8,7 @@ function [diceCoeff, shadows] = detectShadows(fileName)
 patchSizeX = 5;
 patchSizeY = 30;
 
+display(fileName);
 % reading RF file
 numFrames = 1;
 rf = [];
@@ -41,7 +42,7 @@ load([fileName '_nakParams.mat'])
 % detecting shadow susing otsu's method to threshold nakagami parameters
 
 [detRows detCols] = size(absHil);
-
+omega = abs(imresize(omega, [round(rows*128/cols) 128]));
 % thresholding by the scale parameter w
 
 % padding ringdown
@@ -49,12 +50,13 @@ load([fileName '_nakParams.mat'])
 pad = 30;
 
 shadows = ones(detRows, detCols);
+%computing otsu threshold for entire image
+levelLineW = multithresh(log(omega));
 
 for colIdx = 1:detCols
     
     %computing otsu thresholding levels for this scanline
-    levelLineW = multithresh(log(omega(:,colIdx)));
-    levelLineU = multithresh(log(mu(:,colIdx)));
+
     
     for rowIdx = pad:(detRows - pad)   
         if( log(omega(rowIdx, colIdx)) > levelLineW)
@@ -78,13 +80,12 @@ colormap(gca,'gray');
 hcb = colorbar;   
 
 
-
 % comparing manual shadows and computing dice coefficient
 boundaryThickness = 10;
 [manualShadowMatrix, boundaryShadowMatrix, deepShadowMatrix] = outlineShadow(log(absHil), fileName, boundaryThickness);
 
 manualShadowMatrix = double(manualShadowMatrix);
-shadows = double(shadows);
+shadows = double(~shadows);
 diceCoeff = dice(shadows, manualShadowMatrix);
 
 % further visualizing

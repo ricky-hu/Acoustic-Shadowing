@@ -698,3 +698,96 @@ imagesc(otsuDetLog);
 title('Detected shadows');  
 colormap(gca,'gray');
 hcb = colorbar;  
+
+% comparing air gap and bone regions and rf vs bmode
+
+load('uasd_5_c_farm_1_nakParams.mat');
+muAir = mu;
+omegaAir = omega;
+
+load('uasd_5_c_rjoint_1_nakParams.mat');
+muBone = mu;
+omegaBone = omega;
+
+% comparing images
+
+air = imread('uasd_5_c_farm_1_1.png');
+bone = imread('uasd_5_c_rjoint_1_1.png');
+
+figure()
+subplot(2,3,1);
+imagesc(air);
+title('forearm, curvilinear');
+colormap(gca,'gray');
+hcb = colorbar;  
+
+subplot(2,3,2);
+imagesc(log10(muAir));
+title('\mu , forearm, curvilinear');
+colormap(gca,'jet');
+hcb = colorbar;  
+
+subplot(2,3,3);
+imagesc(log10(omegaAir));
+title('\omega , forearm, curvilinear');
+colormap(gca,'jet');
+hcb = colorbar;  
+
+subplot(2,3,4);
+imagesc(bone);
+title('rib, curvilinear');
+colormap(gca,'gray');
+hcb = colorbar;  
+
+subplot(2,3,5);
+imagesc(log10(muBone));
+title('\mu , rib, curvilinear');
+colormap(gca,'jet');
+hcb = colorbar;  
+
+subplot(2,3,6);
+imagesc(log10(omegaBone));
+title('\omega , rib, curvilinear');
+colormap(gca,'jet');
+hcb = colorbar;  
+
+set(gcf,'color','white');
+
+% comparing RF to B-mode data
+bmodepngUncropped = imread('uasd_3_l_rjoint_1_1.png');
+% cropping bmode
+bmodepngCropped = bmodepngUncropped(76:540,151:511);
+
+load('uasd_3_l_rjoint_1_nakParams.mat')
+
+fileName = 'uasd_3_l_rjoint_1'
+numFrames = 1;
+[rf, headerRF] = RPread([fileName '.rf'], numFrames);
+
+% resizing png bmode
+
+[x y] = size(omega);
+bmodepngCropped = imresize(bmodepngCropped, [x y]);
+% comparing bmode with rf and nakagami omega parameter
+figure()
+s(1) = subplot(1,3,1);
+imagesc(bmodepngCropped);
+colormap(gca,'gray');
+title('B-mode from machine');
+
+s(2) = subplot(1,3,2);
+imagesc(log(abs(hilbert(rf))));
+colormap(gca,'gray');
+title('Sort of B-Mode from rf envelope')
+
+s(3) = subplot(1,3,3);
+imagesc(log(omega));
+colormap(gca,'jet');
+hcb = colorbar;  
+title('Nakagami \omega parameter')
+
+linkaxes(s,'xy');
+
+set(gcf,'color','white')
+
+

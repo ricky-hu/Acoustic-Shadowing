@@ -23,6 +23,7 @@ boundaryThickness = boundaryThicknessInitial;
 
 if exist([fileName '_manual.png'], 'file')
     manualShdw = imread([fileName '_manual.png']);
+    manualShdw = imresize(manualShdw, size(image));
 else
     % Obtaining manual outline of shadow region
     figure();
