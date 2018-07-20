@@ -234,7 +234,8 @@ elseif contains(imName, '_c_r_')
     hold off;
     
     % building the matrix of scanlines for entropy analysis
-    scanlineMatrix = zeros(imRows,numLines,2);
+    scanlineMatrixRows = [];
+    scanlineMatrixCols = [];
     
     for i = 1:numLines
         segmentX = [scanlineColStart(i) scanlineColEnd(i)];
@@ -245,14 +246,13 @@ elseif contains(imName, '_c_r_')
 
         [yCoords xCoords intensities] = improfile(im,segmentX,segmentY);
         
-        % now we build a nxnx2 matrix such that the columns contain the
+        % now we build a matrix such that the columns contain the
         % coordinates of the scanline
         % we can then traverse down the column as if we are traverse down a
         % straight scanline and perform entropy analysis
         
-        % needs padding of the array
-        scanlineMatrix(:,i,1) = xCoords;
-        scanlineMatrix(:,i,2) = yCoords;
+        scanlineMatrixRows(:,i) = xCoords;
+        scanlineMatrixCols(:,i) = yCoords;
     end
     
 end
