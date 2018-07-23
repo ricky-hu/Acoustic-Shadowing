@@ -8,27 +8,11 @@
 function shadows = detectShadowsEntropy(imName)
 
 
-% moving entropy window set to 1 - only looks at adjacent pixels
 n = 15;
 im = imread(imName);
 im = double(im);
 [imRows, imCols] = size(im);
-
-% Applying low pass filter to image
-
-thresh = 30;
-
-
-for col = 1:imCols
-    for row = 1:imRows
-        if (im(row,col) > thresh)
-            im(row,col) = 0;
-        end
-    end
-end
-
-% Incresing pixel intensity by 1 such that logarithms can be taken
-im = im + 1;
+thresh = 2000;
 
 % two cases - linear (easy, just look down vertical scanlines) and
 % curvilinear (trapezoidal mask required to interpolate scanlines)
@@ -36,7 +20,20 @@ im = im + 1;
 % linear case
 if contains(imName, '_l_')
     % Computing intensity statistics down each line of the image
+    % Incresing pixel intensity by 1 such that logarithms can be taken
+    im = im + 1;
     ent = zeros(imRows,imCols);
+    
+    % Applying low pass filter to image
+
+    for col = 1:imCols
+        for row = 1:imRows
+            if (im(row,col) > thresh)
+                im(row,col) = 0;
+            end
+        end
+    end
+
     for col = 1:imCols
         for row = (n+1):(imRows-n)
             entTemp = 0;
@@ -75,20 +72,23 @@ if contains(imName, '_l_')
         end
     end
 
-elseif contains(imName, '_c_r_')
+elseif contains(imName, '_c_')
     % looking for the "top corners" of the US image to build trapezoid
     % strategy is to capture the side "slopes" of the ringdo
     
     % looking for first image pixel
+    left = [];
+    right = [];
+    rowCount = 1;
     slopeRowStart = 0;
     for row = 1:imRows
         % check if there are at least two nonzero elements (two corners)
         if (nnz(im(row,:)) > 1)
             % find first and last nonzero element to build left and right
             % slopes
-            left(row) = find(im(row,:), 1, 'first');
-            right(row) = find(im(row,:), 1, 'last');
-            
+            left(rowCount) = find(im(row,:), 1, 'first');
+            right(rowCount) = find(im(row,:), 1, 'last');
+            rowCount = rowCount + 1;
             % keeping track of the row number where image begins
             if (slopeRowStart == 0)
                 slopeRowStart = row;
@@ -119,6 +119,18 @@ elseif contains(imName, '_c_r_')
     
     dCol = slopeColEnd - slopeColStart;
     dRow = slopeRowEnd - slopeRowStart;
+    
+    % scaling down slope until it is less than 1
+    
+    if dCol > dRow
+        scale = abs(dRow);
+    else
+        scale = abs(dCol);
+    end
+    
+    dCol = dCol/scale;
+    dRow = dRow/scale;
+        
     
     % now we can create a path for this slope
     segmentRowEnd = 1;
@@ -243,7 +255,14 @@ elseif contains(imName, '_c_r_')
         % profile(1,:) are the columns (y coordinates), profile(2,:) are the
         % rows (x coordinates) 
 
-        [yCoords xCoords intensities] = improfile(im,segmentX,segmentY);
+        [xCoords yCoords intensities] = improfile(im,segmentX,segmentY);
+        
+        
+        % need to pad with zeros to make a rectangular matrix
+        if(numel(yCoords)<imRows)
+            xCoords(end:imRows) = 0;
+            yCoords(end:imRows) = 0;
+        end
         
         % now we build a nxnx2 matrix such that the columns contain the
         % coordinates of the scanline
@@ -251,51 +270,147 @@ elseif contains(imName, '_c_r_')
         % straight scanline and perform entropy analysis
         
         % needs padding of the array
-        scanlineMatrix(:,i,1) = xCoords;
-        scanlineMatrix(:,i,2) = yCoords;
+        scanlineMatrix(:,i,1) = yCoords;
+        scanlineMatrix(:,i,2) = xCoords;
     end
     
+    % need to change to integers for indexing
+    scanlineMatrix = uint16(scanlineMatrix);
+    
+    % creating entropy matrix with same dimensions as a 2D scanlineMatrix
+    
+    % in the scanline matrix, each column represent successive scanlines
+    % and each row represents the next element down the path of the
+    % scanline
+    [scanlineRows, scanlineCols, uselessDummyVar] = size(scanlineMatrix);
+    entropy = zeros(scanlineRows,scanlineCols);
+    
+    % Applying low pass filter to image
+    for col = 1:imCols
+        for row = 1:imRows
+            if (im(row,col) > thresh)
+                im(row,col) = 0;
+            end
+        end
+    end
+    
+    % Incresing pixel intensity by 1 such that logarithms can be taken
+    im = im + 1;
+
+
+    for scanlineColIndex = 1:scanlineCols
+        % only looking at regions that fit within entropy window
+        for scanlineRowIndex = (n+1):(scanlineRows-n)
+            entTemp = 0;
+            % indexing gets super confusing here, we havae to first iterate
+            % through scanlineMatrix, which gives us indices corresponding
+            % to the original image for which we compute entropy intensity
+            % values and then we reinsert the result into an entropy matrix
+            % that is the same dimensions of the scanline matrix
+            for i = 1:n
+                imRowIndexNext = scanlineMatrix(scanlineRowIndex+i,scanlineColIndex,1);
+                imRowIndexPrev = scanlineMatrix(scanlineRowIndex-i,scanlineColIndex,1);
+                imColIndexNext = scanlineMatrix(scanlineRowIndex+i,scanlineColIndex,2);
+                imColIndexPrev = scanlineMatrix(scanlineRowIndex-i,scanlineColIndex,2);
+                
+                if(imRowIndexNext == 0 || imRowIndexPrev == 0 || imColIndexPrev == 0 || imColIndexNext == 0)
+                    entTemp = 0;
+                else
+                    entTemp = entTemp + im(imRowIndexPrev,imColIndexPrev)*log2((im(imRowIndexPrev,imColIndexPrev))/im(imRowIndexNext,imColIndexNext)) + ...
+                        im(imRowIndexNext, imColIndexNext)*log2(im(imRowIndexNext,imColIndexNext)/im(imRowIndexPrev,imColIndexPrev));
+                end
+            end
+            
+            % inserting computed entropy sum into an entropy matrix
+            entropy(scanlineRowIndex,scanlineColIndex) = entTemp;
+        end
+    end
+
+    
+    % with the entropy computed, we perform a similar otsu thresholding to
+    % build the shadow matrix
+    
+    shadowsScanline = zeros(scanlineRows, scanlineCols);
+    
+    for col = 1:scanlineCols
+        % looking at otsu's threshold at the scanline (doesn't make sense to do
+        % entire image as entropy is relative to individual scanlines)
+        otsuThresh = multithresh(entropy(:,col));
+
+        for row = 1:scanlineRows
+            % if the entropy is greater than the threshold, that means that
+            % this is a bright region and pixels before this region was not a
+            % shadow
+            if (entropy(row,col) > otsuThresh)
+                shadowsScanline(1:row,col) = 1;
+            end
+        end
+    end
+    
+    %converting the shadow matrix back to the curvilinear image by mapping
+    %the scanline shadow matrix to a matrix with dimensions of the original
+    %image
+    
+    [imRows, imCols] = size(im);
+    shadows = zeros(imRows,imCols);
+    
+    for scanlineColIndex = 1:scanlineCols
+        for scanlineRowIndex = 1:scanlineRows
+            if (shadowsScanline(scanlineRowIndex, scanlineColIndex) == 1)
+                imRowIndex = scanlineMatrix(scanlineRowIndex,scanlineColIndex,1);
+                imColIndex = scanlineMatrix(scanlineRowIndex,scanlineColIndex,2);
+                if(imRowIndex ~= 0 || imColIndex ~= 0)
+                    shadows(imRowIndex,imColIndex) = 1;
+                end
+            end
+        end
+    end
+    
+    %visualizing     
+    figure(2)
+    c = imfuse(shadows, im, 'blend');
+    imagesc(c);
+    colormap('gray');
 end
 
 
 
 
-
-
-% Visualizing original image
-subplot(1,4,1);
-imshow(scan);
-colormap(gca,'gray');
-title('Original Ultrasound Image');
-xlabel('Lateral Element');
-ylabel('Axial Element');
-
-
-subplot(1,4,3);
-imagesc(ent);
-colormap(gca,'hot');
-hcb = colorbar;
-title(hcb,'Entropy Value');
-title('Entropy Heatmap');
-xlabel('Lateral Element');
-ylabel('Axial Element');
-
-% Optional, intermediate low pass filter
-subplot(1,4,2);
-image(im);
-colormap(gca,'gray')
-title('Low-Pass Filtered Image');
-xlabel('Lateral Element');
-ylabel('Axial Element');
-
-% Visualizing shadow regions
-subplot(1,4,4);
-imagesc(shadow);
-colormap(gca,'gray');
-hcb = colorbar;
-title(hcb,'Shadow Scale');
-title('Automated Shadow Detection');
-xlabel('Lateral Element');
-ylabel('Axial Element');
-
-set(gcf,'color','w');
+% 
+% % Visualizing original image
+% subplot(1,4,1);
+% imshow(scan);
+% colormap(gca,'gray');
+% title('Original Ultrasound Image');
+% xlabel('Lateral Element');
+% ylabel('Axial Element');
+% 
+% 
+% subplot(1,4,3);
+% imagesc(ent);
+% colormap(gca,'hot');
+% hcb = colorbar;
+% title(hcb,'Entropy Value');
+% title('Entropy Heatmap');
+% xlabel('Lateral Element');
+% ylabel('Axial Element');
+% 
+% % Optional, intermediate low pass filter
+% subplot(1,4,2);
+% image(im);
+% colormap(gca,'gray')
+% title('Low-Pass Filtered Image');
+% xlabel('Lateral Element');
+% ylabel('Axial Element');
+% 
+% % Visualizing shadow regions
+% subplot(1,4,4);
+% imagesc(shadow);
+% colormap(gca,'gray');
+% hcb = colorbar;
+% title(hcb,'Shadow Scale');
+% title('Automated Shadow Detection');
+% xlabel('Lateral Element');
+% ylabel('Axial Element');
+% 
+% set(gcf,'color','w');
