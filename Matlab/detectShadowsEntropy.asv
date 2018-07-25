@@ -237,7 +237,7 @@ elseif contains(imName, '_c_')
     hold on;
     % plot(scanlineX,scanlineY,'-r');
     
-    % only plotting every 10 indices for visibility
+    % only plotting every 5 indices for visibility
     i = 1;
     while i <= numLines
         plot([scanlineColStart(i) scanlineColEnd(i)], [scanlineRowStart(i) scanlineRowEnd(i)],  '-r');
