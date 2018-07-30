@@ -1,0 +1,285 @@
+%%
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%%
+%% This file is based on part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.  Contact Elsevier for this file.
+%%
+
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%% SP 2008/03/01 
+%%
+%% $Id: elsarticle-template-harv.tex 4 2009-10-24 08:22:58Z rishi $
+%%
+%% This template is based on the 'elsarticle-template-harv.tex', but has been modified for specific use with submissions to the journal Ultrasound in Medicine and Biology, June 2010, KJH
+%%
+
+% Use this set of document class options for submission
+\documentclass[review,authoryear,12pt]{elsarticle}
+
+% Use this set of document class options to obtain an approximate 2 column view, note that this is primarily intended to allow authors to determine line breaks for long equations.  It is NOT meant to identically reproduce how the article would look in print.
+%\documentclass[3p,twocolumn,authoryear,12pt]{elsarticle}
+
+
+%% if you use PostScript figures in your article
+%% use the graphics package for simple commands
+%% \usepackage{graphics}
+%% or use the graphicx package for more complicated commands
+%% \usepackage{graphicx}
+%% or use the epsfig package if you prefer to use the old commands
+%% \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+ \usepackage{lineno}
+ 
+ %% The multirow package adds the ability to do multirow and 
+ %% multicolumn spanning in LaTeX.  This package is used 
+ %% as an example for this template in the tables section.
+ \usepackage{multirow}
+
+\journal{Ultrasound in Medicine and Biology}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for the associated footnote;
+%%
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+\title{A template for \LaTeX ~submissions to the journal Ultrasound in Medicine and Biology}
+
+
+%% Authors and addresses/affiliations
+
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for the associated footnote;
+%% use the corref command within \author for corresponding author footnotes; note the corresponding author can be any of the authors, but one author must be designated; here the third author has been arbitrarily designated as the corresponding author as an example.
+%% use the cortext command for the associated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{<author name>}
+%% \address[label1]{<address>}
+%% \address[label2]{<address>}
+
+\author[Affil1]{First Author}
+\author[Affil2]{Second Author}
+\author[Affil1]{Third/Corresponding Author \corref{cor1}}
+\address[Affil1]{Affiliation address 1}
+\address[Affil2]{Affiliation address 2}
+% Replace capitalized text with the appropriate information (use standard capitalization rules for your text, not all capitals.
+\cortext[cor1]{Corresponding Author: AUTHOR'S NAME, TYPE AUTHOR'S POSTAL ADDRESS; Email, TYPE CORRESPONDING AUTHOR'S EMAIL ADDRESS; Phone, TYPE CORRESPONDING AUTHOR'S PHONE NUMBER}
+
+
+\begin{abstract}
+%% Text of abstract
+Type your abstract here  
+\end{abstract}
+
+
+\begin{keyword}
+%% keywords here, in the form: keyword \sep keyword.  You may use no more than 10 keywords.
+Keyword 1 \sep Keyword 2 \sep Keyword 3
+\end{keyword}
+
+\end{frontmatter}
+
+%% Do not remove the page break here.
+\pagebreak
+
+\linenumbers
+
+%% MAIN TEXT INSTRUCTIONS
+
+%% For all sections, subsections, and subsubsections, use the '*' to remove numbering, as demonstrated below.
+
+%% Commands for figures and tables should not be included in the main body of the submitted version of this file (e.g. the figure and tabular environments).  Figure captions should be listed in this file, as shown below.  Tables and Table captions should be listed as a separate section at the end of this file, as shown below.  Many authors may wish to include figures and tables within the main text of their document will preparing their manuscript.  This may be done, however please comment out any of the lines prior to submission.
+
+%% Because the Elsevier editorial process does not allow for the figure and tabular environments in the submitted document, you will be unable to use autonumbering (i.e. \label and \ref) for figures and tables. 
+
+%%  If long equations are used in the document, authors should use a two column format to make sure that the equations will break at approximately the right places.  To do this, replace the class option 'review' with the following two class options '3p' and 'twocolumn'.  Keep in mind that the column width produced in '3p' is slightly narrower than the final printer version.  After inserting the appropriate line breaks in your equation, change the '3p' option back to 'review'.
+
+%% For citations, use the commands \citep and \citet
+
+%% BEGIN MAIN TEXT
+
+%%%%%%%%%%% INTRODUCTION
+\section*{Introduction}
+\label{intro}
+This template has been created to aid authors submitting LaTeX created manuscripts to the journal Ultrasound in Medicine and Biology.  Below, suggested sections for your article have been included.  It is up to the discretion of the authors to add or modify any of the section headings.  
+
+%%%%%%%%%%% MATERIALS AND METHODS
+\section*{Materials and Methods}
+\label{MaM}
+The quick brown fox jumps over the lazy dog.
+      
+\subsection*{Sample Subsection}
+The quick brown fox jumps over the lazy dog.
+
+\subsection*{Sample Subsection 2}      
+The quick brown fox jumps over the lazy dog.        
+
+%%%%%%%%%%% Results
+\section*{Results}
+\label{Results}
+The quick brown fox jumps over the lazy dog.
+
+%%%%%%%%%%% DISCUSSION
+\section*{Discussion}
+\label{Discuss}
+The quick brown fox jumps over the lazy dog.
+
+%%%%%%%%%%% Conclusions
+\section*{Conclusions}
+\label{Conclusions}
+The quick brown fox jumps over the lazy dog.
+
+        
+%%%%%%%%%%% ACKNOWLEDGEMENTS
+\section*{Acknowledgements}
+\label{Ack}
+Type in any acknowledgements here.  If there are no acknowledgments, please delete or comment out this section.
+
+
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% \section*{}
+%% \label{}
+
+
+%%%%%%%%%%% REFERENCES
+%% REFERENCE FORMATTING INSTRUCTIONS
+
+%% All bibliography information should be included using a 'thebibliography' environment.  Most authors will find it easiest to create a .bbl file using the commands \bibliographystyle{} and \bibliography{} and then copy and paste the contents of the .bbl file into the .tex file below, but before the figure captions section.  Examples for using the \bibliographystyle and \bibliography commands are listed below.  
+
+%% Do not remove the page break here.
+\pagebreak
+
+%% References with bibTeX database, use this to create a .bbl file
+%\bibliographystyle{UMB-elsarticle-harvbib}
+%\bibliography{FILENAME_OF_YOUR_BIBTEX_DATABASE}
+
+%% References copied and pasted from the .bbl file.  Copy and paste over the following two lines.  When using a bibTeX database to create a .bbl file, comment out the following two lines.
+\begin{thebibliography}{00}
+\end{thebibliography}
+
+%%%%%%%%%%% FIGURE CAPTIONS
+
+%% Include only the figure captions here (not the figures).  Figures are uploaded separately in the online Elsevier Editorial Submission process.
+
+%% Do not remove the page break here.
+\pagebreak
+
+\section*{Figure Captions}
+
+\begin{description}
+\item[Figure 1:]  TYPE THE CAPTION FOR FIGURE ONE HERE.
+\item[Figure 2:]  TYPE THE CAPTION FOR FIGURE TWO HERE.
+\item[Figure 3:]  TYPE THE CAPTION FOR FIGURE ONE HERE.  CONTINUE THIS LIST FOR ALL OTHER CAPTIONS
+\end{description}
+
+%%%%%%%%%%% TABLES AND TABLE CAPTIONS
+
+%% Both tables and table captions should be included below.  Captions should appear above the table, as shown below. If users want to use multirow.sty, array.sty, etc., to fine control/enhance the tables, they are welcome to load any package of their choice and the elsearticle.cls should work in combination with all loaded packages.  For problems with loaded packages please contact: elsarticle@river-valley.com (the developers of the elsarticle document class) or support@elsevier.com (Elsevier customer support).
+
+%% Since the tabular format is often difficult to work with for complex tables, authors may also choose to create their tables with another program.  Each table and it's corresponding caption should then be saved as a pdf.  Each pdf should then be uploaded separately during the online submission process.  If doing so, all of the text below concerning tables and table captions should be commented out.
+
+%% If no tables are part of the manuscript, comment out or delete this entire section.
+
+%% Do not remove the page break here.
+\pagebreak
+
+\section*{Tables}
+
+\begin{description}
+\item[Table 1:]  TYPE THE CAPTION FOR TABLE ONE HERE. \\
+
+\begin{tabular}{|c||ccc||r|}
+	\hline
+\textbf{\em k}  &  $x_1^k$    &   $x_2^k$  & $x_3^k$ & remarks    \\
+	\hline \hline
+0   & -0.30000000 & 0.60000000 & ~0.70000000 & $x^0$ \\
+1   & ~0.47102965 & 0.04883157 & -0.53345964 &   \\
+2   & ~0.49988691 & 0.00228830 & -0.52246185 &   \\
+3   & ~0.49999976 & 0.00005380 & -0.52365600 & $\epsilon<\delta$ \\
+4   & ~0.50000000 & 0.00000307 & -0.52359743 & ($\forall n>N$) \\
+	\hline
+7   & ~0.50000000 & 0.00000000 & -0.52359878 & $\epsilon\ll\zeta$ \\
+	\hline
+\end{tabular} \\
+
+
+\item[Table 2:]  TYPE THE CAPTION FOR TABLE TWO HERE. 
+
+\begin{tabular}{|l|l|l|} \hline
+\multicolumn{3}{|c|}{Heading} \\ \hline
+\multirow{3}{*}{Row 1} & subtopic 1 & Result A \\
+& subtopic 2 & Result B \\
+& subtopic 3 & Result C \\ \hline
+\multirow{4}{*}{Row 2} & subtopic 1 & Result D \\ 
+& subtopic 2 & Result E \\
+& subtopic 3 & Result F \\ 
+& subtopic 4 & Result G \\ \hline
+\end{tabular} \\
+
+\end{description}
+
+%%%%%%%%%%% VIDEO CAPTIONS
+
+%% If submitting video's as a supplement to the manuscript, include only the video captions here (not the figures).  Videos are uploaded separately in the online Elsevier Editorial Submission process.  If videos are not included, comment out this section.
+
+%% Do not remove the page break here.
+\pagebreak
+
+\section*{Video Captions}
+
+\begin{description}
+\item[Figure 1:]  TYPE THE CAPTION FOR VIDEO ONE HERE.
+\item[Figure 2:]  TYPE THE CAPTION FOR VIDEO TWO HERE.
+\item[Figure 3:]  TYPE THE CAPTION FOR VIDEO ONE HERE.  CONTINUE THIS LIST FOR ALL OTHER CAPTIONS
+\end{description}
+
+
+
+\end{document}
