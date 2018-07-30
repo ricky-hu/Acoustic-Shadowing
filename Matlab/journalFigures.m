@@ -383,7 +383,7 @@ shadowsScaledF = imresize(shadowsF, [rows cols]);
 %cutting off blackfill, looks like it goes 150 pixels on left and right and
 %75 pixels from top to bottom
 %
-pngName = 'uasd_3_l_rjoint_1_1.png'
+pngName = 'uasd_3_l_rjoint_1_1.png';
 im = imread(pngName);
 
 imCropped  = im(75:500, 190:480);
@@ -402,19 +402,21 @@ shadowsScaled = imresize(shadows, [rows cols]);
 
 figure(6)
 subplot(2,2,1)
-imagesc(imCropped);
-colormap(gca,'gray');
-green = cat(3, zeros(size(imCropped)), ones(size(imCropped)), zeros(size(imCropped)));
-red = cat(3, ones(size(imCropped)), zeros(size(imCropped)), zeros(size(imCropped)));
-hold on
-h = imagesc(green);
-hold off
-set(h, 'AlphaData', (~manualScaled)/6);
-hold on
-r = imagesc(red);
-hold off
+% imagesc(imCropped);
 shadowsScaled(237:270,146:193) = 0;
-set(r, 'AlphaData', (~shadowsScaled)/4);
+colormap(gca,'gray');
+fuse6a = imfuse(imCropped, ~shadowsScaled, 'blend');
+imagesc(fuse6a);
+% green = cat(3, zeros(size(imCropped)), ones(size(imCropped)), zeros(size(imCropped)));
+% red = cat(3, ones(size(imCropped)), zeros(size(imCropped)), zeros(size(imCropped)));
+% hold on
+% h = imagesc(green);
+% hold off
+% set(h, 'AlphaData', (~manualScaled)/6);
+% hold on
+% r = imagesc(red);
+% hold off
+% set(r, 'AlphaData', (~shadowsScaled)/4);
 title('A) Radial Joint, Linear Transducer')
 [x y] = size(imCropped);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
@@ -422,20 +424,22 @@ set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [
 ylabel('Depth (cm)');
 
 subplot(2,2,2)
-imagesc(imCroppedF);
+% imagesc(imCroppedF);
 colormap(gca,'gray');
-green = cat(3, zeros(size(imCroppedF)), ones(size(imCroppedF)), zeros(size(imCroppedF)));
-red = cat(3, ones(size(imCroppedF)), zeros(size(imCroppedF)), zeros(size(imCroppedF)));
-hold on
-h = imagesc(green);
-hold off
-set(h, 'AlphaData', (manualScaledF)/6);
-hold on
-r = imagesc(red);
-hold off
-set(r, 'AlphaData', (~shadowsScaledF)/4);
+fuse6b = imfuse(imCroppedF, ~shadowsScaledF, 'blend');
+imagesc(fuse6a);
+% green = cat(3, zeros(size(imCroppedF)), ones(size(imCroppedF)), zeros(size(imCroppedF)));
+% red = cat(3, ones(size(imCroppedF)), zeros(size(imCroppedF)), zeros(size(imCroppedF)));
+% hold on
+% h = imagesc(green);
+% hold off
+% set(h, 'AlphaData', (manualScaledF)/6);
+% hold on
+% r = imagesc(red);
+% hold off
+% set(r, 'AlphaData', (~shadowsScaledF)/4);
 title('b) Forearm, Linear Transducer')
-[x y] = size(imCropped);
+[x y] = size(imCroppedF);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
@@ -444,16 +448,18 @@ ylabel('Depth (cm)');
 subplot(2,2,3)
 imagesc(imCScaled);
 colormap(gca,'gray');
-green = cat(3, zeros(size(imCScaled)), ones(size(imCScaled)), zeros(size(imCScaled)));
-red = cat(3, ones(size(imCScaled)), zeros(size(imCScaled)), zeros(size(imCScaled)));
-hold on
-h = imagesc(green);
-hold off
-set(h, 'AlphaData', (ph_sc_m)/6);
-hold on
-r = imagesc(red);
-hold off
-set(r, 'AlphaData', (ph_sc_a)/4);
+fuse6C = imfuse(imCScaled, ph_sc_a, 'blend');
+imagesc(fuse6C);
+% green = cat(3, zeros(size(imCScaled)), ones(size(imCScaled)), zeros(size(imCScaled)));
+% red = cat(3, ones(size(imCScaled)), zeros(size(imCScaled)), zeros(size(imCScaled)));
+% hold on
+% h = imagesc(green);
+% hold off
+% set(h, 'AlphaData', (ph_sc_m)/6);
+% hold on
+% r = imagesc(red);
+% hold off
+% set(r, 'AlphaData', (ph_sc_a)/4);
 title('c) Ribcage, Curvilinear Transducer')
 [x y] = size(imCScaled);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
@@ -519,16 +525,18 @@ ph_sc_m = sc.ScanConvert(manualCScaled);
 subplot(2,2,4)
 imagesc(imCScaled);
 colormap(gca,'gray');
-green = cat(3, zeros(size(imCScaled)), ones(size(imCScaled)), zeros(size(imCScaled)));
-red = cat(3, ones(size(imCScaled)), zeros(size(imCScaled)), zeros(size(imCScaled)));
-hold on
-h = imagesc(green);
-hold off
-set(h, 'AlphaData', (ph_sc_m)/6);
-hold on
-r = imagesc(red);
-hold off
-set(r, 'AlphaData', (ph_sc_a)/900);
+fuse6d = imfuse(imCScaled, ph_sc_a, 'blend');
+imagesc(fuse6d);
+% green = cat(3, zeros(size(imCScaled)), ones(size(imCScaled)), zeros(size(imCScaled)));
+% red = cat(3, ones(size(imCScaled)), zeros(size(imCScaled)), zeros(size(imCScaled)));
+% hold on
+% h = imagesc(green);
+% hold off
+% set(h, 'AlphaData', (ph_sc_m)/6);
+% hold on
+% r = imagesc(red);
+% hold off
+% set(r, 'AlphaData', (ph_sc_a)/900);
 title('d) Forearm, Curvilinear Transducer')
 [x y] = size(imCScaled);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
@@ -543,10 +551,134 @@ set(gcf,'color','white');
 % this was more simply done by running the detectShadowsEntropy script
 % rather than pasting everything here
 
-% figure 9, looking closely at shadow region
-im9a = imread('uasd_9_l_rjoint_1_cropped.png');
+% figure 8, shadows from entropy method
+
+shadowsCR = detectShadowsEntropy('uasd_6_c_r_1_cropped.png');
+im8CR = imread('uasd_6_c_r_1_cropped.png');
+
+shadowsCRj = detectShadowsEntropy('uasd_5_c_rjoint_1_cropped.png');
+im8CRj = imread('uasd_5_c_rjoint_1_cropped.png');
+
+shadowsLRj = detectShadowsEntropy('uasd_6_l_rjoint_1_cropped.png');
+im8LRj = imread('uasd_6_l_rjoint_1_cropped.png');
+
+shadowsLFa = detectShadowsEntropy('uasd_9_l_farm_1_cropped.png');
+im8LFa = imread('uasd_9_l_farm_1_cropped.png');
+
+figure(8)
+subplot(2,2,1)
+fuseLRj = imfuse(~shadowsLRj, im8LRj, 'blend');
+imagesc(fuseLRj);
+colormap('gray');
+title('a) Radial joint, Linear Transducer')
+[x y] = size(fuseLRj);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+subplot(2,2,2)
+fuseLFa = imfuse(~shadowsLFa, im8LFa, 'blend');
+imagesc(fuseLFa);
+colormap('gray');
+title('b) Forearm, Linear Transducer')
+[x y] = size(fuseLFa);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+subplot(2,2,3)
+fuseCR = imfuse(~shadowsCR, im8CR, 'blend');
+imagesc(fuseCR);
+colormap('gray');
+title('c) Ribcage, Curvilinear Transducer')
+[x y] = size(fuseCR);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+subplot(2,2,4)
+fuseCRj = imfuse(~shadowsCRj, im8CRj, 'blend');
+imagesc(fuseCRj);
+colormap('gray');
+title('d) Radial joint, Curvilinear Transducer')
+[x y] = size(fuseCRj);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+set(gcf,'color','white');
+
+% figure 9 comparing RF and Entropy analysis
+% using images from figure 7 for comparison
+imName = 'pngs\uasd_3_l_rjoint_1_cropped.png';
+
+
+
+shadowsB = detectShadowsEntropy('uasd_3_l_rjoint_1_cropped.png');
+im9B = imread('uasd_3_l_rjoint_1_cropped.png');
+
+shadowsC = detectShadowsEntropy('uasd_3_l_rjoint_1_50_cropped.png');
+im9C = imread('uasd_3_l_rjoint_1_50_cropped.png');
+
+shadowsD = detectShadowsEntropy('uasd_3_l_rjoint_1_100_cropped.png');
+im9D = imread('uasd_3_l_rjoint_1_50_cropped.png');
 
 figure(9)
+subplot(2,2,1)
+% imagesc(imCropped);
+colormap(gca,'gray');
+fuse6a = imfuse(imCropped, ~shadowsScaled, 'blend');
+imagesc(fuse6a);
+title('a) RF Detection')
+[x y] = size(imCropped);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+ylabel('Depth (cm)');
+
+clims = [0 255];
+
+subplot(2,2,2)
+fuse9B = imfuse(~shadowsB, im9B, 'diff');
+imagesc(fuse9B, clims);
+colormap('gray');
+title('b) B-Mode Detection, 50% gain')
+[x y] = size(fuse9B);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+subplot(2,2,3)
+fuse9C = imfuse(~shadowsC, im9C, 'diff');
+imagesc(fuse9C, clims);
+colormap('gray');
+title('c) B-Mode Detection, 75% gain')
+[x y] = size(fuse9C);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+subplot(2,2,4)
+fuse9D = imfuse(~shadowsD, im9D, 'diff');
+imagesc(fuse9D, clims);
+colormap('gray');
+title('d) B-Mode Detection, 100% gain')
+[x y] = size(fuseCR);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+
+% figure 10, looking closely at shadow region
+im9a = imread('uasd_9_l_rjoint_1_cropped.png');
+
+figure(10)
 subplot(1,2,1)
 imagesc(im9a)
 colormap('gray');

@@ -12,7 +12,7 @@ n = 15;
 im = imread(imName);
 im = double(im);
 [imRows, imCols] = size(im);
-thresh = 2000;
+thresh = 30;
 
 % two cases - linear (easy, just look down vertical scanlines) and
 % curvilinear (trapezoidal mask required to interpolate scanlines)
@@ -24,6 +24,7 @@ if contains(imName, '_l_')
     im = im + 1;
     ent = zeros(imRows,imCols);
     
+    thresh = 155;
     % Applying low pass filter to image
 
     for col = 1:imCols
@@ -72,6 +73,11 @@ if contains(imName, '_l_')
         end
     end
 
+    figure(2)
+    c = imfuse(shadows, im, 'blend');
+    imagesc(c);
+    colormap('gray');
+    
 elseif contains(imName, '_c_')
     % looking for the "top corners" of the US image to build trapezoid
     % strategy is to capture the side "slopes" of the ringdo
@@ -231,19 +237,19 @@ elseif contains(imName, '_c_')
     end
 
     % visualizing
-    figure(1)
-    imagesc(im);
-    colormap('gray');
-    hold on;
-    % plot(scanlineX,scanlineY,'-r');
-    
-    % only plotting every 10 indices for visibility
-    i = 1;
-    while i <= numLines
-        plot([scanlineColStart(i) scanlineColEnd(i)], [scanlineRowStart(i) scanlineRowEnd(i)],  '-r');
-        i = i+10;
-    end
-    hold off;
+%     figure(1)
+%     imagesc(im);
+%     colormap('gray');
+%     hold on;
+%     % plot(scanlineX,scanlineY,'-r');
+%     
+%     % only plotting every 10 indices for visibility
+%     i = 1;
+%     while i <= numLines
+%         plot([scanlineColStart(i) scanlineColEnd(i)], [scanlineRowStart(i) scanlineRowEnd(i)],  '-r');
+%         i = i+10;
+%     end
+%     hold off;
     
     % building the matrix of scanlines for entropy analysis
     scanlineMatrix = zeros(imRows,numLines,2);
@@ -284,7 +290,7 @@ elseif contains(imName, '_c_')
     % scanline
     [scanlineRows, scanlineCols, uselessDummyVar] = size(scanlineMatrix);
     entropy = zeros(scanlineRows,scanlineCols);
-    
+    imNoThresh = im;
     % Applying low pass filter to image
     for col = 1:imCols
         for row = 1:imRows
@@ -330,7 +336,7 @@ elseif contains(imName, '_c_')
     % with the entropy computed, we perform a similar otsu thresholding to
     % build the shadow matrix
     
-    shadowsScanline = zeros(scanlineRows, scanlineCols);
+    shadowsScanline = ones(scanlineRows, scanlineCols);
     
     for col = 1:scanlineCols
         % looking at otsu's threshold at the scanline (doesn't make sense to do
@@ -343,6 +349,8 @@ elseif contains(imName, '_c_')
             % shadow
             if (entropy(row,col) > otsuThresh)
                 shadowsScanline(1:row,col) = 1;
+            else
+                shadowsScanline(row:end,col) = 0;
             end
         end
     end
@@ -352,23 +360,37 @@ elseif contains(imName, '_c_')
     %image
     
     [imRows, imCols] = size(im);
-    shadows = zeros(imRows,imCols);
+    shadows = ones(imRows,imCols);
     
     for scanlineColIndex = 1:scanlineCols
         for scanlineRowIndex = 1:scanlineRows
-            if (shadowsScanline(scanlineRowIndex, scanlineColIndex) == 1)
+            if (shadowsScanline(scanlineRowIndex, scanlineColIndex) == 0)
                 imRowIndex = scanlineMatrix(scanlineRowIndex,scanlineColIndex,1);
                 imColIndex = scanlineMatrix(scanlineRowIndex,scanlineColIndex,2);
                 if(imRowIndex ~= 0 || imColIndex ~= 0)
-                    shadows(imRowIndex,imColIndex) = 1;
+                    shadows(imRowIndex,imColIndex) = 0;
                 end
             end
         end
     end
     
+    % the shadows are a bit jagged because of the interpolation of the
+    % scanline, we can interpolate between the shadow/non shadow points to
+    % fill in the gaps
+    
+    [shadowRows shadowCols] = size(shadows);
+    for row = 1:shadowRows-2
+        for col = 1:shadowCols-2
+            if shadows(row,col+1) == 0 || shadows(row+1,col) == 0 || shadows(row+1,col+1) == 0 ... 
+                    || shadows(row,col+2) == 0 || shadows(row+2,col) == 0 || shadows(row+2,col+2) == 0
+                shadows(row,col) = 0;
+            end
+        end
+    end
+     
     %visualizing     
     figure(2)
-    c = imfuse(shadows, im, 'blend');
+    c = imfuse(~shadows, imNoThresh, 'diff');
     imagesc(c);
     colormap('gray');
 end
