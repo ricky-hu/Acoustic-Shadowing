@@ -22,10 +22,10 @@
 %% $Id: elsarticle-template-harv.tex 4 2009-10-24 08:22:58Z rishi $
 %%
 %% This template is based on the 'elsarticle-template-harv.tex', but has been modified for specific use with submissions to the journal Ultrasound in Medicine and Biology, June 2010, KJH
-%%
+%
 
 % Use this set of document class options for submission
-\documentclass[review,authoryear,12pt]{elsarticle}
+\documentclass[preprint,5p]{elsarticle}
 
 % Use this set of document class options to obtain an approximate 2 column view, note that this is primarily intended to allow authors to determine line breaks for long equations.  It is NOT meant to identically reproduce how the article would look in print.
 %\documentclass[3p,twocolumn,authoryear,12pt]{elsarticle}
@@ -142,20 +142,33 @@ Keyword 1 \sep Keyword 2 \sep Keyword 3
 %% BEGIN MAIN TEXT
 
 %%%%%%%%%%% INTRODUCTION
-\section*{Introduction}
+\section*{INTRODUCTION}
 \label{intro}
-This template has been created to aid authors submitting LaTeX created manuscripts to the journal Ultrasound in Medicine and Biology.  Below, suggested sections for your article have been included.  It is up to the discretion of the authors to add or modify any of the section headings.  
+Ultrasound devices have become increasingly affordable and portable, encouraging applications such as point-of-care ultrasound, novice usage, and data collection for machine learning. However, ultrasound is susceptible to unique artifacts that increase the difficult of interpretation and processing of images. One artifact is an acoustic shadow, which occurs when an ultrasound wave propagates from the transducer to a boundary of two materials with high impedance differences. The wave is almost completely reflected and beyond the boundary is a continuous dark region and a total loss of anatomical features. Acoustic shadows occur in air-tissue, tissue-bone, and tissue-lesion interfaces. Shadows can aid interpretation, such as identifying the presence of a gall stones or spinal level. However, shadows, such as from poor transducer contact, can lead to misinterpretation of anatomy, particularly by novice users and automated processing algorithms. Thus, the identification of shadows is an important preprocessing step in many applications.
+
+Several methods have been used in literature to detect shadows. Geometric techniques model the path of an ultrasound signal for an expected image along the scanline using a random walk. Regions are then flagged as a shadow if a pixel is below a confidence threshold. However, geometric techniques require knowledge of the ultrasound transducer properties to assign weights to a random walk, such as the focal length, radius of curvature, and thickness. The technique would be cumbersome to implement across different ultrasound machines, especially if the source of the ultrasound images are unknown. This reduces the data available for machine learning applications and requires accurate transducer parameter labels for each image.
+
+Pixel intensity methods ignore the properties of the transducer an analyze only the graphical properties of the image. Shadows have been detected on brain images by analyzing the entropy along a scanline to flag pixels of sudden low intensity as a potential shadow. The technique achieved a comparable Dice similarity coefficient as geometric methods but require specific thresholding, window sizing, filtering, and image mask parameterization for different anatomy. This method would be unfeasible in a clinical setting, particularly for novice users or point-of-care applications, as parameterization requires image processing expertise.
+
+Machine learning methods have gained significant interest in medical imaging analysis although to our knowledge, no machine learning method has demonstrated capability of detecting shadows from multiple anatomy. Deep learning methods have been demonstrated to identify features in a common image set that contains a shadow, such as neuroanatomical regions in cranial scan or spinal levels in a posterior scan. Although machine learning has the potential of providing automated feature recognition in multiple applications, a large data set is required for an algorithm to recognize certain features. Ultrasound imaging is highly variable due to unique artifacts, operator technique, and equipment. In addition, shadows occur in various anatomy. Previous techniques focus on a single anatomical region and training data was from a consistent imaging scenario. However, it is difficult to construct a training data set with the generality required to recognize shadows in different scenarios usable for a variety of ultrasound applications.
+
+We present a method utilizing radiofrequency (RF) or brightness-mode (B-mode) data that can detect shadows from multiple anatomy or transducers with minimum user configuration required. 
 
 %%%%%%%%%%% MATERIALS AND METHODS
-\section*{Materials and Methods}
+\section*{METHODS}
 \label{MaM}
-The quick brown fox jumps over the lazy dog.
-      
-\subsection*{Sample Subsection}
-The quick brown fox jumps over the lazy dog.
+     
+\subsection*{Data Collection}
+Ultrasound RF and B-mode data was acquired by scanning 37 adult participants with informed written consent, approved by the University of British Columbia Research Ethics Board (Study ID: H18-01199). The scans included a forearm scan near the distal end of the pronator quadratus, an elbow scan near the cubital fossa, and a rib scan on the anterior surface of right ribs 11-12. Each scan was taken with both a curvilinear (C5-2/60, Ultrasonix, Canada) and linear (L14-5/37, Ultrasonix, Canada) transducer. Different transducer settings were used for each anatomical region and transducer, summarized in Table 1. The experiment was designed to generate a dataset from various imaging scenarios to validate the versatility of the shadow detection method.
 
-\subsection*{Sample Subsection 2}      
-The quick brown fox jumps over the lazy dog.        
+\subsection*{Radiofrequency Speckle Analysis}      
+To detect shadows, patches of speckle was analyzed on the RF signal. Speckle occurs due to multiplicative scattering of acoustic waves in a material, resulting in a granular patch on the image. B-mode data commonly attempts to remove speckle, but speckle contains information of the acoustic interactions in tissue. Speckle can then characterize different regions, such as a region of tissue or a region of signal loss in a shadow.
+
+One of the first models for speckle is with a one-parameter Rayleigh distribution to model the probability density of a random walk. The Rayleigh is capable for modeling fully developed speckle, which does not occur when there is limited scattering. More generalized models have been applied such as the Rician, Homodyned K, and Nakagami distributions to characterize general speckle. Speckle has been leveraged to analyze features such as classifying tumorigenicity of breast lesions or levels of liver fibrosis. Shadow detection presents a simpler problem than comparing regions of similar tissue as a shadow and non-shadow region contain significantly different speckle patterns. Thus, the Nakagami distribution expressed in Eq. 1 was chosen to model speckle. The Nakagami distribution provides greater generality than the Rayleigh distribution while being more computationally efficient than the Rician or Homodyned K distributions.
+
+To detect shadows, the raw RF data was first processed by computing the echo envelope of each scanline with a Hilbert transform. An absolute logarithmic scale of the echo envelope was taken to generate an "RF Image", which is visually similar to B-mode without filtering to remove artifacts. Next,
+
+
 
 %%%%%%%%%%% Results
 \section*{Results}
