@@ -159,7 +159,22 @@ We present a method utilizing radiofrequency (RF) or brightness-mode (B-mode) da
 \label{MaM}
      
 \subsection*{Data Collection}
-Ultrasound RF and B-mode data was acquired by scanning 37 adult participants with informed written consent, approved by the University of British Columbia Research Ethics Board (Study ID: H18-01199). The scans included a forearm scan near the distal end of the pronator quadratus, an elbow scan near the cubital fossa, and a rib scan on the anterior surface of right ribs 11-12. Each scan was taken with both a curvilinear (C5-2/60, Ultrasonix, Canada) and linear (L14-5/37, Ultrasonix, Canada) transducer. Different transducer settings were used for each anatomical region and transducer, summarized in Table 1. The experiment was designed to generate a dataset from various imaging scenarios to validate the versatility of the shadow detection method.
+Ultrasound RF and B-mode data was acquired by scanning 37 adult participants with informed written consent, approved by the University of British Columbia Research Ethics Board (Study ID: H18-01199). The scans included a forearm scan near the distal end of the pronator quadratus, an elbow scan near the cubital fossa, and a rib scan on the anterior surface of right ribs 11-12. Each scan was taken with both a curvilinear (C5-2/60, Ultrasonix, Canada) and linear (L14-5/38, Ultrasonix, Canada) transducer. Different transducer settings were used for each anatomical region and transducer, summarized in Table 1. The experiment was designed to generate a dataset from various imaging scenarios to validate the versatility of the shadow detection method.
+
+
+\begin{table}[]
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\textbf{}                                                                                              & \textbf{Anatomy} & \textbf{Frequency} & \textbf{Depth} & \textbf{Gain} \\ \hline
+		\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Linear\\ Transducer\\ (L14-5/38)\end{tabular}}}     & Forearm          & 11.0MHz            & 5.0cm          & 50\%          \\ \cline{2-5} 
+		& Elbow            & 11.0MHz            & 5.0cm          & 40\%          \\ \cline{2-5} 
+		& Ribcage          & 5.0MHz             & 10.0cm         & 30\%          \\ \hline
+		\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Curvilinear\\ Transducer\\ (C5-2/60)\end{tabular}}} & Forearm          & 4.0MHz             & 5.0cm          & 50\%          \\ \cline{2-5} 
+		& Elbow            & 4.0MHz             & 5.0cm          & 40\%          \\ \cline{2-5} 
+		& Ribcage          & 3.3MHz             & 10.0cm         & 30\%          \\ \hline
+	\end{tabular}
+\end{table}
+
 
 \subsection*{Radiofrequency Speckle Analysis}      
 To detect shadows, patches of speckle was analyzed on the RF signal. Speckle occurs due to multiplicative scattering of acoustic waves in a material, resulting in a granular patch on the image. B-mode data commonly attempts to remove speckle, but speckle contains information of the acoustic interactions in tissue. Speckle can then characterize different regions, such as a region of tissue or a region of signal loss in a shadow.
@@ -168,12 +183,29 @@ One of the first models for speckle is with a one-parameter Rayleigh distributio
 
 To detect shadows, the raw RF data was first processed by computing the echo envelope of each scanline with a Hilbert transform. An absolute logarithmic scale of the echo envelope was taken to generate an "RF Image", which is visually similar to B-mode without filtering to remove artifacts. Next,
 
+\begin{figure}
+	\includegraphics[scale=0.5]{fig2.pdf}
+\end{figure}
 
-
+\begin{figure}
+	\includegraphics[scale=0.55]{fig1.pdf}
+\end{figure}
 %%%%%%%%%%% Results
 \section*{Results}
 \label{Results}
-The quick brown fox jumps over the lazy dog.
+
+\begin{table}[]
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{}                                                                                 &         & \textbf{RF Speckle} & \textbf{Entropy Thresholding} \\ \hline
+		\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Linear\\ Transducer\\ (L14-5/38)\end{tabular}} & Forearm & x                   & x                             \\ \cline{2-4} 
+		& Elbow   & x                   & x                             \\ \cline{2-4} 
+		& Ribcage & x                   & x                             \\ \hline
+		\multirow{3}{*}{Curvilinear Transducer}                                                   & Forearm & x                   & x                             \\ \cline{2-4} 
+		& Elbow   & x                   & x                             \\ \cline{2-4} 
+		& Ribcage & x                   & x                             \\ \hline
+	\end{tabular}
+\end{table}
 
 %%%%%%%%%%% DISCUSSION
 \section*{Discussion}

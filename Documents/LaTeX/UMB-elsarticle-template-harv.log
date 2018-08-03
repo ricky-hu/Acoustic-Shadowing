@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  31 JUL 2018 16:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  2 AUG 2018 17:13
 entering extended mode
 **./UMB-elsarticle-template-harv.tex
 (UMB-elsarticle-template-harv.tex
@@ -332,76 +332,116 @@ Underfull \hbox (badness 1867) in paragraph at lines 123--123
 
 
 ]
-Overfull \hbox (9.44482pt too wide) in paragraph at lines 167--168
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 165.
+
+
+Overfull \hbox (18.75592pt too wide) in paragraph at lines 166--176
+[][] 
+ []
+
+
+Overfull \hbox (9.44482pt too wide) in paragraph at lines 182--183
 []\OT1/cmr/m/n/10 One of the first mod-els for speckle is with a one-parameter
  []
 
 
-Overfull \hbox (2.08377pt too wide) in paragraph at lines 167--168
+Overfull \hbox (2.08377pt too wide) in paragraph at lines 182--183
 \OT1/cmr/m/n/10 par-ing re-gions of sim-i-lar tis-sue as a shadow and non-shado
 w
  []
 
 
-Overfull \hbox (4.8801pt too wide) in paragraph at lines 167--168
+Overfull \hbox (4.8801pt too wide) in paragraph at lines 182--183
 \OT1/cmr/m/n/10 re-gion con-tain sig-nif-i-cantly dif-fer-ent speckle pat-terns
 . Thus,
  []
 
+<fig2.pdf, id=16, 518.93875pt x 388.45125pt>
+File: fig2.pdf Graphic file (type pdf)
+<use fig2.pdf>
+Package pdftex.def Info: fig2.pdf  used on input line 187.
+(pdftex.def)             Requested size: 259.46873pt x 194.22514pt.
 
-Package natbib Warning: Empty `thebibliography' environment on input line 217.
-
-[2]
-Overfull \hbox (12.84076pt too wide) in paragraph at lines 248--249
-[]\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR TA-BLE ONE HERE. 
+Overfull \hbox (7.46873pt too wide) in paragraph at lines 187--188
+[][] 
  []
 
+<fig1.pdf, id=17, 479.7925pt x 635.37375pt>
+File: fig1.pdf Graphic file (type pdf)
+<use fig1.pdf>
+Package pdftex.def Info: fig1.pdf  used on input line 191.
+(pdftex.def)             Requested size: 263.88667pt x 349.45663pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
-
- []
-
-
-Overfull \hbox (35.22766pt too wide) in paragraph at lines 250--263
+Overfull \hbox (11.88667pt too wide) in paragraph at lines 191--192
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--263
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 197.
+
+
+Overfull \hbox (101.67445pt too wide) in paragraph at lines 198--208
+[][] 
+ []
+
+[2 <./fig2.pdf> <./fig1.pdf>]
+
+Package natbib Warning: Empty `thebibliography' environment on input line 250.
+
+[3]
+Overfull \hbox (12.84076pt too wide) in paragraph at lines 281--282
+[]\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR TA-BLE ONE HERE. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 281--282
 
  []
 
 
-Overfull \hbox (15.75742pt too wide) in paragraph at lines 265--266
+Overfull \hbox (35.22766pt too wide) in paragraph at lines 283--296
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 283--296
+
+ []
+
+
+Overfull \hbox (15.75742pt too wide) in paragraph at lines 298--299
 []\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR TA-BLE TWO HERE. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 267--277
+Underfull \hbox (badness 10000) in paragraph at lines 300--310
 
  []
 
-[3]
-Overfull \hbox (17.2366pt too wide) in paragraph at lines 290--291
+[4]
+Overfull \hbox (17.2366pt too wide) in paragraph at lines 323--324
 []\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR VIDEO ONE HERE. 
  []
 
 
-Overfull \hbox (17.2366pt too wide) in paragraph at lines 292--293
+Overfull \hbox (17.2366pt too wide) in paragraph at lines 325--326
 []\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR VIDEO ONE HERE.
  []
 
-[4
+[5
 
 ] (UMB-elsarticle-template-harv.aux) ) 
 Here is how much of TeX's memory you used:
- 3088 strings out of 493305
- 44157 string characters out of 3127192
- 114741 words of memory out of 3000000
- 6582 multiletter control sequences out of 15000+200000
+ 3098 strings out of 493305
+ 44323 string characters out of 3127192
+ 123741 words of memory out of 3000000
+ 6590 multiletter control sequences out of 15000+200000
  12688 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,8n,30p,1086b,213s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,15n,30p,1086b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/rickyhu.stu/AppData/Local/Progr
 ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/rickyhu.stu/
 AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><
@@ -421,9 +461,9 @@ msfonts/cm/cmsy7.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/rickyhu.stu/AppData/Local/Pro
 grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/rickyhu.stu
 /AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on UMB-elsarticle-template-harv.pdf (4 pages, 182113 bytes).
+Output written on UMB-elsarticle-template-harv.pdf (5 pages, 1703751 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
+ 102 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
