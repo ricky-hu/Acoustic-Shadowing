@@ -75,7 +75,7 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{A template for \LaTeX ~submissions to the journal Ultrasound in Medicine and Biology}
+\title{Acoustic Shadow Detection From Scanline Statistics of B-Mode or Radiofrequency Ultrasound Images}
 
 
 %% Authors and addresses/affiliations
@@ -100,24 +100,23 @@
 %% \address[label1]{<address>}
 %% \address[label2]{<address>}
 
-\author[Affil1]{First Author}
-\author[Affil2]{Second Author}
-\author[Affil1]{Third/Corresponding Author \corref{cor1}}
-\address[Affil1]{Affiliation address 1}
-\address[Affil2]{Affiliation address 2}
+\author[Affil1]{Ricky Hu}
+\author[Affil2]{Rohit Singla}
+\author[Affil1]{Farah Deeba \corref{cor1}}
+
+\address[Affil1]{Robotics and Control Laboratory, Department of Electrical and Computer Engineering, University of British Columbia, Vancouver, Canada}
 % Replace capitalized text with the appropriate information (use standard capitalization rules for your text, not all capitals.
-\cortext[cor1]{Corresponding Author: AUTHOR'S NAME, TYPE AUTHOR'S POSTAL ADDRESS; Email, TYPE CORRESPONDING AUTHOR'S EMAIL ADDRESS; Phone, TYPE CORRESPONDING AUTHOR'S PHONE NUMBER}
+\cortext[cor1]{Corresponding Author: Ricky Hu, Robotics and Control Laboratory, University of British Columbia, Room 3090, 2332 Main Mall, Vnacouver, BC, Canada V6T 1Z4.  Email: rhu@ece.ubc.ca}
 
 
 \begin{abstract}
-%% Text of abstract
-Type your abstract here  
+An acoustic shadow is an ultrasound image artifact that occurs in boundaries between significantly different material, such as tissue-bone or air-tissue boundaries, resulting in a continuous dark region on the image. Detection of shadow is important as shadows can identify anatomical features or may obscure regions of interests and images may be misinterpreted. A shadow detection method was developed by analyzing the statistics of patches of radiofrequency (RF) data. A second method was developed for brightness-mode (B-mode) images if RF data is unavailable by analyzing the cumulative entropy along interpolated scanline paths. Both methods utilized adaptive thresholding, needing only the pulse width of the transducer as an input parameter for easy utilization by different operators or equipment. Dice coefficients of X and X were obtained for the RF and B-mode methods, which is within range of the gold standard of manual detection on two different transducers and three different imaging locations. The results indicate that the methods are able to detect shadows with high versatility in different imaging scenarios. The method has the potential to aid interpretation of ultasound images or serve as an important pre-processing step for machine learning methods.
 \end{abstract}
 
 
 \begin{keyword}
 %% keywords here, in the form: keyword \sep keyword.  You may use no more than 10 keywords.
-Keyword 1 \sep Keyword 2 \sep Keyword 3
+Acoustic Shadow \sep Ultrasound \sep Speckle
 \end{keyword}
 
 \end{frontmatter}
@@ -177,27 +176,60 @@ Ultrasound RF and B-mode data was acquired by scanning 37 adult participants wit
 
 
 \subsection*{Radiofrequency Speckle Analysis}      
-To detect shadows, patches of speckle was analyzed on the RF signal. Speckle occurs due to multiplicative scattering of acoustic waves in a material, resulting in a granular patch on the image. B-mode data commonly attempts to remove speckle, but speckle contains information of the acoustic interactions in tissue. Speckle can then characterize different regions, such as a region of tissue or a region of signal loss in a shadow.
+To detect shadows, patches of speckle was analyzed on the RF signal. Speckle occurs due to multiplicative scattering of acoustic waves in a material, resulting in a granular patch on the image. B-mode data commonly attempts to remove speckle, but speckle contains information of the acoustic interactions in tissue. Speckle can then characterize different regions, such as a region of tissue or a region of signal loss in a shadow. In addition, B-mode data can be manipulated by an operator to visually enhance an image, such as adjusting time-gain compensation or dynamic range. Thus, speckle analysis can provide a more robust shadow detection usable across different machines and operators.
 
-One of the first models for speckle is with a one-parameter Rayleigh distribution to model the probability density of a random walk. The Rayleigh is capable for modeling fully developed speckle, which does not occur when there is limited scattering. More generalized models have been applied such as the Rician, Homodyned K, and Nakagami distributions to characterize general speckle. Speckle has been leveraged to analyze features such as classifying tumorigenicity of breast lesions or levels of liver fibrosis. Shadow detection presents a simpler problem than comparing regions of similar tissue as a shadow and non-shadow region contain significantly different speckle patterns. Thus, the Nakagami distribution expressed in Eq. 1 was chosen to model speckle. The Nakagami distribution provides greater generality than the Rayleigh distribution while being more computationally efficient than the Rician or Homodyned K distributions.
+One of the first models for speckle is with a one-parameter Rayleigh distribution to model the probability density of a random walk. The Rayleigh is capable for modeling fully developed speckle, which does not occur when there is limited scattering. More generalized models have been applied such as the Rician, Homodyned-K, and Nakagami distributions to characterize general speckle. Speckle has been leveraged to analyze features such as classifying tumorigenicity of breast lesions or levels of liver fibrosis. Shadow detection presents a simpler problem than comparing regions of similar tissue as a shadow and non-shadow region contain significantly different speckle patterns. Thus, the Nakagami distribution expressed in Eq. 1 was chosen to model speckle. The Nakagami distribution provides greater generality than the Rayleigh distribution while being more computationally efficient than the Rician or Homodyned K distributions.
 
-To detect shadows, the raw RF data was first processed by computing the echo envelope of each scanline with a Hilbert transform. An absolute logarithmic scale of the echo envelope was taken to generate an "RF Image", which is visually similar to B-mode without filtering to remove artifacts. Next,
+\begin{equation}
+\Phi(x,\mu,\omega) = 2(\frac{\mu}{\omega})^{\mu}\frac{1}{\Gamma(\mu)}x^{(2\mu-1)}e^{\frac{-\mu}{\omega}x^{2}}
+\end{equation}
+
+Where $x$ is the RF intensity, $\mu$ is the shape parameter, $\omega$ is the scale parameter and $\Gamma(\mu)$ is the gamma distribution.
+
+To detect shadows, the raw RF data was first processed by computing the echo envelope of each scanline with a Hilbert transform. An absolute logarithmic scale of the echo envelope was taken to generate an "RF Image", which is visually similar to B-mode without filtering to remove artifacts. Next, the RF image was divided into overlapped patches with a width of a single RF data point and a length of three times the pulse width. This patch size was demonstrated in literature to be sufficiently large to capture multiple wavelengths and scattering events while being small enough to be useful in differentiating different regions on the millimeter scale. Next, the RF data in each patch was fit to a Nakagami distribution using a maximum likelihood estimate to compute the fitted Nakagami shape and scale parameters $\mu$ and $\omega$, producing a map of Nakagami parameter values for an image as shown in Fig. 1.
 
 \begin{figure}
 	\includegraphics[scale=0.5]{fig2.pdf}
 \end{figure}
 
-\begin{figure}
-	\includegraphics[scale=0.55]{fig1.pdf}
-\end{figure}
+Since the Nakagami distributions are significantly different for shadow regions with abundant speckle and non-shadow regions with minimal speckle, a simple automated thresholding scheme was used. Otsu's method was applied on the entire image to compute a threshold for the Nakagami parameters. Then, for each scanline, the deepest data point that is above the threshold is labeled as the shadow boundary and all data points below are labeled as a shadow.
+
+\subsection*{B-mode Scanline Analysis}
+
+Many ultrasound machines do not provide access to RF data needed for speckle analysis. Thus, we present a shadow detection method on B-mode images that addresses the need for usability across different equipment with minimum configuration. First, the cumulative scanline entropy is computed for each pixel, which is similar to the "Rupture Criterion" developed by Hellier et al., with the window size fixed as three times the pulse width, $\eta$, as defined in Eq. 2
+
+\begin{equation}
+S_{i,j} = \sum_{i=1}^{3\eta}I(i-1)log_{2}\frac{I(i-1)}{I(i+1)}+I(i+1)log_{2}\frac{I(i+1)}{I(i-1)}  \forall i \exists L
+\end{equation}
+
+Where $S_{i,j}$ is the cumulative entropy at pixel $i$ on scanline $j$, $\eta$ is the pulse width, $I(i)$ is the pixel intensity of pixel $i$, and $L$ is the set of scanline elements that are not the first or last element.
+
+Note that for linear images, tracking the scanlines is simple. For curvilinear images, the scanline paths were tracked by first capturing the slope of the lateral edges by following the ring-down regions. Ring-down is a consistent artifact that produces bright bands at the top of an image due to the fluid in the transducer reflecting a continuous signal. The scanlines were then interpolated between the slopes of the lateral edges.
+
+Next, Otsu's method is applied similarly to compute a threshold entropy value. The intuition of the threshold is different than in RF analysis. In RF analysis, the threshold separates patches of intense and minimal speckle. In B-mode analysis, the threshold separates pixels of a shadow boundary, which has high entropy, and pixels of non-boundaries, which include shadow and non-shadow regions. Thus, shadows can be identified by finding the last pixel on a scanline with an entropy higher than the threshold, representing a bright shadow boundary.
+
+
+
+\subsection*{Validation}
+
+A trained annotator manually outlined shadow regions on B-mode images. The manual regions were used as a gold standard, as manual identification is common in clinical practice and has been used in previous literature for comparison. A dice coefficient was computed to compare similarity of manual and automated shadow detection.
+
 %%%%%%%%%%% Results
 \section*{Results}
 \label{Results}
 
+Examples of detected shadows from both methods are highlighted in gray in Fig. 2 in different imaging scenarios.
+
+\begin{figure}
+	\includegraphics[scale=0.55]{fig1.pdf}
+\end{figure}
+
+The Dice coefficients for both methods for different anatomy and trasducers are shown in Table 2. 
+
 \begin{table}[]
 	\begin{tabular}{|l|l|l|l|}
 		\hline
-		\textbf{}                                                                                 &         & \textbf{RF Speckle} & \textbf{Entropy Thresholding} \\ \hline
+		\textbf{}                                                                                 &         & \textbf{RF} & \textbf{B-Mode} \\ \hline
 		\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Linear\\ Transducer\\ (L14-5/38)\end{tabular}} & Forearm & x                   & x                             \\ \cline{2-4} 
 		& Elbow   & x                   & x                             \\ \cline{2-4} 
 		& Ribcage & x                   & x                             \\ \hline
@@ -210,13 +242,14 @@ To detect shadows, the raw RF data was first processed by computing the echo env
 %%%%%%%%%%% DISCUSSION
 \section*{Discussion}
 \label{Discuss}
-The quick brown fox jumps over the lazy dog.
+Previous studies reported that the Dice coefficient between manual annotators recorded a mean of X . Every scenario detected from both methods achieved a Dice coefficient within the range of manual detection. This supports the versatility of the detection method as both methods are able to identify shadows across different anatomy and transducers with minimum configuration. 
+
+However, the inconsistency of manual detection presents two problems. One is that by using a subjective gold standard with Dice upper bound below 1.0, it is difficult to compare the performance of different algorithms. Secondly, the inconsistency of manually identified shadows reflect on the lack of a clear definition for a shadow. In images with a shadow, such as in Fig. 2 a), the shadow boundary of the radial joint appears as a bright arc. Looking closely at the scanline of the boundary, the pixels first increase in brightness and then decrease before becoming a clear, dark shadow. There is no consensus as to where the shadow begins, whether it is the brightness point on the scanline or when the signal drops below a threshold. Thus, there a limitation on validation and this work focused on improving the versatility and usability of shadow detection while maintaining similar accuracy as previous methods.
 
 %%%%%%%%%%% Conclusions
 \section*{Conclusions}
 \label{Conclusions}
-The quick brown fox jumps over the lazy dog.
-
+Two methods were developed for acoustic shadow detection requiring only the transducer pulse width as the input parameter. When comparing to manual detection, the methods achieved a Dice similarity coefficient above X for three different anatomical locations and two different transducers, indicating high similarity. The versatility of the shadow detection method has potential to improve the interpretation of ultrasound images with shadow artifacts or to serve as a pre-processing step for machine learning methods in the future.
         
 %%%%%%%%%%% ACKNOWLEDGEMENTS
 \section*{Acknowledgements}
@@ -275,40 +308,6 @@ Type in any acknowledgements here.  If there are no acknowledgments, please dele
 %% Do not remove the page break here.
 \pagebreak
 
-\section*{Tables}
-
-\begin{description}
-\item[Table 1:]  TYPE THE CAPTION FOR TABLE ONE HERE. \\
-
-\begin{tabular}{|c||ccc||r|}
-	\hline
-\textbf{\em k}  &  $x_1^k$    &   $x_2^k$  & $x_3^k$ & remarks    \\
-	\hline \hline
-0   & -0.30000000 & 0.60000000 & ~0.70000000 & $x^0$ \\
-1   & ~0.47102965 & 0.04883157 & -0.53345964 &   \\
-2   & ~0.49988691 & 0.00228830 & -0.52246185 &   \\
-3   & ~0.49999976 & 0.00005380 & -0.52365600 & $\epsilon<\delta$ \\
-4   & ~0.50000000 & 0.00000307 & -0.52359743 & ($\forall n>N$) \\
-	\hline
-7   & ~0.50000000 & 0.00000000 & -0.52359878 & $\epsilon\ll\zeta$ \\
-	\hline
-\end{tabular} \\
-
-
-\item[Table 2:]  TYPE THE CAPTION FOR TABLE TWO HERE. 
-
-\begin{tabular}{|l|l|l|} \hline
-\multicolumn{3}{|c|}{Heading} \\ \hline
-\multirow{3}{*}{Row 1} & subtopic 1 & Result A \\
-& subtopic 2 & Result B \\
-& subtopic 3 & Result C \\ \hline
-\multirow{4}{*}{Row 2} & subtopic 1 & Result D \\ 
-& subtopic 2 & Result E \\
-& subtopic 3 & Result F \\ 
-& subtopic 4 & Result G \\ \hline
-\end{tabular} \\
-
-\end{description}
 
 %%%%%%%%%%% VIDEO CAPTIONS
 
@@ -317,13 +316,7 @@ Type in any acknowledgements here.  If there are no acknowledgments, please dele
 %% Do not remove the page break here.
 \pagebreak
 
-\section*{Video Captions}
 
-\begin{description}
-\item[Figure 1:]  TYPE THE CAPTION FOR VIDEO ONE HERE.
-\item[Figure 2:]  TYPE THE CAPTION FOR VIDEO TWO HERE.
-\item[Figure 3:]  TYPE THE CAPTION FOR VIDEO ONE HERE.  CONTINUE THIS LIST FOR ALL OTHER CAPTIONS
-\end{description}
 
 
 

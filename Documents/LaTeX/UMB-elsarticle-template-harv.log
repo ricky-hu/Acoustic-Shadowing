@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  2 AUG 2018 17:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  3 AUG 2018 18:04
 entering extended mode
 **./UMB-elsarticle-template-harv.tex
 (UMB-elsarticle-template-harv.tex
@@ -312,48 +312,43 @@ G,.JBIG2,.JB2,.eps]
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 123.
+LaTeX Font Info:    Try loading font information for U+msa on input line 122.
 
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\ums
 a.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 123.
+LaTeX Font Info:    Try loading font information for U+msb on input line 122.
 
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\ums
 b.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 1867) in paragraph at lines 123--123
-\OT1/cmr/m/n/8 POSTAL AD-DRESS; Email, TYPE COR-RE-SPOND-ING AU-
- []
-
-[1{C:/Users/rickyhu.stu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+) [1{C:/Users/rickyhu.stu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 ]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 165.
+               Default added (so using `tbp') on input line 164.
 
 
-Overfull \hbox (18.75592pt too wide) in paragraph at lines 166--176
+Overfull \hbox (18.75592pt too wide) in paragraph at lines 165--175
 [][] 
  []
 
 
-Overfull \hbox (9.44482pt too wide) in paragraph at lines 182--183
+Overfull \hbox (9.44482pt too wide) in paragraph at lines 181--182
 []\OT1/cmr/m/n/10 One of the first mod-els for speckle is with a one-parameter
  []
 
 
-Overfull \hbox (2.08377pt too wide) in paragraph at lines 182--183
+Overfull \hbox (2.08377pt too wide) in paragraph at lines 181--182
 \OT1/cmr/m/n/10 par-ing re-gions of sim-i-lar tis-sue as a shadow and non-shado
 w
  []
 
 
-Overfull \hbox (4.8801pt too wide) in paragraph at lines 182--183
+Overfull \hbox (4.8801pt too wide) in paragraph at lines 181--182
 \OT1/cmr/m/n/10 re-gion con-tain sig-nif-i-cantly dif-fer-ent speckle pat-terns
 . Thus,
  []
@@ -361,109 +356,89 @@ Overfull \hbox (4.8801pt too wide) in paragraph at lines 182--183
 <fig2.pdf, id=16, 518.93875pt x 388.45125pt>
 File: fig2.pdf Graphic file (type pdf)
 <use fig2.pdf>
-Package pdftex.def Info: fig2.pdf  used on input line 187.
+Package pdftex.def Info: fig2.pdf  used on input line 192.
 (pdftex.def)             Requested size: 259.46873pt x 194.22514pt.
 
-Overfull \hbox (7.46873pt too wide) in paragraph at lines 187--188
+Overfull \hbox (7.46873pt too wide) in paragraph at lines 192--193
 [][] 
  []
 
-<fig1.pdf, id=17, 479.7925pt x 635.37375pt>
+[2]
+Overfull \hbox (24.89265pt too wide) detected at line 203
+$ \OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = [] \OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (
+\OML/cmm/m/it/10 i \OMS/cmsy/m/n/10   \OT1/cmr/m/n/10 1)\OML/cmm/m/it/10 log[][
+] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i \OT1/
+cmr/m/n/10 + 1)\OML/cmm/m/it/10 log[][]\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10 i\OMS
+/cmsy/m/n/10 9\OML/cmm/m/it/10 L$ []
+ []
+
+
+Overfull \hbox (22.30614pt too wide) in paragraph at lines 209--210
+\OT1/cmr/m/n/10 bound-ary, which has high en-tropy, and pix-els of non-boundari
+es,
+ []
+
+<fig1.pdf, id=25, 479.7925pt x 635.37375pt>
 File: fig1.pdf Graphic file (type pdf)
 <use fig1.pdf>
-Package pdftex.def Info: fig1.pdf  used on input line 191.
+Package pdftex.def Info: fig1.pdf  used on input line 224.
 (pdftex.def)             Requested size: 263.88667pt x 349.45663pt.
 
-Overfull \hbox (11.88667pt too wide) in paragraph at lines 191--192
+Overfull \hbox (11.88667pt too wide) in paragraph at lines 224--225
 [][] 
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 197.
+               Default added (so using `tbp') on input line 229.
 
 
-Overfull \hbox (101.67445pt too wide) in paragraph at lines 198--208
-[][] 
- []
-
-[2 <./fig2.pdf> <./fig1.pdf>]
-
-Package natbib Warning: Empty `thebibliography' environment on input line 250.
-
-[3]
-Overfull \hbox (12.84076pt too wide) in paragraph at lines 281--282
-[]\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR TA-BLE ONE HERE. 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 281--282
+Overfull \hbox (3.2226pt too wide) in paragraph at lines 247--248
+[]\OT1/cmr/m/n/10 However, the in-con-sis-tency of man-ual de-tec-tion presents
 
  []
 
+[3 <./fig2.pdf> <./fig1.pdf>]
 
-Overfull \hbox (35.22766pt too wide) in paragraph at lines 283--296
-[][] 
- []
+Package natbib Warning: Empty `thebibliography' environment on input line 283.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--296
-
- []
-
-
-Overfull \hbox (15.75742pt too wide) in paragraph at lines 298--299
-[]\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR TA-BLE TWO HERE. 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 300--310
-
- []
-
-[4]
-Overfull \hbox (17.2366pt too wide) in paragraph at lines 323--324
-[]\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR VIDEO ONE HERE. 
- []
-
-
-Overfull \hbox (17.2366pt too wide) in paragraph at lines 325--326
-[]\OT1/cmr/m/n/10 TYPE THE CAP-TION FOR VIDEO ONE HERE.
- []
-
-[5
+[4] [5
 
 ] (UMB-elsarticle-template-harv.aux) ) 
 Here is how much of TeX's memory you used:
- 3098 strings out of 493305
- 44323 string characters out of 3127192
- 123741 words of memory out of 3000000
- 6590 multiletter control sequences out of 15000+200000
- 12688 words of font info for 48 fonts, out of 3000000 for 9000
+ 3090 strings out of 493305
+ 44214 string characters out of 3127192
+ 121738 words of memory out of 3000000
+ 6584 multiletter control sequences out of 15000+200000
+ 11082 words of font info for 42 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,15n,30p,1086b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,15n,30p,1314b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/rickyhu.stu/AppData/Local/Progr
 ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/rickyhu.stu/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
+/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmmi10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi5.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/rickyhu.stu/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users
+/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mr12.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmr5.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/rickyhu.stu/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/rickyhu.s
+tu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><
 C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmmi10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/rickyhu.stu/AppData/Local/Program
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/rickyhu.stu/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Use
+nts/cm/cmsy10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/rickyhu.stu/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/rickyhu.stu/App
+Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Use
 rs/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr7.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/rickyhu.stu/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ricky
-hu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.p
-fb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmsy7.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/rickyhu.stu/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/rickyhu.stu
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on UMB-elsarticle-template-harv.pdf (5 pages, 1703751 bytes).
+/cmti10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmti7.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb>
+Output written on UMB-elsarticle-template-harv.pdf (5 pages, 1740281 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
+ 114 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
