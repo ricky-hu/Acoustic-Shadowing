@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  3 AUG 2018 18:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  7 AUG 2018 17:03
 entering extended mode
 **./UMB-elsarticle-template-harv.tex
 (UMB-elsarticle-template-harv.tex
@@ -187,36 +187,45 @@ Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
 \multirow@cntb=\count104
 \multirow@dima=\skip48
 \bigstrutjot=\dimen124
+)
+("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\float\float.
+sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count105
+\float@exts=\toks20
+\float@box=\box31
+\@float@everytoks=\toks21
+\@floatcapt=\box32
 ) (UMB-elsarticle-template-harv.aux)
 \openout1 = `UMB-elsarticle-template-harv.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
 
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-
 pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count105
+\scratchcounter=\count106
 \scratchdimen=\dimen125
-\scratchbox=\box31
-\nofMPsegments=\count106
-\nofMParguments=\count107
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count108
+\scratchbox=\box33
+\nofMPsegments=\count107
+\nofMParguments=\count108
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count109
 \MPscratchDim=\dimen126
-\MPnumerator=\count109
-\makeMPintoPDFobject=\count110
-\everyMPtoPDFconversion=\toks21
+\MPnumerator=\count110
+\makeMPintoPDFobject=\count111
+\everyMPtoPDFconversion=\toks23
 )
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\eps
 topdf-base.sty"
@@ -312,13 +321,13 @@ G,.JBIG2,.JB2,.eps]
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 122.
+LaTeX Font Info:    Try loading font information for U+msa on input line 116.
 
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\ums
 a.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 122.
+LaTeX Font Info:    Try loading font information for U+msb on input line 116.
 
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\ums
 b.fd"
@@ -327,118 +336,87 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 ]
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 164.
-
-
-Overfull \hbox (18.75592pt too wide) in paragraph at lines 165--175
-[][] 
+Overfull \hbox (11.36151pt too wide) in paragraph at lines 157--158
+[]\OT1/cmr/m/n/10 To ad-dress ex-ist-ing needs for ver-sa-tile de-tec-tion, a m
+ethod
  []
 
 
-Overfull \hbox (9.44482pt too wide) in paragraph at lines 181--182
+Overfull \hbox (9.44482pt too wide) in paragraph at lines 188--189
 []\OT1/cmr/m/n/10 One of the first mod-els for speckle is with a one-parameter
  []
 
-
-Overfull \hbox (2.08377pt too wide) in paragraph at lines 181--182
-\OT1/cmr/m/n/10 par-ing re-gions of sim-i-lar tis-sue as a shadow and non-shado
-w
- []
-
-
-Overfull \hbox (4.8801pt too wide) in paragraph at lines 181--182
-\OT1/cmr/m/n/10 re-gion con-tain sig-nif-i-cantly dif-fer-ent speckle pat-terns
-. Thus,
- []
-
-<fig2.pdf, id=16, 518.93875pt x 388.45125pt>
+<fig2.pdf, id=17, 518.93875pt x 388.45125pt>
 File: fig2.pdf Graphic file (type pdf)
 <use fig2.pdf>
-Package pdftex.def Info: fig2.pdf  used on input line 192.
+Package pdftex.def Info: fig2.pdf  used on input line 201.
 (pdftex.def)             Requested size: 259.46873pt x 194.22514pt.
 
-Overfull \hbox (7.46873pt too wide) in paragraph at lines 192--193
+Overfull \hbox (7.46873pt too wide) in paragraph at lines 201--202
 [][] 
  []
 
 [2]
-Overfull \hbox (24.89265pt too wide) detected at line 203
+Overfull \hbox (3.5308pt too wide) detected at line 211
 $ \OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = [] \OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (
 \OML/cmm/m/it/10 i \OMS/cmsy/m/n/10   \OT1/cmr/m/n/10 1)\OML/cmm/m/it/10 log[][
 ] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i \OT1/
-cmr/m/n/10 + 1)\OML/cmm/m/it/10 log[][]\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10 i\OMS
-/cmsy/m/n/10 9\OML/cmm/m/it/10 L$ []
+cmr/m/n/10 + 1)\OML/cmm/m/it/10 log[][]$ []
  []
 
-
-Overfull \hbox (22.30614pt too wide) in paragraph at lines 209--210
-\OT1/cmr/m/n/10 bound-ary, which has high en-tropy, and pix-els of non-boundari
-es,
- []
-
-<fig1.pdf, id=25, 479.7925pt x 635.37375pt>
+<fig1.pdf, id=26, 728.7225pt x 462.72874pt>
 File: fig1.pdf Graphic file (type pdf)
 <use fig1.pdf>
-Package pdftex.def Info: fig1.pdf  used on input line 224.
-(pdftex.def)             Requested size: 263.88667pt x 349.45663pt.
+Package pdftex.def Info: fig1.pdf  used on input line 250.
+(pdftex.def)             Requested size: 400.79861pt x 254.50159pt.
 
-Overfull \hbox (11.88667pt too wide) in paragraph at lines 224--225
-[][] 
- []
-
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 229.
-
-
-Overfull \hbox (3.2226pt too wide) in paragraph at lines 247--248
+Overfull \hbox (3.2226pt too wide) in paragraph at lines 259--260
 []\OT1/cmr/m/n/10 However, the in-con-sis-tency of man-ual de-tec-tion presents
 
  []
 
-[3 <./fig2.pdf> <./fig1.pdf>]
+[3 <./fig2.pdf>] (UMB-elsarticle-template-harv.bbl
+Underfull \hbox (badness 2253) in paragraph at lines 37--41
+\OT1/cmr/m/n/8 Kamel-ger FS, Schatzer R, Ploner F. Ul-tra-sound guid-ance
+ []
 
-Package natbib Warning: Empty `thebibliography' environment on input line 283.
-
-[4] [5
-
-] (UMB-elsarticle-template-harv.aux) ) 
+) [4 <./fig1.pdf>] (UMB-elsarticle-template-harv.aux) ) 
 Here is how much of TeX's memory you used:
- 3090 strings out of 493305
- 44214 string characters out of 3127192
- 121738 words of memory out of 3000000
- 6584 multiletter control sequences out of 15000+200000
+ 3207 strings out of 493305
+ 46144 string characters out of 3127192
+ 123331 words of memory out of 3000000
+ 6694 multiletter control sequences out of 15000+200000
  11082 words of font info for 42 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,15n,30p,1314b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/rickyhu.stu/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/rickyhu.stu/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
-/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmmi10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmmi5.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/rickyhu.stu/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users
-/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mr12.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmr5.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/rickyhu.stu/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/rickyhu.s
-tu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><
-C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmsy10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/rickyhu.stu/AppData/Local/Program
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/rickyhu.stu/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Use
-rs/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmti10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmti7.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on UMB-elsarticle-template-harv.pdf (5 pages, 1740281 bytes).
+ 41i,16n,34p,1391b,379s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/rickyhu.stu/Ap
+pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/U
+sers/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmex10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/rickyhu.stu/AppDat
+a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/
+rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+r10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/rickyhu.stu/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/rickyhu.s
+tu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C
+:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmss8.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmsy10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/rickyhu.stu/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/User
+s/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy7.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmsy8.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/rickyhu.stu/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/rick
+yhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.
+pfb>
+Output written on UMB-elsarticle-template-harv.pdf (4 pages, 1873039 bytes).
 PDF statistics:
- 114 PDF objects out of 1000 (max. 8388607)
+ 119 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

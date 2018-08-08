@@ -1,0 +1,94 @@
+\begin{thebibliography}{15}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Becker et~al.(2016)Becker, Tafoya, Becker, Kruger, Tafoya, and
+  Becker}]{Becker2016}
+Becker DM, Tafoya CA, Becker SL, Kruger GH, Tafoya MJ, Becker TK. {The use of
+  portable ultrasound devices in low- and middle-income countries: a systematic
+  review of the literature}. Tropical Medicine {\&} International Health,
+  2016;21:294--311.
+
+\bibitem[{Bouhemad et~al.(2011)Bouhemad, Brisson, Le-Guen, Arbelot, Lu, and
+  Rouby}]{Bouhemad2011}
+Bouhemad B, Brisson H, Le-Guen M, Arbelot C, Lu Q, Rouby JJ. {Bedside
+  ultrasound assessment of positive end-expiratory pressure-induced lung
+  recruitment}. American Journal of Respiratory and Critical Care Medicine,
+  2011;183:341--347.
+
+\bibitem[{Burckhardt(1978)}]{Burckhardt1978}
+Burckhardt CB. {Speckle in ultrasound B-mode scans}, 1978.
+
+\bibitem[{Byra et~al.(2016)Byra, Nowicki, Wr{\'{o}}blewska-Piotrzkowska, and
+  Dobruch-Sobczak}]{Byra2016}
+Byra M, Nowicki A, Wr{\'{o}}blewska-Piotrzkowska H, Dobruch-Sobczak K.
+  {Classification of breast lesions using segmented quantitative ultrasound
+  maps of homodyned K distribution parameters}. Med. Phys., 2016;43:5561--5569.
+
+\bibitem[{Destrempes and Cloutier(2010)}]{Destrempes2010}
+Destrempes F, Cloutier G. {A critical review and uniformized representation of
+  statistical distributions modeling the ultrasound echo envelope}. Ultrasound
+  Med. Biol., 2010;36:1037--1051.
+
+\bibitem[{Galiano et~al.(2005)Galiano, Obwegeser, Bodner, Freund, Maurer,
+  Kamelger, Schatzer, and Ploner}]{Galiano2005}
+Galiano K, Obwegeser AA, Bodner G, Freund M, Maurer H, Kamelger FS, Schatzer R,
+  Ploner F. {Ultrasound guidance for facet joint injections in the lumbar
+  spine: A computed tomography-controlled feasibility study}. Anesthesia and
+  Analgesia, 2005;101:579--583.
+
+\bibitem[{Ghose et~al.(2013)Ghose, Oliver, Mitra, Mart{\'{i}}, Llad{\'{o}},
+  Freixenet, Sidib{\'{e}}, Vilanova, Comet, and Meriaudeau}]{Ghose2013}
+Ghose S, Oliver A, Mitra J, Mart{\'{i}} R, Llad{\'{o}} X, Freixenet J,
+  Sidib{\'{e}} D, Vilanova JC, Comet J, Meriaudeau F. {A supervised learning
+  framework of statistical shape and probability priors for automatic prostate
+  segmentation in ultrasound images}. Medical Image Analysis, 2013;17:587--600.
+
+\bibitem[{Good et~al.(1979)Good, Edell, Soloway, Trotman, Mulhern, and
+  Arger}]{Good1979}
+Good LI, Edell SL, Soloway RD, Trotman BW, Mulhern C, Arger Pa. {Ultrasonic
+  properties of gallstones. Effect of stone size and composition.}
+  Gastroenterology, 1979;77:258--263.
+
+\bibitem[{Hellier et~al.(2010)Hellier, Coup{\'{e}}, Morandi, and
+  Collins}]{Hellier2010}
+Hellier P, Coup{\'{e}} P, Morandi X, Collins DL. {An automatic geometrical and
+  statistical method to detect acoustic shadows in intraoperative ultrasound
+  brain images}. Medical Image Analysis, 2010;14:195--204.
+
+\bibitem[{Hetherington et~al.(2017)Hetherington, Lessoway, Gunka, Abolmaesumi,
+  and Rohling}]{Hetherington2017}
+Hetherington J, Lessoway V, Gunka V, Abolmaesumi P, Rohling R. {SLIDE:
+  automatic spine level identification system using a deep convolutional neural
+  network}. International Journal of Computer Assisted Radiology and Surgery,
+  2017;12:1189--1198.
+
+\bibitem[{Ho et~al.(2012)Ho, Lin, Shu, Chen, Chang, Chang, and Tsui}]{Ho2012}
+Ho MC, Lin JJ, Shu YC, Chen CN, Chang KJ, Chang CC, Tsui PH. {Using ultrasound
+  Nakagami imaging to assess liver fibrosis in rats}. Ultrasonics,
+  2012;52:215--222.
+
+\bibitem[{Karamalis et~al.(2012)Karamalis, Wein, Klein, and
+  Navab}]{Karamalis2012}
+Karamalis A, Wein W, Klein T, Navab N. {Ultrasound confidence maps using random
+  walks}. Medical Image Analysis, 2012;16:1101--1112.
+
+\bibitem[{Kremkau and Taylor(1986)}]{Kremkau1986}
+Kremkau FW, Taylor KJ. Artifacts in ultrasound imaging. Journal of Ultrasound
+  in Medicine, 1986;5:227--237.
+
+\bibitem[{Milletari et~al.(2017)Milletari, Ahmadi, Kroll, Plate, Rozanski,
+  Maiostre, Levin, Dietrich, Ertl-Wagner, B{\"{o}}tzel, and
+  Navab}]{Milletari2017}
+Milletari F, Ahmadi SA, Kroll C, Plate A, Rozanski V, Maiostre J, Levin J,
+  Dietrich O, Ertl-Wagner B, B{\"{o}}tzel K, Navab N. {Hough-CNN: Deep learning
+  for segmentation of deep brain regions in MRI and ultrasound}. Computer
+  Vision and Image Understanding, 2017;164:92--102.
+
+\bibitem[{Tuthill et~al.(1988)Tuthill, Sperry, and Parker}]{Tuthill1988}
+Tuthill TA, Sperry RH, Parker KJ. {Deviations from rayleigh statistics in
+  ultrasonic speckle}. Ultrasonic Imaging, 1988;10:81--89.
+
+\end{thebibliography}

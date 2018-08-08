@@ -305,60 +305,16 @@ ylabel('Depth (cm)');
 % showing manual detected images
 
 im1a_m = imread('pngs\uasd_3_l_rjoint_1_cropped_manual.png');
-im1b_m = imread('pngs\uasd_4_l_farm_1_cropped_manual.png');
+im1a_m = im1a_m(76:539
+im1b_m = imread('uasd_4_l_farm_1_manual.png');
 im1c_m = ph_sc_m_r;
 im1d_m = ph_sc_m_farm;
 
 subplot(3,4,9)
-fuse1a_m = imfuse(im1a_m, im8LRj, 'blend');
-imagesc(fuse1a_m);
-colormap('gray');
-title('i) Radial joint, Linear, Manual')
-[x y] = size(fuse1a_m);
-set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
-set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
-xlabel('Scanline Number');
-ylabel('Depth (cm)');
 
-subplot(3,4,10)
-fuse1b_m = imfuse(im1b_m, im8LFa, 'blend');
-imagesc(fuse1b_m);
-colormap('gray');
-title('j) Forearm, Linear, Manual')
-[x y] = size(fuse1b_m);
-set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
-set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
-xlabel('Scanline Number');
-ylabel('Depth (cm)');
-
-subplot(3,4,11)
-imagesc(imCRScaled);
-colormap(gca,'gray');
-fuse1c_m = imfuse(imCRScaled, ph_sc_m_r, 'blend');
-imagesc(fuse1c_m);
-title('k) Ribcage, Curvilinear, Manual')
-[x y] = size(imCRScaled);
-set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
-set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
-xlabel('Scanline Number');
-ylabel('Depth (cm)');
-
-subplot(3,4,12)
-imagesc(imCScaled);
-colormap(gca,'gray');
-fuse1d_m = imfuse(imCScaled, ph_sc_m_farm, 'blend');
-imagesc(fuse1d_m);
-title('l) Forearm, Curvilinear, Manual')
-[x y] = size(imCScaled);
-set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
-set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
-xlabel('Scanline Number');
-ylabel('Depth (cm)');
 
 set(gcf,'color','white');
 
-h = gcf;
-set(h,'PaperOrientation','landscape');
 % Figure 2 Nakagami parameter maps
 
 load('uasd_3_l_rjoint_1_nakParams.mat');
