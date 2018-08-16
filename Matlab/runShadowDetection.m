@@ -20,6 +20,8 @@ for n = 1:numFiles
         diceList{n,1} = name;
         [diceList{n,2} shadows] = detectShadows(name);
     end
+    
+    % generating dice coefficients from entropy method
 end
     
     

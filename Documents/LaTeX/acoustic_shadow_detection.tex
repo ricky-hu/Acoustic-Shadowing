@@ -78,7 +78,7 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{Acoustic Shadow Detection From Scanline Statistics of B-Mode or Radiofrequency Ultrasound Images}
+\title{Acoustic Shadow Detection From Scanline Statistics of B-Mode and Radiofrequency Ultrasound Images}
 
 
 %% Authors and addresses/affiliations
@@ -108,19 +108,19 @@
 \author[Affil1]{Farah Deeba}
 \author[Affil1]{Robert N. Rohling}
 
-\address[Affil1]{Robotics and Control Laboratory, Department of Electrical and Computer Engineering, University of British Columbia, Vancouver, Canada}
+\address[Affil1]{Department of Electrical and Computer Engineering, University of British Columbia, Vancouver, Canada}
 % Replace capitalized text with the appropriate information (use standard capitalization rules for your text, not all capitals.
-\cortext[cor1]{Corresponding Author: Ricky Hu, Robotics and Control Laboratory, University of British Columbia, Room 3090, 2332 Main Mall, Vnacouver, BC, Canada V6T 1Z4.  Email: rhu@ece.ubc.ca}
+\cortext[cor1]{Corresponding Author: Ricky Hu, Robotics and Control Laboratory, University of British Columbia, Room 3090, 2332 Main Mall, Vancouver, BC, Canada V6T 1Z4.  Email: rhu@ece.ubc.ca}
 
 
 \begin{abstract}
-	An acoustic shadow is an ultrasound image artifact that occurs in boundaries between significantly different material, resulting in a continuous dark region on the image. Shadows are important to detect as they identify anatomical features or may obscure regions of interests and images may be misinterpreted. A shadow detection method was developed by analyzing the statistics of patches of radiofrequency (RF) data. A second method was developed for brightness-mode (B-mode) images if RF data is unavailable by analyzing the cumulative entropy along interpolated scanline paths. Both methods utilized adaptive thresholding, needing only the pulse width of the transducer as an input parameter for easy utilization by different operators or equipment. Average Dice coefficients ($\pm$ standard deviation) of 0.90$\pm$0.05 and 0.87$\pm$0.08 were obtained for the RF and B-mode methods, which is within range of the gold standard of manual detection on two different transducers and three different imaging locations. The results indicate that the methods are able to detect shadows with high versatility in different imaging scenarios. The method has the potential to aid interpretation of ultrasound images or serve as an important pre-processing step for machine learning methods.
+	An acoustic shadow is an ultrasound artifact occurring at boundaries between significantly different materials, resulting in a continuous dark region on the image. Shadow detection is important as shadows can identify anatomical features or obscure regions of interest. A study was performed to scan human subjects (N=35) specifically to explore the statistical characteristics of shadows. Subjects were scanned using different transducers and anatomy for a general investigation of shadows as previous studies focused on shadows created by specific imaging scenarios. Shadow detection methods were then developed by analyzing the statistics of patches of radiofrequency (RF) or brightness-mode (B-mode) data if RF data is unavailable. Both methods utilized adaptive thresholding, needing only the pulse width of the transducer as an input parameter for easy utilization by different operators or equipment. Mean Dice coefficients ($\pm$ standard deviation) of 0.90$\pm$0.07 and 0.87$\pm$0.08 were obtained for the RF and B-mode methods, which is within the Dice coefficient range between manual annotators. [COMMENT ON GENERAL SHADOW OBSERVATIONS] The results indicate that the methods are able to detect shadows with high versatility in different imaging scenarios. The method has potential to aid interpretation of ultrasound images or serve as an important pre-processing step for machine learning methods.
 \end{abstract}
 
 
 \begin{keyword}
 	%% keywords here, in the form: keyword \sep keyword.  You may use no more than 10 keywords.
-	Acoustic Shadow \sep Ultrasound \sep Speckle
+	Acoustic Shadow \sep Ultrasound \sep Speckle \sep Radiofrequency \sep Segmentation
 \end{keyword}
 
 \end{frontmatter}
@@ -147,13 +147,13 @@
 %%%%%%%%%%% INTRODUCTION
 \section*{Introduction}
 \label{intro}
-Ultrasound devices have become increasingly affordable and portable, encouraging applications such as point-of-care ultrasound \citep{Bouhemad2011}, novice usage \citep{Becker2016}, and creating training data sets for machine learning \citep{Ghose2013}. However, ultrasound is susceptible to unique artifacts that increase the difficult of interpretation and processing of images. One artifact is an acoustic shadow, which occurs when an ultrasound wave propagates from the transducer to a boundary of two materials with high impedance differences \citep{Kremkau1986}. The wave is almost completely reflected and beyond the boundary is a continuous dark region and a loss of anatomical features. Shadows occur in air-tissue, tissue-bone, and tissue-lesion interfaces. Shadows can aid interpretation, such as identifying the presence of a gall stones \citep{Good1979} or spinal level \citep{Galiano2005}. However, shadows, such as from poor transducer contact, can lead to misinterpretation of anatomy, particularly by novice users and automated processing algorithms. Thus, the identification of shadows is an important preprocessing step in many applications.
+Ultrasound devices have become increasingly affordable and portable, encouraging applications such as point-of-care ultrasound \citep{Bouhemad2011}, novice usage \citep{Becker2016}, and creating training data sets for machine learning \citep{Ghose2013}. However, ultrasound is susceptible to unique artifacts that increase the difficult of interpretation and processing of images. One artifact is an acoustic shadow, which occurs when an ultrasound wave propagates to a boundary of two materials with high impedance differences \citep{Kremkau1986}. The wave is almost completely reflected and beyond the boundary is a continuous dark region and a loss of anatomical features. Shadows occur in air-tissue, tissue-bone, and tissue-lesion interfaces. Shadows can aid interpretation, such as identifying gall stones \citep{Good1979} or spinal levels \citep{Galiano2005}. However, shadows, such as from poor transducer contact, can lead to misinterpretation of anatomy, particularly by novice users and automated processing algorithms. Thus, the identification of shadows is an important preprocessing step in many applications.
 
-Several methods have been used in literature to detect shadows. Geometric techniques model the path of an ultrasound signal for an expected image along the scanline using a random walk \citep{Karamalis2012}. Regions are then flagged as a shadow if a pixel is below a confidence threshold. However, geometric techniques require knowledge of the ultrasound transducer properties to assign weights to a random walk, such as the focal length, radius of curvature, and thickness. The technique would be cumbersome to implement across different ultrasound machines, especially if the source of the ultrasound images are unknown. This reduces the data available for machine learning applications and requires accurate transducer parameter labels for each image.
+Several methods have been used in literature to detect shadows. Geometric techniques model the path of an ultrasound signal for an expected image along the scanline using a random walk \citep{Karamalis2012}. Pixels are then flagged as a shadow if it is below a confidence threshold. However, geometric techniques require knowledge of ultrasound transducer properties to parameterize random walk weights, such as the focal length, radius of curvature, and thickness. The technique would be cumbersome to implement across different ultrasound machines. This also reduces applicability for machine learning applications as accurate transducer parameter labels are required for each image.
 
-Pixel intensity methods ignore the properties of the transducer an analyze only the graphical properties of the image \citep{Hellier2010}. Shadows have been detected on brain images by analyzing the entropy along a scanline to flag pixels of sudden low intensity as a potential shadow. The technique achieved a comparable Dice similarity coefficient as geometric methods but require specific thresholding, window sizing, filtering, and image mask parameterization for different anatomy. This method would be unfeasible in a clinical setting, particularly for novice users or point-of-care applications, as parameterization requires image processing expertise.
+Pixel intensity methods ignore the transducer properties an analyze only the graphical properties of animage \citep{Hellier2010}. Shadows have been detected on brain images by analyzing the entropy along a scanline to flag pixels of sudden low entropy as a potential shadow. The technique achieved a comparable Dice similarity coefficient as geometric methods but require specific thresholding, window sizing, filtering, and image mask parameterization for different anatomy and transducers. This method would be infeasible in a clinical setting, particularly for novice users or point-of-care applications, as parameterization requires image processing expertise.
 
-Machine learning methods have gained significant interest in medical imaging analysis. To our knowledge, no machine learning method has demonstrated capability of detecting shadows from multiple anatomy. Deep learning methods have identified features in a common image set that contains a shadow, such as neuroanatomical regions in cranial scan \citep{Milletari2017} or spinal levels in a posterior scan \citep{Hetherington2017}. Although machine learning has the potential of providing automated feature recognition in multiple applications, a large data set is required for an algorithm to recognize certain features. Ultrasound imaging is highly variable due to unique artifacts, operator technique, and equipment. In addition, shadows occur in various anatomy. Previous techniques focus on a single anatomical region and training data was from a consistent imaging scenario. However, it is difficult to construct a training data set with the generality required to recognize shadows in different scenarios usable for a variety of ultrasound applications.
+Machine learning methods have gained significant interest in medical imaging analysis. To our knowledge, no machine learning method has demonstrated capability of general shadow detection from multiple anatomy. Deep learning methods have identified features in a specific image sets that contains a shadow, such as neuroanatomical regions in cranial scan \citep{Milletari2017} or spinal levels in a posterior scan \citep{Hetherington2017}. Although machine learning has the potential of providing automated feature recognition in multiple applications, a large data set is required for an algorithm to recognize certain features. Ultrasound imaging is highly variable due to unique artifacts, operator technique, and equipment. In addition, shadows are a very general feature that occur in various imaging scenarios. Previous techniques focus on a single anatomical region and training data was from a consistent imaging scenario. However, it is difficult to construct a training data set with the generality required to recognize shadows in different scenarios usable for a variety of ultrasound applications.
 
 To address existing needs for versatile detection, a method was developed utilizing radiofrequency (RF) or brightness-mode (B-mode) data that can detect shadows from multiple anatomy or transducers with minimum user configuration required. 
 
@@ -178,9 +178,11 @@ To detect shadows, the raw RF data was first processed by computing the echo env
 
 Since the Nakagami distributions are significantly different for shadow regions with abundant speckle and non-shadow regions with minimal speckle, a simple automated thresholding scheme was used. Otsu's method was applied on the entire image to compute a threshold for the Nakagami parameters. Then, for each scanline, the deepest data point that is above the threshold is labeled as the shadow boundary and all data points below are labeled as a shadow.
 
+As RF data represents a raw signal that is not altered by operator configuration for visual enhancement, the RF statistics can also be used for an investigation of general shadow characteristics as multiple imaging scenarios are represented in the data set.
+
 \subsection*{B-mode Scanline Analysis}
 
-Many ultrasound machines do not provide access to RF data  for speckle analysis. Thus, a shadow detection method on B-mode images was developed to address the need for usability across different equipment with minimum configuration. First, the cumulative scanline entropy is computed for each pixel, which is similar to the "Rupture Criterion" \citep{Hellier2010}, with the window size fixed as three times the pulse width, $\eta$, as defined in Eq. 2
+Many ultrasound machines do not provide access to RF data  for speckle analysis. Thus, a shadow detection method on B-mode images was developed to address the need for usability across different equipment with minimum configuration. First, the cumulative scanline entropy is computed for each pixel, similar to the "Rupture Criterion" \citep{Hellier2010}, with the window size fixed as three times the pulse width, $\eta$, as defined in Eq. 2
 
 \begin{equation}
 S_{i,j} = \sum_{i=1}^{3\eta}I(i-1)log_{2}\frac{I(i-1)}{I(i+1)}+I(i+1)log_{2}\frac{I(i+1)}{I(i-1)}
@@ -188,32 +190,35 @@ S_{i,j} = \sum_{i=1}^{3\eta}I(i-1)log_{2}\frac{I(i-1)}{I(i+1)}+I(i+1)log_{2}\fra
 
 Where $S_{i,j}$ is the cumulative entropy at pixel $i$ on scanline $j$, $\eta$ is the pulse width, $I(i)$ is the pixel intensity of $i$.
 
-Note that for linear images, tracking the scanlines is simple. For curvilinear images, the scanline paths were tracked by first capturing the slope of the lateral edges by following the ring-down regions. Ring-down is a consistent artifact that produces bright bands at the top of an image due to the fluid in the transducer reflecting a continuous signal. The scanlines were then interpolated between the slopes of the lateral edges.
+For linear images, tracking scanlines is simple. For curvilinear images, the scanline paths were tracked by capturing the slope of the lateral edges by following the ring-down regions. Ring-down is a consistent artifact that produces bright bands at the top of an image due to the fluid in the transducer reflecting a continuous signal. The scanlines were then interpolated between the slopes of the lateral edges.
 
 Next, Otsu's method is applied similarly to compute a threshold entropy value. The intuition of the threshold is different than in RF analysis. In RF analysis, the threshold separates patches of intense and minimal speckle. In B-mode analysis, the threshold separates pixels of a shadow boundary, which has high entropy, and pixels not of a shadow boundary, which include shadow and non-shadow regions. Thus, shadows can be identified by finding the last pixel on a scanline with an entropy higher than the threshold, representing a bright shadow boundary.
 
 
-
 \subsection*{Validation}
 
-A trained annotator manually outlined shadow regions on B-mode images. The manual regions were used as a gold standard, as manual identification is common in clinical practice and has been used in previous literature for comparison. A dice coefficient was computed to compare similarity of manual and automated shadow detection.
-
+A trained annotator manually outlined shadow regions on B-mode images. The manual regions were used as a gold standard, as manual identification is common in clinical practice and has been used in previous literature for comparison \citep{Hellier2010}. A dice coefficient was computed to compare similarity of manual and automated shadow detection.
+%
 %%%%%%%%%%% Results
 \section*{Results}
 \label{Results}
-Examples of detected shadows from both methods are highlighted in gray in Fig. 2 in different imaging scenarios. The Dice coefficients for both methods for different anatomy and trasducers are shown in Table 2. 
+Examples of detected shadows from both methods are highlighted in gray in Fig. 2 in different imaging scenarios. The Dice coefficients for both methods for different anatomy and transducers are shown in Table 2. 
+
+With the benefit of a varied dataset, general characteristics of shadows can be analyzed. The log-scale Nakagami $\omega$ parameter recorded a mean $\pm$ standard deviation of $13.95\pm2.03$ for all non-shadow and $8.89\pm1.16$ for shadow regions defined by manual outlining of all images. The $\mu$ parameter recorded $1.02\pm0.29$ for non-shadow and $3.25\pm2.35$ for shadow-regions.
 
 %%%%%%%%%%% DISCUSSION
 \section*{Discussion}
 \label{Discuss}
-Previous studies reported that the Dice coefficient between manual annotators recorded a mean of 0.86$\pm$0.09 \citep{Hellier2010} . Every scenario detected from both methods achieved a Dice coefficient within the range of manual detection. This supports the versatility of the detection method as both methods are able to identify shadows across different anatomy and transducers with minimum configuration. 
+The RF and B-mode shadow detection developed achieved a high Dice similarity coefficient for all anatomy and transducer types. Previous studies reported that the Dice coefficient between manual annotators recorded a mean of 0.91$\pm$0.07 \citep{Hellier2010}. Every scenario detected from both methods achieved a Dice coefficient within the range of manual detection within operator variability. This supports the versatility of the detection method as both methods are able to identify shadows across different anatomy and transducers with minimum configuration. 
 
-However, the inconsistency of manual detection presents two problems. One is that by using a subjective gold standard with Dice upper bound below 1.0, it is difficult to compare the performance of different algorithms. Secondly, the inconsistency of manually identified shadows reflect on the lack of a clear definition for a shadow. In images with a shadow, such as in Fig. 2 a), the shadow boundary of the radial joint appears as a bright arc. Looking closely at the scanline of the boundary, the pixels first increase in brightness and then decrease before becoming a clear, dark shadow. There is no consensus as to where the shadow begins, whether it is the brightness point on the scanline or when the signal drops below a threshold. Thus, there a limitation on validation and this work focused on improving the versatility and usability of shadow detection while maintaining similar accuracy as previous methods.
+Separate to shadow detection, the computed Nakagami $\omega$ parameter of all manually outlined shadows indicate that there is a statistically significant difference between shadow and non-shadow regions. The speckle from shadows is distinct from the speckle created by tissue, muscle, or fat. This is likely due to physical properties of speckle, as speckle occurs due to the interference of acoustic waves, which create a speckle pattern as long as wave propagation occurs in the medium. A shadow represents a region where almost no acoustic interactions occur as the waves have been reflected at a preceding boundary and hence, speckle is minimum. The analysis of speckle in shadows can potentially provide a robust definition of the existence of a shadow, compared to previous literature which visually define a shadow as a bright boundary followed by a continuous dark region in B-mode \citep{Kremkau1986}. The visual definition of a shadow can lead to inconsistent identification of exactly where a shadow begins, particularly by manual detection.
+
+The inconsistency of manual detection leads to two problems. One is that by using gold standard that is susceptible to operator variability, it is difficult to compare the performance of different algorithms as there is a. Secondly, the inconsistency of manually identified shadows reflect on the lack of a robust definition for a shadow. In images with a shadow, such as in Fig. 2, the shadow boundary of the radial joint appears as a bright arc. Looking closely at the scanline of the boundary, the pixels first increase in brightness and then decrease before becoming a clear, dark shadow. There is no consensus as to where the shadow begins, whether it is the brightness point on the scanline or when the signal drops below a threshold and manual annotators may select different locations of the start of a shadow. Thus, there a limitation on validation of any shadow detection method.
 
 %%%%%%%%%%% Conclusions
 \section*{Conclusions}
 \label{Conclusions}
-Two methods were developed for acoustic shadow detection requiring only the transducer pulse width as the input parameter. When comparing to manual detection, the methods achieved a Dice similarity coefficient above X for three different anatomical locations and two different transducers, indicating high similarity. The versatility of the shadow detection method has potential to improve the interpretation of ultrasound images with shadow artifacts or to serve as a pre-processing step for machine learning methods in the future.
+RF and B-mode methods were developed for acoustic shadow detection requiring only the transducer pulse width as the input parameter. When comparing to manual detection, the methods achieved a Dice similarity coefficient of 0.90$\pm$0.07 for RF detection and 0.87$\pm$0.08 for B-mode detection. indicating high similarity. The work focused on applying shadow detection and statistical analysis to a varied dataset of three different anatomical locations and two different transducer to provide a representative understanding of general acoustic shadows. The versatility of the shadow detection method has potential to improve the interpretation of ultrasound images with shadow artifacts or to serve as a pre-processing step for machine learning methods in the future. However, the statistics indicate that the visual definition of shadows may not be robust as the bright boundary of a shadow, previously used to indicate the start of a shadow, has a non-negligible thickness and gradual brightness changes. 
 
         
 %%%%%%%%%%%% ACKNOWLEDGEMENTS
@@ -257,10 +262,19 @@ Two methods were developed for acoustic shadow detection requiring only the tran
 \section*{Figure Captions}
 
 \begin{description}
-\item[Figure 1:]  TYPE THE CAPTION FOR FIGURE ONE HERE.
-\item[Figure 2:]  TYPE THE CAPTION FOR FIGURE TWO HERE.
-\item[Figure 3:]  TYPE THE CAPTION FOR FIGURE ONE HERE.  CONTINUE THIS LIST FOR ALL OTHER CAPTIONS
+\item[Figure 1:]  The Nakagami parameter maps computed and compared to the a) B-mode image and d) echo envelope. The echo envelope contains the unfiltered speckle that can be analyzed by statistical distributions.
+\item[Figure 2:]  A comparison of the detected shadows from the RF method, B-mode method, and manual detection. It is important to differentiate between$  $ a shadow and attenuation. In subfigure b), the RF method performs more robustly in identifying scanlines 32-64 as attenuation, rather than shadow. This is likely due to pixel intensity methods previously being dependent on multiple filtering kernels tuned for different anatomy and depth settings.
 \end{description}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{fig2.pdf}
+\end{figure}
+
+\begin{figure*}
+	\centering
+	\includegraphics[scale=0.55]{fig1.pdf}
+\end{figure*}
 
 %%%%%%%%%%% TABLES AND TABLE CAPTIONS
 
@@ -276,10 +290,9 @@ Two methods were developed for acoustic shadow detection requiring only the tran
 \section*{Tables}
 
 \begin{description}
-\item[Table 1:]  TYPE THE CAPTION FOR TABLE ONE HERE. \\
+\item[Table 1:]  Transducer properties for different imaging scenarios. \\
 
-\begin{table}
-	\caption{Transducer properties for different imaging scenarios}
+\begin{table}[H]
 	\begin{center}
 		\resizebox{\columnwidth}{!}{
 			\begin{tabular}{|l|l|l|l|l|}
@@ -295,20 +308,19 @@ Two methods were developed for acoustic shadow detection requiring only the tran
 	\end{center}
 \end{table} 
 
-\item[Table 2:]  TYPE THE CAPTION FOR TABLE TWO HERE. 
+\item[Table 2:]  Mean Dice coefficients for different imaging scenarios $\pm$ standard deviation. 
 
 \begin{table}[H]
-	\caption{Average Dice coefficients for different imaging scenarios $\pm$ standard deviation}
 	\begin{center}
 		\begin{tabular}{|l|l|l|l|}
 			\hline
 			\textbf{}                                                                                 &         & \textbf{RF} & \textbf{B-Mode} \\ \hline
-			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Linear\\ (L14-5/38)\end{tabular}} & Forearm & 0.90$\pm$0.05                   & 0.92$\pm$0.07                             \\ \cline{2-4} 
-			& Elbow   & 0.95$\pm$0.10                   & 0.86$\pm$0.07                             \\ \cline{2-4} 
-			& Ribcage & 0.83$\pm$0.09                   & 0.81$\pm$0.05                             \\ \hline
-			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Curvilinear\\ (C5-2/60)\end{tabular}}                                                  & Forearm & 0.85$\pm$0.04                   & 0.86$\pm$0.10                             \\ \cline{2-4} 
-			& Elbow   & 0.89$\pm$0.06                   & 0.92$\pm$0.09                             \\ \cline{2-4} 
-			& Ribcage & 0.85$\pm$0.05                   & 0.90$\pm$0.11                             \\ \hline
+			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Linear\\ (L14-5/38)\end{tabular}} & Forearm & 0.91$\pm$0.05                   & 0.89$\pm$0.06                             \\ \cline{2-4} 
+			& Elbow   & 0.94$\pm$0.06                   & 0.90$\pm$0.07                             \\ \cline{2-4} 
+			& Ribcage & 0.87$\pm$0.09                   & 0.84$\pm$0.06                             \\ \hline
+			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Curvilinear\\ (C5-2/60)\end{tabular}}                                                  & Forearm & 0.89$\pm$0.05                   & 0.86$\pm$0.08                             \\ \cline{2-4} 
+			& Elbow   & 0.93$\pm$0.04                   & 0.90$\pm$0.09                             \\ \cline{2-4} 
+			& Ribcage & 0.83$\pm$0.08                   & 0.83$\pm$0.10                             \\ \hline
 		\end{tabular}
 	\end{center}
 \end{table} 
