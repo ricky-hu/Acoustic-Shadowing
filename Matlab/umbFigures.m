@@ -96,7 +96,7 @@ shadowsScaled = imresize(shadows, [rows cols]);
 
 figure(1)
 % showing RF detected shadows
-subplot(3,4,1)
+subplot(4,4,9)
 % imagesc(imCropped);
 shadowsScaled(237:270,146:193) = 0;
 colormap(gca,'gray');
@@ -112,14 +112,14 @@ imagesc(fuse6a);
 % r = imagesc(red);
 % hold off
 % set(r, 'AlphaData', (~shadowsScaled)/4);
-title('a) Radial Joint, Linear, RF')
+title('i) Radial Joint, Linear, RF')
 [x y] = size(imCropped);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 ylabel('Depth (cm)');
 xlabel('Scanline Number');
 
-subplot(3,4,2)
+subplot(4,4,10)
 % imagesc(imCroppedF);
 colormap(gca,'gray');
 fuse6b = imfuse(imCroppedF, ~shadowsScaledF, 'blend');
@@ -134,14 +134,14 @@ imagesc(fuse6b);
 % r = imagesc(red);
 % hold off
 % set(r, 'AlphaData', (~shadowsScaledF)/4);
-title('b) Forearm, Linear, RF')
+title('j) Forearm, Linear, RF')
 [x y] = size(imCroppedF);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-subplot(3,4,3)
+subplot(4,4,11)
 imCRScaled = imCScaled;
 imagesc(imCRScaled);
 colormap(gca,'gray');
@@ -157,7 +157,7 @@ imagesc(fuse6C);
 % r = imagesc(red);
 % hold off
 % set(r, 'AlphaData', (ph_sc_a)/4);
-title('c) Ribcage, Curvilinear, RF')
+title('k) Ribcage, Curvilinear, RF')
 [x y] = size(imCRScaled);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
@@ -220,7 +220,7 @@ sc = ScanConversion(Rt, Rm, dR, dT, dP, nBlocks, nLines, 1, dX, dX, 1);
 ph_sc_m = sc.ScanConvert(manualCScaled);
 ph_sc_m_farm = ph_sc_m;
 
-subplot(3,4,4)
+subplot(4,4,12)
 imagesc(imCScaled);
 colormap(gca,'gray');
 fuse6d = imfuse(imCScaled, ph_sc_a, 'blend');
@@ -235,7 +235,7 @@ imagesc(fuse6d);
 % r = imagesc(red);
 % hold off
 % set(r, 'AlphaData', (ph_sc_a)/900);
-title('d) Forearm, Curvilinear, RF')
+title('l) Forearm, Curvilinear, RF')
 [x y] = size(imCScaled);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
@@ -258,47 +258,47 @@ shadowsLFa = detectShadowsEntropy('pngs\uasd_4_l_farm_1_cropped.png');
 im8LFa = imread('pngs\uasd_4_l_farm_1_cropped.png');
 
 figure(1)
-subplot(3,4,5)
+subplot(4,4,13)
 fuseLRj = imfuse(~shadowsLRj, im8LRj, 'blend');
 imagesc(fuseLRj);
 colormap('gray');
-title('e) Radial joint, Linear, B-mode')
+title('m) Radial joint, Linear, B-mode')
 [x y] = size(fuseLRj);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-subplot(3,4,6)
+subplot(4,4,14)
 fuseLFa = imfuse(~shadowsLFa, im8LFa, 'blend');
 imagesc(fuseLFa);
 colormap('gray');
-title('f) Forearm, Linear, B-mode')
+title('n) Forearm, Linear, B-mode')
 [x y] = size(fuseLFa);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-subplot(3,4,7)
+subplot(4,4,15)
 fuseCR = imfuse(~shadowsCR, im8CR, 'blend');
 imagesc(fuseCR);
 colormap('gray');
-title('g) Ribcage, Curvilinear, B-mode')
+title('o) Ribcage, Curvilinear, B-mode')
 [x y] = size(fuseCR);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-subplot(3,4,8)
+subplot(4,4,16)
 fuseCFa = imfuse(~shadowsCFa, im8CFa, 'blend');
 imagesc(fuseCFa);
 colormap('gray');
-title('h) Forearm, Curvilinear, B-mode')
+title('p) Forearm, Curvilinear, B-mode')
 [x y] = size(fuseCFa);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
-set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
@@ -309,57 +309,104 @@ im1b_m = imread('pngs\uasd_4_l_farm_1_cropped_manual.png');
 im1c_m = ph_sc_m_r;
 im1d_m = ph_sc_m_farm;
 
-subplot(3,4,9)
+subplot(4,4,5)
 fuse1a_m = imfuse(im1a_m, im8LRj, 'blend');
 imagesc(fuse1a_m);
 colormap('gray');
-title('i) Radial joint, Linear, Manual')
+title('e) Radial joint, Linear, Manual')
 [x y] = size(fuse1a_m);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-subplot(3,4,10)
+subplot(4,4,6)
 fuse1b_m = imfuse(im1b_m, im8LFa, 'blend');
 imagesc(fuse1b_m);
 colormap('gray');
-title('j) Forearm, Linear, Manual')
+title('f) Forearm, Linear, Manual')
 [x y] = size(fuse1b_m);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-subplot(3,4,11)
+subplot(4,4,7)
 imagesc(imCRScaled);
 colormap(gca,'gray');
 fuse1c_m = imfuse(imCRScaled, ph_sc_m_r, 'blend');
 imagesc(fuse1c_m);
-title('k) Ribcage, Curvilinear, Manual')
+title('g) Ribcage, Curvilinear, Manual')
 [x y] = size(imCRScaled);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-subplot(3,4,12)
+subplot(4,4,8)
 imagesc(imCScaled);
 colormap(gca,'gray');
 fuse1d_m = imfuse(imCScaled, ph_sc_m_farm, 'blend');
 imagesc(fuse1d_m);
-title('l) Forearm, Curvilinear, Manual')
+title('h) Forearm, Curvilinear, Manual')
 [x y] = size(imCScaled);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+
+
+% original images
+subplot(4,4,1)
+imagesc(im8LRj);
+colormap(gca,'gray');
+title('a) Radial Joint, Linear, Raw');
+[x y] = size(im8LRj);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+subplot(4,4,2)
+imagesc(im8LFa);
+colormap(gca,'gray');
+title('b) Forearm, Linear, Raw');
+[x y] = size(im8LFa);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+
+subplot(4,4,3)
+imagesc(im8CR);
+colormap(gca,'gray');
+title('c) Ribcage, Curvilinear, Raw');
+[x y] = size(im8CR);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'2.50'} {'5.00'} {'7.50'} {'10.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
 
-set(gcf,'color','white');
+subplot(4,4,4)
+imagesc(im8CFa);
+colormap(gca,'gray');
+title('d) Forearm, Curvilinear, Raw');
+[x y] = size(im8CFa);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.20'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
 
+set(gcf,'color','white');
 h = gcf;
 set(h,'PaperOrientation','landscape');
 
+set(h,'Units','Inches');
+pos = get(h,'Position');
+set(h,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+
+%-----------------------------
 % Figure 2 Nakagami parameter maps
 
 load('uasd_3_l_rjoint_1_nakParams.mat');
@@ -405,11 +452,43 @@ muNS = muNS(1,1:endNS);
 omegaS = log10(omegaS(1,1:endS));
 muS = muS(1,1:endS);
 
+
+% entropy map
+im2aBMode = imread('pngs\uasd_3_l_rjoint_1_cropped.png');
+im2a = double(imread('pngs\uasd_3_l_rjoint_1_cropped.png') + 1);
+[imRows imCols] = size(im2a);
+ent = zeros(imRows,imCols);
+thresh = 2000;
+
+% Applying low pass filter to image
+n = 3;
+for col = 1:imCols
+    for row = 1:imRows
+        if (im2a(row,col) > thresh)
+            im2a(row,col) = 0;
+        end
+    end
+end
+
+for col = 1:imCols
+    for row = (n+1):(imRows-n)
+        entTemp = 0;
+        % computing entropy of the centerl pixel of the sliding window
+        for i = 1:n
+            entTemp = entTemp + im2a(row-i,col)*log2(im2a(row-i,col)/im2a(row+i,col)) + im2a(row+i,col)*log2(im2a(row+i,col)/im2a(row-i,col));
+        end
+
+        % the computed entropy sum is then inserted in an entropy matrix
+        % for the entire image
+        ent(row, col) = entTemp;
+    end
+end
+
 figure(2)
 
 subplot(2,2,1)
-imagesc(im2a)
-[x y] = size(im2a);
+imagesc(im2aBMode)
+[x y] = size(im2aBMode);
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
@@ -417,6 +496,16 @@ ylabel('Depth (cm)');
 title('a) B-mode Image');
 colormap(gca,'gray')
 
+subplot(2,2,2)
+imagesc(log(ent))
+[x y] = size(ent);
+set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+xlabel('Scanline Number');
+ylabel('Depth (cm)');
+title('b) Entropy Map (Log Scale)');
+colormap(gca,'jet')
+hcb = colorbar;
 
 subplot(2,2,3)
 imagesc(log10(abs(hilbert(rf))))
@@ -425,28 +514,28 @@ set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*
 set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
-title('b) Log Scale of Echo Envelope');
+title('c) Log Scale of Echo Envelope');
 colormap(gca,'gray')
 
-subplot(2,2,2)
-imagesc(imgaussfilt(log(omega),5));
-colormap(gca,'jet')
-hcb = colorbar;
-set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
-set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
-xlabel('Scanline Number');
-ylabel('Depth (cm)');
-title('c) Nakagami \omega Map');
-
 subplot(2,2,4)
-imagesc(imgaussfilt(log(mu),5));
+imagesc(imgaussfilt(log(omega),10));
 colormap(gca,'jet')
 hcb = colorbar;
 set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
 set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
 xlabel('Scanline Number');
 ylabel('Depth (cm)');
-title('d) Nakagami \mu Map');
+title('d) Nakagami \omega Map (Log Scale)');
+
+% subplot(2,2,4)
+% imagesc(imgaussfilt(log(mu),5));
+% colormap(gca,'jet')
+% hcb = colorbar;
+% set(gca,'XTickLabel', [{'0'} {'32'} {'64'} {'96'} {'128'}], 'XTick', [1 floor(y*.25) floor(y*.5) floor(y*.75) y]);
+% set(gca,'YTickLabel', [{'0.00'} {'1.25'} {'2.50'} {'3.75'} {'5.00'}], 'YTick', [1 floor(x*.25) floor(x*.5) floor(x*.75) x]);
+% xlabel('Scanline Number');
+% ylabel('Depth (cm)');
+% title('d) Nakagami \mu Map');
 
 set(gcf,'color','white');
 
