@@ -4,13 +4,6 @@
   \def\url#1{\texttt{#1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
 
-\bibitem[{Becker et~al.(2016)Becker, Tafoya, Becker, Kruger, Tafoya, and
-  Becker}]{Becker2016}
-Becker DM, Tafoya CA, Becker SL, Kruger GH, Tafoya MJ, Becker TK. {The use of
-  portable ultrasound devices in low- and middle-income countries: a systematic
-  review of the literature}. Tropical Medicine {\&} International Health,
-  2016;21:294--311.
-
 \bibitem[{Bouhemad et~al.(2011)Bouhemad, Brisson, Le-Guen, Arbelot, Lu, and
   Rouby}]{Bouhemad2011}
 Bouhemad B, Brisson H, Le-Guen M, Arbelot C, Lu Q, Rouby JJ. {Bedside
@@ -86,6 +79,11 @@ Milletari F, Ahmadi SA, Kroll C, Plate A, Rozanski V, Maiostre J, Levin J,
   Dietrich O, Ertl-Wagner B, B{\"{o}}tzel K, Navab N. {Hough-CNN: Deep learning
   for segmentation of deep brain regions in MRI and ultrasound}. Computer
   Vision and Image Understanding, 2017;164:92--102.
+
+\bibitem[{Sippel et~al.(2011)Sippel, Muruganandan, Levine, and
+  Shah}]{Sippel2011}
+Sippel S, Muruganandan K, Levine A, Shah S. {Review article: Use of ultrasound
+  in the developing world}. Int. J. Emerg. Med., 2011;4:72.
 
 \bibitem[{Tuthill et~al.(1988)Tuthill, Sperry, and Parker}]{Tuthill1988}
 Tuthill TA, Sperry RH, Parker KJ. {Deviations from rayleigh statistics in

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  17 AUG 2018 18:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.7.30)  28 AUG 2018 16:47
 entering extended mode
 **./acoustic_shadow_detection.tex
 (acoustic_shadow_detection.tex
@@ -321,116 +321,104 @@ G,.JBIG2,.JB2,.eps]
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 117.
+LaTeX Font Info:    Try loading font information for U+msa on input line 118.
 
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\ums
 a.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 117.
+LaTeX Font Info:    Try loading font information for U+msb on input line 118.
 
 ("C:\Users\rickyhu.stu\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\ums
 b.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{C:/Users/rickyhu.stu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+) [1
 
+{C:/Users/rickyhu.stu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+
+] [2
 
 ]
-Overfull \hbox (9.44482pt too wide) in paragraph at lines 169--170
-[]\OT1/cmr/m/n/10 One of the first mod-els for speckle is with a one-parameter
+Overfull \hbox (7.08379pt too wide) in paragraph at lines 180--181
+\OT1/cmr/m/n/10 speckle and non-shadow re-gions with min-i-mal speckle, Then,
  []
 
-[2]
-Overfull \hbox (2.61151pt too wide) in paragraph at lines 183--184
-\OT1/cmr/m/n/10 for shadow de-tec-tion to ad-dress the need for us-abil-ity acr
-oss
- []
-
-
-Overfull \hbox (3.5308pt too wide) detected at line 187
+[3]
+Overfull \hbox (3.5308pt too wide) detected at line 188
 $ \OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = [] \OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (
 \OML/cmm/m/it/10 i \OMS/cmsy/m/n/10   \OT1/cmr/m/n/10 1)\OML/cmm/m/it/10 log[][
 ] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i \OT1/
 cmr/m/n/10 + 1)\OML/cmm/m/it/10 log[][]$ []
  []
 
-
-Overfull \hbox (11.80487pt too wide) in paragraph at lines 210--211
-[]\OT1/cmr/m/n/10 The RF and B-mode shadow de-tec-tion de-vel-oped achieved
- []
-
-
-Overfull \hbox (11.9727pt too wide) in paragraph at lines 210--211
-\OT1/cmr/m/n/10 meth-ods are able to iden-tify shad-ows across dif-fer-ent anat
-omy
- []
-
-[3] (acoustic_shadow_detection.bbl
-Underfull \hbox (badness 2253) in paragraph at lines 37--41
+[4] [5] (acoustic_shadow_detection.bbl
+Underfull \hbox (badness 2253) in paragraph at lines 30--34
 \OT1/cmr/m/n/8 Kamel-ger FS, Schatzer R, Ploner F. Ul-tra-sound guid-ance
  []
 
-) [4]
-<fig2.pdf, id=32, 506.89375pt x 399.4925pt>
+)
+<fig2.pdf, id=35, 506.89375pt x 399.4925pt>
 File: fig2.pdf Graphic file (type pdf)
 <use fig2.pdf>
-Package pdftex.def Info: fig2.pdf  used on input line 269.
+Package pdftex.def Info: fig2.pdf  used on input line 275.
 (pdftex.def)             Requested size: 253.44626pt x 199.74576pt.
 
-Overfull \hbox (1.44626pt too wide) in paragraph at lines 269--270
+Overfull \hbox (1.44626pt too wide) in paragraph at lines 275--276
  [][] 
  []
 
-<fig1.pdf, id=33, 1178.4025pt x 641.39626pt>
+<fig1.pdf, id=36, 830.10126pt x 553.06625pt>
 File: fig1.pdf Graphic file (type pdf)
 <use fig1.pdf>
-Package pdftex.def Info: fig1.pdf  used on input line 274.
-(pdftex.def)             Requested size: 471.35265pt x 256.55396pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
+Package pdftex.def Info: fig1.pdf  used on input line 280.
+(pdftex.def)             Requested size: 498.0646pt x 331.8423pt.
+[6 <./fig2.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
 
  []
 
 
-Overfull \hbox (7.86055pt too wide) in paragraph at lines 314--325
+Overfull \hbox (7.86055pt too wide) in paragraph at lines 320--331
  [] 
  []
 
-[5 <./fig2.pdf>] [6 <./fig1.pdf>] (acoustic_shadow_detection.aux) ) 
+[7
+
+ <./fig1.pdf>] (acoustic_shadow_detection.aux) ) 
 Here is how much of TeX's memory you used:
- 3202 strings out of 493305
- 46053 string characters out of 3127192
- 121328 words of memory out of 3000000
- 6689 multiletter control sequences out of 15000+200000
+ 3204 strings out of 493305
+ 46066 string characters out of 3127192
+ 121327 words of memory out of 3000000
+ 6691 multiletter control sequences out of 15000+200000
  11082 words of font info for 42 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,16n,34p,1517b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/ri
-ckyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx
+ 41i,16n,34p,1451b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/rickyhu.stu/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/ri
+ckyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex
 10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmex10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/rickyhu.stu/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/rickyh
-u.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pf
-b><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmr10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/rickyhu.stu/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/rickyhu.stu/Ap
-pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Use
-rs/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr8.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmss8.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/rickyhu.stu/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/rick
-yhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.
-pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmsy7.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/rickyhu.stu/AppData/Local/Pr
-ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/rickyhu.st
-u/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on acoustic_shadow_detection.pdf (6 pages, 2749116 bytes).
+ic/amsfonts/cm/cmmi10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/rickyhu.stu/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/rickyhu
+.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
+><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmr12.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/rickyhu.stu/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/rickyhu.stu/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users
+/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mss8.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/rickyhu.stu/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/ricky
+hu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.p
+fb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmti10.pfb><C:/Users/rickyhu.stu/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/rickyhu.stu/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb>
+Output written on acoustic_shadow_detection.pdf (7 pages, 2234466 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
+ 130 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
