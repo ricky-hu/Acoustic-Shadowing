@@ -106,7 +106,7 @@
 \author[Affil1]{Ricky Hu \corref{cor1}}
 \author[Affil1]{Rohit Singla}
 \author[Affil1]{Farah Deeba}
-\author[Affil1][Affil2]{Robert N. Rohling}
+\author[Affil1,Affil2]{Robert N. Rohling}
 
 \address[Affil1]{Department of Electrical and Computer Engineering, University of British Columbia, Vancouver, Canada}
 \address[Affil2]{Department of Mechanical Engineering, University of British Columbia, Vancouver, Canada}
@@ -194,30 +194,31 @@ Next, Otsu's method is applied similarly to compute a threshold entropy value. T
 
 \subsection*{Validation}
 
-A trained annotator (RH) manually outlined shadow regions on B-mode images. The manual regions were used as a gold standard, as manual identification is common in clinical practice and has been used in previous literature for comparison \citep{Hellier2010}. A Dice coefficient was computed to compare similarity of manual and automated shadow detection. The manual outline was used to define four regions for classification of statistical parameters: a non-shadow region above the boundary, a shadow region below the boundary, and a ``transition region", which is a window defined as three pulse widths long axially centered at shadow boundary.
+A trained annotator (RH) manually outlined the boundary of the shadow regions on B-mode images. The manual regions were used as a gold standard, as manual identification is common in clinical practice and has been used in previous literature for comparison \citep{Hellier2010}. A Dice coefficient was computed to compare similarity of manual and automated shadow detection. The manual outline was used to define four regions for classification of statistical parameters: a non-shadow region above the boundary, a shadow region below the boundary, a ``transition region", which is a window defined as three pulse widths long axially below the boundary, and a ``deep shadow region", which is the data below the transition region.
 %
 %%%%%%%%%%% Results
 \section*{Results}
 \label{Results}
 Examples of detected shadows from both methods are highlighted in gray in Fig. 2 in different imaging scenarios. The Dice coefficients for both methods for different anatomy and transducers are shown in Table 2. The mean Dice coefficients ($\pm$ standard deviation) were 0.90$\pm$0.07 and 0.87$\pm$0.08 for RF and B-mode methods. Manual annotation was repeated five times with a mean Dice coefficient of 0.92$\pm$0.02 for all images and transducers.
 
-With the benefit of a varied dataset, general characteristics of shadows can be analyzed, as summarized in Table 3. The log-scale Nakagami $\omega$ parameter recorded a mean $\pm$ standard deviation of $13.95\pm2.03$ for all non-shadow and $8.89\pm1.16$ for shadow regions defined by manual outlining of all images. The $\mu$ parameter recorded $1.02\pm0.29$ for non-shadow and $3.25\pm2.35$ for shadow-regions.  TALK ABOUT ENTROPY HERE.
+With the benefit of a varied dataset, general statistics of shadows can be analyzed, as summarized in Table 3 and Table 4. For shadow detection, the parameters between a shadow and non-shadow are of particular interest. Shadows were observed to have a mean Nakagami $\omega$ parameter of 4.14 $\pm$ 0.40 and a mean entropy of 1.03 $\pm$ 0.29 whereas non-shadows were observed to have a mean $\omega$ of 6.24 $\pm$ 0.92 and 2.20 $\pm$ 0.81. 
 
 
 %%%%%%%%%%% DISCUSSION
 \section*{Discussion}
 \label{Discuss}
-The RF and B-mode shadow detection developed achi-eved a high Dice similarity coefficient for all anatomy and transducer types. Previous studies reported that the Dice coefficient between manual annotators recorded a mean of 0.91$\pm$0.07 \citep{Hellier2010}. Every scenario detected from both methods achieved a Dice coefficient within the range of manual detection within operator variability. An important feature of shadow detection is being able to differentiate between a shadow and simply high attenuation of the signal. Both scenarios result in an eventual loss of signal. Shadow detection, however, has a characteristic high intensity shadow boundary before a significant loss in signal, compared to gradually signal losses in attenuation. Both methods were capable of this distinction. The high accuracy supports the versatility of the detection method as both methods are able to identify shadows across different anatomy and transducers with minimum configuration. 
+The RF and B-mode shadow detection developed achi-eved a high Dice similarity coefficient for all anatomy and transducer types. Previous studies reported a mean Dice coefficient between manual annotators of 0.91$\pm$0.07 \citep{Hellier2010}. Every scenario detected from both methods achieved a was within the range of manual detection within operator variability. An important feature of shadow detection is being able to differentiate between a shadow and simply high attenuation of the signal. Both scenarios result in an eventual loss of signal. Shadow detection, however, has a characteristic high intensity shadow boundary before a significant loss in signal, compared to gradually signal losses in attenuation. Both methods were capable of this distinction. The high accuracy supports the versatility of the detection method as both methods are able to identify shadows across different anatomy and transducers with minimum configuration. 
 
-For a general observation for shadows, the computed Nakagami $\omega$ parameter of all manually outlined shadows indicate that there is a statistically significant difference between shadow and non-shadow regions, even with the error in the transition regions considered. The speckle from shadows is thus distinct from the speckle created by tissue, muscle, or fat. This is likely due to shadows representing a region where almost no acoustic speckle interactions occur as the waves have been reflected at a preceding boundary.  
+For a general observation for shadows, the computed Nakagami $\omega$ parameter of all manually outlined shadows indicate that there is a statistically significant difference between shadow and non-shadow regions, regardless of anatomy and transducer and even with the error in the transition regions considered. The speckle and its statistics from shadows is thus distinct from the speckle created by tissue, muscle, or fat. This observation can be utilized in the future for further analyze of shadows. 
 
+In RF detection, both false positive and false negative errors most frequently occurred immediately below a shadow boundary as opposed to B-mode detection where errors were in various regions. To study the frequent areas of error further, the ``transition region" immediately below a manually annotated shadow boundary and a ``deep shadow region" below the transition region was investigated. The Nakagami $\omega$ parameter of transition regions  of all anatomy and transducers were within a standard deviation of both shadow and non-shadow regions. The deeper shadow regions were observed to have a lower Nakagami $\omega$ parameter than shadow regions and with a lower standard deviation as summarized in Table 3. The spread of the speckle also significantly decreases after the transition region. This indicates that the transition region cannot be fully distinguished from either a shadow or non-shadow and presents as it is statistically similar to the two. This is likely the cause of the errors, as the speckle distribution is much more consistent in the deep shadow regions compared to any other region. Physically, speckle interactions appear to gradually lessen after a brightest point on a scanline, possibly due to incomplete total reflection at a boundary. The boundary is thus is not an instantaneous division between non-shadow and shadow, rather, there is a transition region with statistics between a shadow and non-shadow before the speckle fully resembles a shadow.
 
-In RF detection, both false positive and false negative errors most frequently occurred immediately below a shadow boundary as opposed to B-mode detection where errors were in various regions. The Nakagami distributions in patches near the boundary resemble distributions for non-shadows. Moreover,  granular RF speckle can be visually observed in a neighborhood around a boundary. The speckle gradually lessens after a brightest point on a scanline, possibly due to incomplete total reflection at a boundary. This indicates that the boundary is not an instantaneous division between non-shadow and shadow, rather, there is a ``transition region" before the image fully resembles a shadow with a loss of signal. This is quantified by the statistics of the speckle in the transition region, where deep shadows were observed to have a significantly different Nakagami distribution than non-shadows, but transition regions were much more similar to non-shadows.
+In the transition region of B-mode images, the entropy values were similar but consistently higher than non-shadow values. This is expected as entropy is expect to be the highest when there is the greatest change in pixel intensity, which occurs at a shadow boundary, even with the a non-instantaneous non-shadow to shadow transition. However, the averaged entropy of all non-shadow regions have a greater spread than the Nakagami parameters, likely due to the differing operator settings used. Thus, B-mode detection may not be as consistent as RF detection.
 
 In previous literature, shadows were defined qualitatively \citep{Kremkau1986} as a sudden loss of signal and brightness. The observed transition region in this study suggests that the qualitative definition of a shadow may be insufficient for accurate detection. One algorithm may detect the shadow starting immediately after the brightest location, or another may use a convention such as a full width at half maximum to define where the signal has sufficiently low intensity to resemble the start of a shadow. There is a decision point required for a clear definition for where a shadow begins to improve shadow detection accuracy, both from a signaling perspective for image processing and a visual perspective for manual inspection. 
 
 
-The findings in this study result in several implications. First, the statistics of acoustic shadows have been investigated on a dataset with shadows occurring from multiple scenarios as opposed to specific cases where shadows are observed. This provided a more generalizable observation that shadows can be characterized by speckle distributions and that there exists a transition region before the loss of speckle in a shadow. Second, the shadow detection methods demonstrated high accuracy, indicating that accurate shadow detection is possible regardless of transducer or imaging location. In future studies, the speckle statistics observed can be used to develop further models for anatomical features containing shadows, such as training a machine learning algorithm to measure the size of gall stones. Future studies would also have to take into consideration the most frequent source of error of shadow detection as the shadow boundary. For instance, a convention can be develop for one algorithm to detect the surface of the gallstone as the brightest point on a scanline to be comparable with other images.
+The findings in this study result in several implications. First, the statistics of acoustic shadows have been investigated on a dataset with shadows occurring from multiple scenarios as opposed to specific cases where shadows are observed. This provided a more generalizable observation that shadows can be characterized by distinctive speckle distributions regardless of anatomy and equipment and that there exists a transition region before the loss of speckle in a shadow. Second, the shadow detection methods demonstrated high accuracy, indicating that accurate shadow detection is possible regardless of transducer or imaging location. In future studies, the speckle statistics observed can be used to develop further models for anatomical features containing shadows, such as training a machine learning algorithm to measure the size of gall stones. Future studies would also have to take into consideration the most frequent source of error of shadow detection as the shadow boundary. For instance, a convention can be develop for one algorithm to detect the surface of the gallstone as the brightest point on a scanline to be comparable with other images.
 
 %%%%%%%%%%% Conclusions
 \section*{Conclusions}
@@ -311,13 +312,14 @@ This work is supported by the National Sciences and Engineering Research Council
 		\end{tabular}}
 	\end{center}
 \end{table} 
+\end{description}
 
+\begin{description}
 \item[Table 2:]  Mean Dice coefficients for different imaging scenarios $\pm$ standard deviation. 
-
 
 \begin{table}[H]
 	\begin{center}
-		\begin{tabular}{|l|l|l|l|}
+		\resizebox{\columnwidth}{!}{\begin{tabular}{|l|l|l|l|}
 			\hline
 			\textbf{}                                                                                 &         & \textbf{RF} & \textbf{B-Mode} \\ \hline
 			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Linear\\ (L14-5/38)\end{tabular}} & Forearm & 0.91$\pm$0.05                   & 0.89$\pm$0.06                             \\ \cline{2-4} 
@@ -327,9 +329,49 @@ This work is supported by the National Sciences and Engineering Research Council
 			& Elbow   & 0.93$\pm$0.04                   & 0.90$\pm$0.09                             \\ \cline{2-4} 
 			& Ribcage & 0.83$\pm$0.08                   & 0.83$\pm$0.10                             \\ \hline
 			\textbf{Mean}      & \textbf{All Anatomy} & \textbf{0.90$\pm$0.07}           & \textbf{0.87$\pm$0.08}               \\ \hline
-		\end{tabular}
+		\end{tabular}}
 	\end{center}
 \end{table} 
+\end{description}
+
+\begin{description}
+\item[Table 3]: The mean Nakagami $\omega$ and Entropy values of different anatomy, transducer, and shadowing region $\pm$ standard deviation.
+\begin{table}[H]
+	\begin{center}
+		\resizebox{\columnwidth}{!}{\begin{tabular}{|l|l|l|l|l|l|l|}
+			\hline
+			& \multicolumn{3}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Linear\\ (L14-5/38)\end{tabular}}} & \multicolumn{3}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Curvilinear\\ (C5-2/60)\end{tabular}}} \\ \hline
+			& Forearm & Elbow & Ribcage & Forearm & Elbow & Ribcage \\ \hline
+			\multicolumn{7}{|l|}{\textbf{Nakagami $\omega$ (Log Scale)}} \\ \hline
+			Shadow & 4.15 $\pm$ 0.45 & 4.18 $\pm$ 0.45 & 4.04 $\pm$ 0.42 & 4.22 $\pm$ 0.32 & 4.19 $\pm$ 0.40 & 4.08 $\pm$ 0.37 \\ \hline
+			Non-Shadow & 6.19 $\pm$ 0.96 & 6.49 $\pm$ 0.97 & 6.29 $\pm$ 0.95 & 6.54 $\pm$ 0.88 & 6.29 $\pm$ 1.04 & 5.64 $\pm$ 0.71 \\ \hline
+			Transition & 4.94 $\pm$ 0.62 & 5.36 $\pm$ 0.62 & 4.96 $\pm$ 0.38 & 5.26 $\pm$ 1.02 & 5.37 $\pm$ 0.99 & 4.59 $\pm$ 0.92 \\ \hline
+			Deep Shadow & 4.13 $\pm$ 0.43 & 4.16 $\pm$ 0.43 & 4.03 $\pm$ 0.41 & 3.93 $\pm$ 0.20 & 4.09 $\pm$ 0.30 & 4.03 $\pm$ 0.26 \\ \hline
+			\multicolumn{7}{|l|}{\textbf{Entropy (Log Scale)}} \\ \hline
+			Shadow & 0.92 $\pm$ 0.22 & 1.10 $\pm$ 0.36 & 1.04 $\pm$ 0.27 & 1.06 $\pm$ 0.28 & 0.96 $\pm$ 0.21 & 1.10 $\pm$ 0.37 \\ \hline
+			Non-Shadow & 2.34 $\pm$ 0.96 & 2.34 $\pm$ 0.80 & 2.14 $\pm$ 0.82 & 1.67 $\pm$ 0.82 & 1.75 $\pm$ 1.14 & 1.88 $\pm$ 0.42 \\ \hline
+			Transition & 2.45 $\pm$ 0.62 & 2.56 $\pm$ 0.53 & 2.15 $\pm$ 0.51 & 2.18 $\pm$ 1.21 & 1.93 $\pm$ 1.10 & 1.99 $\pm$ 1.10 \\ \hline
+			Deep Shadow & 0.71 $\pm$ 0.43 & 0.89 $\pm$ 0.26 & 0.92 $\pm$ 0.40 & 0.98 $\pm$ 0.21 & 0.82 $\pm$ 0.19 & 1.04 $\pm$ 0.26 \\ \hline
+		\end{tabular}}
+	\end{center}
+\end{table} 
+\end{description}
+
+\begin{description}
+	\item[Table 4]: The mean Nakagami $\omega$ and Entropy values of all anatomy and transducers for different shadowing regions $\pm$ standard deviation.
+	\begin{table}[H]
+		\begin{center}
+			\resizebox{\columnwidth}{!}{
+					\begin{tabular}{|l|l|l|}
+						\hline
+						& \textbf{\begin{tabular}[c]{@{}l@{}}Mean Nakagami $\omega$ \\ (Log Scale)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean Entropy\\ (Log Scale)\end{tabular}} \\ \hline
+						Shadow & 4.14 $\pm$ 0.40 & 1.03 $\pm$ 0.29 \\ \hline
+						Non-Shadow & 6.24 $\pm$ 0.92 & 2.02 $\pm$ 0.81 \\ \hline
+						Transition & 5.08 $\pm$ 0.77 & 2.21 $\pm$ 0.84 \\ \hline
+						Deep Shadow & 4.06 $\pm$ 0.34 & 0.89 $\pm$ 0.27 \\ \hline
+				\end{tabular}} 
+	\end{center}
+	\end{table}
 \end{description}
 
 %%%%%%%%%%% VIDEO CAPTIONS

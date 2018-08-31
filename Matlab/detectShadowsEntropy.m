@@ -5,14 +5,14 @@
 % Author: Ricky Hu
 % Last Updated: 3-Jul-2018
 
-function shadows = detectShadowsEntropy(imName)
+function [entropy, shadows] = detectShadowsEntropy(imName)
 
 
 n = 15;
 im = imread(imName);
 im = double(im);
 [imRows, imCols] = size(im);
-thresh = 30;
+thresh = 3000;
 
 % two cases - linear (easy, just look down vertical scanlines) and
 % curvilinear (trapezoidal mask required to interpolate scanlines)
@@ -24,7 +24,7 @@ if contains(imName, '_l_')
     im = im + 1;
     ent = zeros(imRows,imCols);
     
-    thresh = 155;
+    thresh = 3000;
     % Applying low pass filter to image
 
     for col = 1:imCols
@@ -77,6 +77,8 @@ if contains(imName, '_l_')
     c = imfuse(shadows, im, 'blend');
     imagesc(c);
     colormap('gray');
+    
+    entropy = ent;
     
 elseif contains(imName, '_c_')
     % looking for the "top corners" of the US image to build trapezoid
