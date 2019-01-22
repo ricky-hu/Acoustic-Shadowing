@@ -89,4 +89,52 @@ Sippel S, Muruganandan K, Levine A, Shah S. {Review article: Use of ultrasound
 Tuthill TA, Sperry RH, Parker KJ. {Deviations from rayleigh statistics in
   ultrasonic speckle}. Ultrasonic Imaging, 1988;10:81--89.
 
+@article{Cloutier2004,
+author = {Cloutier, Guy and Daronatand, Michel and {Sav{\'{e}} Ry}, David and Garcia, Damien and Durand, Louis-Gilles and Foster, F Stuart},
+isbn = {00014966},
+issn = {00014966},
+journal = {Acoust. Soc. Am.},
+keywords = {4380Qf,4380Vj ͓FD͔ Pages,4380n,566 –577,PACS numbers},
+mendeley-groups = {Acoustic Shadowing},
+number = {1},
+pages = {566--577},
+pmid = {15296017},
+title = {{Non-Gaussian statistics and temporal variations of the ultrasound signal backscattered by blood at frequencies between 10 and 58 MHz}},
+volume = {116},
+year = {2004}
+}
+
+@article{Jensen2007,
+author = {Jensen, J{\o}rgen Arendt},
+doi = {10.1016/j.pbiomolbio.2006.07.025},
+isbn = {0079-6107},
+issn = {00796107},
+journal = {Prog. Biophys. Mol. Biol.},
+keywords = {Blood velocity estimation,Imaging,Medical ultrasound},
+mendeley-groups = {Acoustic Shadowing},
+number = {1-3},
+pages = {153--165},
+pmid = {17092547},
+title = {{Medical ultrasound imaging}},
+volume = {93},
+year = {2007}
+}
+
+@article{Abramowicz2008,
+ {\textcopyright} 2008 Elsevier Ltd. All rights reserved.},
+author = {Abramowicz, J. S. and Sheiner, E.},
+doi = {10.1016/j.placenta.2007.12.006},
+isbn = {0143-4004 (Print) 0143-4004 (Linking)},
+issn = {01434004},
+journal = {Placenta},
+keywords = {3D ultrasound,Complications,Fetus,Placenta,Pregnancy,Ultrasound},
+mendeley-groups = {Acoustic Shadowing},
+number = {3},
+pages = {225--240},
+pmid = {18262643},
+title = {{Ultrasound of the Placenta: A Systematic Approach. Part I: Imaging}},
+volume = {29},
+year = {2008}
+}
+
 \end{thebibliography}
