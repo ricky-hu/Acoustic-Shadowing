@@ -545,7 +545,7 @@ set(gcf,'color','white');
 [rf, headerRF] = RPread('uasd_3_l_rjoint_1.rf', 1);
 [rows cols] = size(rf);
 patchSizeY = 30;
-patchSizeX = 4;
+patchSizeX = 10;
 rf = imresize(rf, [round(rows*128/cols) 128]);
 [rows cols] = size(rf);
 
@@ -605,24 +605,3 @@ end
 
 % saving distribution data
 save('nakParams3', 'mu', 'omega');
-
-omega2 = omega;
-mu2 = mu;
-
-imOrig = imread('pngs\uasd_3_l_rjoint_1_cropped.png');
-load('uasd_3_l_rjoint_1_nakParams.mat');
-
-figure()
-subplot(1,3,1)
-imagesc(absHil);
-title('RF Image');
-
-subplot(1,3,2);
-imagesc(imresize(log(omega), [rows cols]));
-colormap('jet');
-title('Nakagami fit from single line');
-
-
-subplot(1,3,3);
-imagesc(log(omega2));
-title('Nakagami fit from width = pulse length');
