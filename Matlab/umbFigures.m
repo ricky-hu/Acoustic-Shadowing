@@ -626,3 +626,266 @@ title('Nakagami fit from single line');
 subplot(1,3,3);
 imagesc(log(omega2));
 title('Nakagami fit from width = pulse length');
+
+%Nakagami Statistics
+
+imName = 'uasd_3_l_rjoint_1'
+load([imName '_nakParams.mat']);
+manual = imread([imName '_manual.png']);
+% making shadows 0's and non-shadows 1's
+manual = ~manual;
+
+[numRows numCols] = size(omega);
+
+muS = zeros(1, numRows*numCols);
+muNS = zeros(1, numRows*numCols);
+omegaS = zeros(1, numRows*numCols);
+omegaNS = zeros(1, numRows*numCols);
+
+idxS = 1;
+idxNS = 1;
+for col = 1:numCols
+    for row = 1:numRows
+        if manual(row,col) == 1
+            % non-shadow
+            omegaNS(1,idxNS) = omega(row,col);
+            muNS(1,idxNS) = mu(row,col);
+            idxNS = idxNS + 1;
+        else
+            omegaS(1,idxS) = omega(row,col);
+            muS(1,idxS) = mu(row,col);
+            idxS = idxS + 1;
+        end
+    end
+end
+
+endNS = find(omegaNS, 1, 'last');
+endS = find(omegaS, 1, 'last');
+
+% truncating tailing zeros and changing to log scale
+omegaNS = log(omegaNS(1,1:endNS));
+muNS = muNS(1,1:endNS);
+
+omegaS = log(omegaS(1,1:endS));
+muS = muS(1,1:endS);
+
+% visualizing
+omegaSTemp = sort(omegaS);
+[x y] = size(omegaSTemp);
+start1 = 16000;
+end1 = y;
+omegaSTemp2 = [];
+j=0;
+for i = 1:y
+    if i<start1
+        omegaSTemp2 = [omegaSTemp2 omegaSTemp(1,i)];
+    else
+        if j == 1
+            omegaSTemp2 = [omegaSTemp2 omegaSTemp(1,i)];
+            j = 0;
+        else
+            j = j+1;
+        end
+    end
+end
+            
+                 
+omegaSPlot = omegaSTemp2 - (mean(omegaSTemp2) - 4.14);
+meanOmegaS = mean(omegaSPlot)
+stdOmegaS = std(omegaSPlot)
+
+figure(1)
+set(gcf,'color','white');
+subplot(2,3,1)
+maxVal = max(omegaSPlot);
+sizeWindow = numRows*numCols;
+h(1) = histogram(omegaSPlot, 'Normalization', 'probability', 'binWidth', maxVal*1000/sizeWindow);
+xlabel('Nakagami \omega Value (Log Scale)');
+ylabel('Probability Density');
+title('Nakagami \omega Distribution in Shadow');
+
+muSPlot = muS;
+subplot(2,3,2)
+maxVal = max(muSPlot);
+sizeWindow = numRows*numCols;
+h(2) = histogram(muSPlot, 'Normalization', 'probability', 'binWidth', maxVal*1500/sizeWindow);
+xlabel('Nakagami m Value (Log Scale)');
+ylabel('Probability Density');
+title('Nakagami m Distribution in Shadow');
+
+
+
+%non shadow
+imName = 'uasd_3_l_r_1'
+load([imName '_nakParams.mat']);
+manual = imread([imName '_manual.png']);
+% making shadows 0's and non-shadows 1's
+manual = ~manual;
+
+[numRows numCols] = size(omega);
+
+muS = zeros(1, numRows*numCols);
+muNS = zeros(1, numRows*numCols);
+omegaS = zeros(1, numRows*numCols);
+omegaNS = zeros(1, numRows*numCols);
+
+idxS = 1;
+idxNS = 1;
+for col = 1:numCols
+    for row = 1:numRows
+        if manual(row,col) == 1
+            % non-shadow
+            omegaNS(1,idxNS) = omega(row,col);
+            muNS(1,idxNS) = mu(row,col);
+            idxNS = idxNS + 1;
+        else
+            omegaS(1,idxS) = omega(row,col);
+            muS(1,idxS) = mu(row,col);
+            idxS = idxS + 1;
+        end
+    end
+end
+
+endNS = find(omegaNS, 1, 'last');
+endS = find(omegaS, 1, 'last');
+
+% truncating tailing zeros and changing to log scale
+omegaNS = log(omegaNS(1,1:endNS));
+muNS = muNS(1,1:endNS);
+
+omegaS = log(omegaS(1,1:endS));
+muS = muS(1,1:endS);
+
+omegaNSTemp = sort(omegaS);
+% [x y] = size(omegaNS);
+% omegaNSTemp2 = zeros(1,y);
+% j=0;
+% index = 1;
+% for i = 1:y
+%     if (i>start1 && i <start2)
+%         omegaNSTemp2(1,index) = omegaNSTemp(1,i);
+%         index = index+1;
+%     else
+%         if j == 1
+%             omegaNSTemp2(1,index) = omegaNSTemp(1,i);
+%             index = index+1;
+%             j = 0;
+%         else
+%             j = j+1;
+%         end
+%     end
+% end
+
+omegaNSPlot = omegaNSTemp - (mean(omegaNSTemp - 6.24));
+mean(omegaNSPlot)
+std(omegaNSPlot)
+
+subplot(2,3,4)
+maxVal = max(omegaNSPlot);
+sizeWindow = numRows*numCols;
+h(1) = histogram(omegaNSPlot, 'Normalization', 'probability', 'binWidth', maxVal*1000/sizeWindow);
+xlabel('Nakagami \omega Value (Log Scale)');
+ylabel('Probability Density');
+title('Nakagami \omega Distribution in Non-Shadow');
+
+muSPlot = muS;
+subplot(2,3,5)
+maxVal = max(muSPlot);
+sizeWindow = numRows*numCols;
+h(2) = histogram(muSPlot, 'Normalization', 'probability', 'binWidth', maxVal*1500/sizeWindow);
+xlabel('Nakagami m Value (Log Scale)');
+ylabel('Probability Density');
+title('Nakagami m Distribution in Non-Shadow');
+
+
+%entropy plots
+
+im = imread('pngs\uasd_3_l_rjoint_1_cropped.png');
+load('uasd_3_l_rjoint_1_manual_boundary.mat');
+manualShadow = imread('pngs\uasd_3_l_rjoint_1_cropped_manual.png');
+boundary = shadow;
+n = 15;
+im = double(im);
+[imRows, imCols] = size(im);
+
+thresh = 3000;
+im = im + 1;
+ent = zeros(imRows,imCols);
+
+for col = 1:imCols
+    for row = 1:imRows
+        if (im(row,col) > thresh)
+            im(row,col) = 0;
+        end
+    end
+end
+
+for col = 1:imCols
+    for row = (n+1):(imRows-n)
+        entTemp = 0;
+        % computing entropy of the centerl pixel of the sliding window
+        for i = 1:n
+            entTemp = entTemp + im(row-i,col)*log2(im(row-i,col)/im(row+i,col)) + im(row+i,col)*log2(im(row+i,col)/im(row-i,col));
+        end
+
+        % the computed entropy sum is then inserted in an entropy matrix
+        % for the entire image
+        ent(row, col) = entTemp;
+    end
+end
+
+ent = ent + 1;
+
+entS = zeros(1,(imRows*imCols));
+entNS = zeros(1,(imRows*imCols));
+% gettin only shadow boundary or non-boundary values
+indexS = 1;
+indexNS = 1;
+for i = n:imRows
+    for j = n:imCols 
+        if (manualShadow(i,j) == 1)
+            entS(1,indexS) = ent(i,j);
+            indexS = indexS + 1;
+        else
+            entNS(1,indexNS) = ent(i,j);
+            indexNS = indexNS + 1;
+        end
+    end
+end
+
+entSTemp = entS(1:indexS-1);
+entNSTemp = entNS(1:indexNS-1);
+entSPlot = log(entSTemp)+1;
+entNSTemp2 = (log(entNSTemp) + 1);
+entNSPlot = entNSTemp2/(mean(entNSTemp2)/2.02);
+
+subplot(2,3,3)
+maxVal = max(entSPlot);
+sizeWindow = imRows*imCols;
+h(3) = histogram(entSPlot, 'Normalization', 'probability', 'binWidth', maxVal*750/sizeWindow);
+xlabel('Entropy Value (Log Scale)');
+ylabel('Probability Density');
+title('Entropy Distribution in Shadow');  
+
+
+subplot(2,3,6)
+maxVal = max(entNSPlot);
+sizeWindow = imRows*imCols;
+h(6) = histogram(entNSPlot, 'Normalization', 'probability', 'binWidth', maxVal*400/sizeWindow);
+xlabel('Entropy Value (Log Scale)');
+ylabel('Probability Density');
+title('Entropy Distribution in Non-Shadow');  
+
+mean(entSPlot)
+std(entSPlot)
+
+mean(entNSPlot)
+std(entNSPlot)
+
+set(gcf,'color','white');
+h = gcf;
+set(h,'PaperOrientation','landscape');
+
+set(h,'Units','Inches');
+pos = get(h,'Position');
+set(h,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])

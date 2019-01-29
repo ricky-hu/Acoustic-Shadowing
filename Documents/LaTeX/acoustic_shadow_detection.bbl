@@ -1,8 +1,16 @@
-\begin{thebibliography}{15}
+\begin{thebibliography}{20}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{\texttt{#1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Abramowicz and Sheiner(2008)}]{Abramowicz2008}
+Abramowicz JS, Sheiner E. {Ultrasound of the Placenta: A Systematic Approach.
+  Part I: Imaging}. Placenta, 2008;29:225--240.
+
+\bibitem[{Aysal and Barner(2007)}]{Aysal2007}
+Aysal TC, Barner KE. {Rayleigh-maximum-likelihood filtering for speckle
+  reduction of ultrasound images}. IEEE Trans. Med. Imaging, 2007;26:712--727.
 
 \bibitem[{Bouhemad et~al.(2011)Bouhemad, Brisson, Le-Guen, Arbelot, Lu, and
   Rouby}]{Bouhemad2011}
@@ -19,6 +27,13 @@ Burckhardt CB. {Speckle in ultrasound B-mode scans}, 1978.
 Byra M, Nowicki A, Wr{\'{o}}blewska-Piotrzkowska H, Dobruch-Sobczak K.
   {Classification of breast lesions using segmented quantitative ultrasound
   maps of homodyned K distribution parameters}. Med. Phys., 2016;43:5561--5569.
+
+\bibitem[{Cloutier et~al.(2004)Cloutier, Savery, Garcia, Durand, and
+  Foster}]{Cloutier2004}
+Cloutier G, Savery MDD, Garcia D, Durand LG, Foster SF. {Non-Gaussian
+  statistics and temporal variations of the ultrasound signal backscattered by
+  blood at frequencies between 10 and 58 MHz}. Acoust. Soc. Am.,
+  2004;116:566--577.
 
 \bibitem[{Destrempes and Cloutier(2010)}]{Destrempes2010}
 Destrempes F, Cloutier G. {A critical review and uniformized representation of
@@ -63,6 +78,10 @@ Ho MC, Lin JJ, Shu YC, Chen CN, Chang KJ, Chang CC, Tsui PH. {Using ultrasound
   Nakagami imaging to assess liver fibrosis in rats}. Ultrasonics,
   2012;52:215--222.
 
+\bibitem[{Jensen(2007)}]{Jensen2007}
+Jensen JA. {Medical ultrasound imaging}. Prog. Biophys. Mol. Biol.,
+  2007;93:153--165.
+
 \bibitem[{Karamalis et~al.(2012)Karamalis, Wein, Klein, and
   Navab}]{Karamalis2012}
 Karamalis A, Wein W, Klein T, Navab N. {Ultrasound confidence maps using random
@@ -89,52 +108,9 @@ Sippel S, Muruganandan K, Levine A, Shah S. {Review article: Use of ultrasound
 Tuthill TA, Sperry RH, Parker KJ. {Deviations from rayleigh statistics in
   ultrasonic speckle}. Ultrasonic Imaging, 1988;10:81--89.
 
-@article{Cloutier2004,
-author = {Cloutier, Guy and Daronatand, Michel and {Sav{\'{e}} Ry}, David and Garcia, Damien and Durand, Louis-Gilles and Foster, F Stuart},
-isbn = {00014966},
-issn = {00014966},
-journal = {Acoust. Soc. Am.},
-keywords = {4380Qf,4380Vj ͓FD͔ Pages,4380n,566 –577,PACS numbers},
-mendeley-groups = {Acoustic Shadowing},
-number = {1},
-pages = {566--577},
-pmid = {15296017},
-title = {{Non-Gaussian statistics and temporal variations of the ultrasound signal backscattered by blood at frequencies between 10 and 58 MHz}},
-volume = {116},
-year = {2004}
-}
-
-@article{Jensen2007,
-author = {Jensen, J{\o}rgen Arendt},
-doi = {10.1016/j.pbiomolbio.2006.07.025},
-isbn = {0079-6107},
-issn = {00796107},
-journal = {Prog. Biophys. Mol. Biol.},
-keywords = {Blood velocity estimation,Imaging,Medical ultrasound},
-mendeley-groups = {Acoustic Shadowing},
-number = {1-3},
-pages = {153--165},
-pmid = {17092547},
-title = {{Medical ultrasound imaging}},
-volume = {93},
-year = {2007}
-}
-
-@article{Abramowicz2008,
- {\textcopyright} 2008 Elsevier Ltd. All rights reserved.},
-author = {Abramowicz, J. S. and Sheiner, E.},
-doi = {10.1016/j.placenta.2007.12.006},
-isbn = {0143-4004 (Print) 0143-4004 (Linking)},
-issn = {01434004},
-journal = {Placenta},
-keywords = {3D ultrasound,Complications,Fetus,Placenta,Pregnancy,Ultrasound},
-mendeley-groups = {Acoustic Shadowing},
-number = {3},
-pages = {225--240},
-pmid = {18262643},
-title = {{Ultrasound of the Placenta: A Systematic Approach. Part I: Imaging}},
-volume = {29},
-year = {2008}
-}
+\bibitem[{Wagner and Insana(1988)}]{Wagner1988}
+Wagner RF, Insana MF. {Fundamental Correlation Lengths of Coherent Speckle in
+  Medical Ultrasonic Images}. IEEE Trans Ultrason Ferroelectr Freq Control,
+  1988;35:34--44.
 
 \end{thebibliography}
