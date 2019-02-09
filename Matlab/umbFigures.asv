@@ -705,7 +705,7 @@ ylabel('Probability Density');
 title('Nakagami \omega Distribution in Shadow');
 
 muSPlot = muS;
-subplot(2,3,4)
+subplot(2,3,2)
 maxVal = max(muSPlot);
 sizeWindow = numRows*numCols;
 h(2) = histogram(muSPlot, 'Normalization', 'probability', 'binWidth', maxVal*1500/sizeWindow);
@@ -780,7 +780,7 @@ omegaNSPlot = omegaNSTemp - (mean(omegaNSTemp - 6.24));
 mean(omegaNSPlot)
 std(omegaNSPlot)
 
-subplot(2,3,2)
+subplot(2,3,4)
 maxVal = max(omegaNSPlot);
 sizeWindow = numRows*numCols;
 h(1) = histogram(omegaNSPlot, 'Normalization', 'probability', 'binWidth', maxVal*1000/sizeWindow);
@@ -856,12 +856,13 @@ end
 entSTemp = entS(1:indexS-1);
 entNSTemp = entNS(1:indexNS-1);
 entSPlot = log(entSTemp)+1;
-entNSPlot = (log(entNSTemp) + 1)/(;
+entNSTemp2 = (log(entNSTemp) + 1);
+entNSPlot = entNSTemp2/(mean(entNSTemp2)/2.02);
 
 subplot(2,3,3)
 maxVal = max(entSPlot);
 sizeWindow = imRows*imCols;
-h(5) = histogram(entSPlot, 'Normalization', 'probability', 'binWidth', maxVal*1000/sizeWindow);
+h(3) = histogram(entSPlot, 'Normalization', 'probability', 'binWidth', maxVal*750/sizeWindow);
 xlabel('Entropy Value (Log Scale)');
 ylabel('Probability Density');
 title('Entropy Distribution in Shadow');  
@@ -874,6 +875,7 @@ h(6) = histogram(entNSPlot, 'Normalization', 'probability', 'binWidth', maxVal*4
 xlabel('Entropy Value (Log Scale)');
 ylabel('Probability Density');
 title('Entropy Distribution in Non-Shadow');  
+set(gca,'yticklabel',num2str(get(gca,'xtick')','%.3f'))
 
 mean(entSPlot)
 std(entSPlot)
@@ -881,3 +883,10 @@ std(entSPlot)
 mean(entNSPlot)
 std(entNSPlot)
 
+set(gcf,'color','white');
+h = gcf;
+set(h,'PaperOrientation','landscape');
+
+set(h,'Units','Inches');
+pos = get(h,'Position');
+set(h,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])

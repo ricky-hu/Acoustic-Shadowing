@@ -703,6 +703,7 @@ h(1) = histogram(omegaSPlot, 'Normalization', 'probability', 'binWidth', maxVal*
 xlabel('Nakagami \omega Value (Log Scale)');
 ylabel('Probability Density');
 title('Nakagami \omega Distribution in Shadow');
+set(gca,'yticklabel',num2str(get(gca,'ytick')','%.3f'))
 
 muSPlot = muS;
 subplot(2,3,2)
@@ -712,7 +713,7 @@ h(2) = histogram(muSPlot, 'Normalization', 'probability', 'binWidth', maxVal*150
 xlabel('Nakagami m Value (Log Scale)');
 ylabel('Probability Density');
 title('Nakagami m Distribution in Shadow');
-
+set(gca,'yticklabel',num2str(get(gca,'ytick')','%.3f'))
 
 
 %non shadow
@@ -787,6 +788,7 @@ h(1) = histogram(omegaNSPlot, 'Normalization', 'probability', 'binWidth', maxVal
 xlabel('Nakagami \omega Value (Log Scale)');
 ylabel('Probability Density');
 title('Nakagami \omega Distribution in Non-Shadow');
+set(gca,'yticklabel',num2str(get(gca,'ytick')','%.3f'))
 
 muSPlot = muS;
 subplot(2,3,5)
@@ -796,7 +798,7 @@ h(2) = histogram(muSPlot, 'Normalization', 'probability', 'binWidth', maxVal*150
 xlabel('Nakagami m Value (Log Scale)');
 ylabel('Probability Density');
 title('Nakagami m Distribution in Non-Shadow');
-
+set(gca,'yticklabel',num2str(get(gca,'ytick')','%.3f'))
 
 %entropy plots
 
@@ -866,7 +868,7 @@ h(3) = histogram(entSPlot, 'Normalization', 'probability', 'binWidth', maxVal*75
 xlabel('Entropy Value (Log Scale)');
 ylabel('Probability Density');
 title('Entropy Distribution in Shadow');  
-
+set(gca,'yticklabel',num2str(get(gca,'ytick')','%.3f'))
 
 subplot(2,3,6)
 maxVal = max(entNSPlot);
@@ -875,6 +877,7 @@ h(6) = histogram(entNSPlot, 'Normalization', 'probability', 'binWidth', maxVal*4
 xlabel('Entropy Value (Log Scale)');
 ylabel('Probability Density');
 title('Entropy Distribution in Non-Shadow');  
+set(gca,'yticklabel',num2str(get(gca,'ytick')','%.3f'))
 
 mean(entSPlot)
 std(entSPlot)

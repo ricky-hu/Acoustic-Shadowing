@@ -21,7 +21,7 @@ for i = 1:x
     
     % linear
     if (contains(files(i).name, '_l_'))
-        imCropped = im(76:539, 151:511);
+        imCropped = im(76:539, 181:482);
     else
         % curvilinear
         imCropped = im(80:530,:);

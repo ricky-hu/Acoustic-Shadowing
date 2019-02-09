@@ -1,0 +1,32 @@
+%phantom images
+
+imL = imread('phant2low_l_cropped.png');
+imM = imread('phant2med_l_cropped.png');
+imH = imread('phant2high_l_cropped.png');
+
+shL = imread('phant2low_manual.png');
+shM = imread('phant2med_manual.png');
+shH = imread('phant2high_manual.png');
+
+[numRows numCols] = size(imL);
+
+figure();
+
+subplot(2,3,1);
+colormap('gray');
+set(gcf,'color','white');
+imagesc(imL);
+title('Low Gain (25%), Original');
+
+subplot(2,3,2);
+colormap('gray');
+set(gcf,'color','white');
+imagesc(imM*1.5);
+title('Medium Gain (50%), Original');
+
+subplot(2,3,3);
+colormap('gray');
+set(gcf,'color','white');
+imagesc(imH*1.5);
+title('High Gain (75%), Original');
+
