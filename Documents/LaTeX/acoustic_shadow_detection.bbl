@@ -1,4 +1,4 @@
-\begin{thebibliography}{20}
+\begin{thebibliography}{22}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{\texttt{#1}}\fi
@@ -99,6 +99,10 @@ Milletari F, Ahmadi SA, Kroll C, Plate A, Rozanski V, Maiostre J, Levin J,
   for segmentation of deep brain regions in MRI and ultrasound}. Computer
   Vision and Image Understanding, 2017;164:92--102.
 
+\bibitem[{Pavlin et~al.(1992)Pavlin, Ritch, and Foster}]{Pavlin1992}
+Pavlin CJ, Ritch R, Foster FS. {Ultrasound biomicroscopy in plateau iris
+  syndrome}. American Journal of Ophthalmology, 1992;113:390--395.
+
 \bibitem[{Sippel et~al.(2011)Sippel, Muruganandan, Levine, and
   Shah}]{Sippel2011}
 Sippel S, Muruganandan K, Levine A, Shah S. {Review article: Use of ultrasound
@@ -112,5 +116,10 @@ Tuthill TA, Sperry RH, Parker KJ. {Deviations from rayleigh statistics in
 Wagner RF, Insana MF. {Fundamental Correlation Lengths of Coherent Speckle in
   Medical Ultrasonic Images}. IEEE Trans Ultrason Ferroelectr Freq Control,
   1988;35:34--44.
+
+\bibitem[{Win et~al.(2010)Win, Wang, Zhang, and Yang}]{Win2010}
+Win KK, Wang J, Zhang C, Yang R. {Identification and removal of reverberation
+  in ultrasound imaging}. In: Proceedings of the 2010 5th IEEE Conference on
+  Industrial Electronics and Applications, ICIEA 2010, 2010.
 
 \end{thebibliography}
